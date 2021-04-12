@@ -1,0 +1,685 @@
+fileFormatVersion: 2
+guid: 59adf0299d8ea14469d8bcd2245af93a
+ScriptedImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8691329344654478060
+    second: alien_split_0
+  - first:
+      213: -4350974495015546001
+    second: alien_split_1
+  - first:
+      213: 8182802842441093293
+    second: alien_split_2
+  - first:
+      213: -4645013776562588163
+    second: alien_split_3
+  - first:
+      213: 280476008523946085
+    second: alien_split_4
+  - first:
+      213: -5688295635208786238
+    second: alien_split_5
+  - first:
+      213: 194070795461554698
+    second: alien_split_6
+  - first:
+      213: 6133510518426552849
+    second: alien_split_7
+  - first:
+      213: -8265113256902809690
+    second: alien_split_8
+  - first:
+      213: -3099797753907814942
+    second: alien_split_9
+  - first:
+      213: 6301647808111777298
+    second: alien_split_10
+  - first:
+      213: -1556922689638787136
+    second: alien_split_11
+  - first:
+      213: 3973237927893949872
+    second: alien_split_12
+  - first:
+      213: 4226392176118114075
+    second: alien_split_13
+  - first:
+      213: 3510297610531203284
+    second: alien_split_14
+  - first:
+      213: 2849100942088589801
+    second: alien_split_15
+  - first:
+      213: -8965086888053991431
+    second: alien_split_16
+  - first:
+      213: -4686258721676422006
+    second: alien_split_17
+  - first:
+      213: 8766448818562672773
+    second: alien_split_18
+  - first:
+      213: 6792050667788651645
+    second: alien_split_19
+  - first:
+      213: 61753035344921651
+    second: alien_split_20
+  - first:
+      213: 1235949241481727291
+    second: alien_split_21
+  - first:
+      213: 8036512113952421292
+    second: alien_split_22
+  - first:
+      213: 7431477658768542371
+    second: alien_split_23
+  - first:
+      213: -3796230811715854217
+    second: alien_split_24
+  - first:
+      213: 3492828583542239227
+    second: alien_split_25
+  - first:
+      213: -7742731173668519321
+    second: alien_split_26
+  - first:
+      213: 1946676841181630483
+    second: alien_split_27
+  - first:
+      213: 1867060794681647037
+    second: alien_split_28
+  - first:
+      213: 2023175021126195524
+    second: alien_split_29
+  - first:
+      213: -5735575250518652656
+    second: alien_split_30
+  - first:
+      213: 2488072423094311701
+    second: alien_split_31
+  - first:
+      213: 1912788844132956516
+    second: alien_split_32
+  - first:
+      213: 2259005516794138073
+    second: alien_split_33
+  - first:
+      213: 2550220067791704305
+    second: alien_split_34
+  - first:
+      213: 7322106528214701444
+    second: alien_split_35
+  - first:
+      213: -1660082789593965263
+    second: alien_split_36
+  - first:
+      213: -5516851031315410127
+    second: alien_split_37
+  - first:
+      213: 898263681283669243
+    second: alien_split_38
+  - first:
+      213: -1586062986616666502
+    second: alien_split_39
+  - first:
+      213: 5603734272691205320
+    second: alien_split_40
+  - first:
+      213: 2085811383695681194
+    second: alien_split_41
+  - first:
+      213: 2233701921741048114
+    second: alien_split_42
+  - first:
+      213: -6351692384297497680
+    second: alien_split_43
+  - first:
+      213: 6294159246663484176
+    second: alien_split_44
+  - first:
+      213: -7028634064336155588
+    second: alien_split_45
+  - first:
+      213: 3531444241881508513
+    second: alien_split_46
+  - first:
+      213: 9018716830978148035
+    second: alien_split_47
+  - first:
+      213: -2442074972955072427
+    second: alien_split_48
+  - first:
+      213: 9113643319145558177
+    second: alien_split_49
+  - first:
+      213: 6680059744657530315
+    second: alien_split_50
+  - first:
+      213: 5992913312915423128
+    second: alien_split_51
+  - first:
+      213: 3192131356714242592
+    second: alien_split_52
+  - first:
+      213: -5496337124255594547
+    second: alien_split_53
+  - first:
+      213: -8275825463252407968
+    second: alien_split_54
+  - first:
+      213: -1510637036323063310
+    second: alien_split_55
+  - first:
+      213: 804883078123072772
+    second: alien_split_56
+  - first:
+      213: 3444146712730804088
+    second: alien_split_57
+  - first:
+      213: -8478241587029964413
+    second: alien_split_58
+  - first:
+      213: -3672265575350996912
+    second: alien_split_59
+  - first:
+      213: -8580166284027014836
+    second: alien_split_60
+  - first:
+      213: -7086063084962851106
+    second: alien_split_61
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: alien_split_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 1600
+      height: 1200
+    spriteID: 9fcb411c6ba5c2043b9b2b4683ff12fc
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: alien_split_1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 215
+      y: 750
+      width: 90
+      height: 229
+    spriteID: f6350ddcfbb3e93c0800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 215, y: 750}
+  - name: alien_split_2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 291
+      y: 407
+      width: 172
+      height: 314
+    spriteID: da012c2b4d72f8170800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 291, y: 407}
+  - name: alien_split_3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 313
+      y: 749
+      width: 96
+      height: 242
+    spriteID: df5f03f9498998fb0800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 313, y: 749}
+  - name: alien_split_7
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 510
+      y: 629
+      width: 91
+      height: 246
+    spriteID: 11acfecd15b9e1550800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 510, y: 629}
+  - name: alien_split_10
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 623
+      y: 629
+      width: 102
+      height: 197
+    spriteID: 2161f1e3b43f37750800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 623, y: 629}
+  - name: alien_split_11
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 623
+      y: 834
+      width: 37
+      height: 175
+    spriteID: 0c7955d0013b46ae0800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 623, y: 834}
+  - name: alien_split_12
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 668
+      y: 834
+      width: 37
+      height: 175
+    spriteID: 0bd5a3428d6c32730800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 668, y: 834}
+  - name: alien_split_13
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 744
+      y: 629
+      width: 133
+      height: 95
+    spriteID: b17a203ba4927aa30800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 744, y: 629}
+  - name: alien_split_27
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 764
+      y: 443
+      width: 115
+      height: 178
+    spriteID: 3105c1be54cf30b10800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 764, y: 443}
+  - name: alien_split_30
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 887
+      y: 442
+      width: 109
+      height: 109
+    spriteID: 0194052b2b42760b0800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 887, y: 442}
+  - name: alien_split_38
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 364
+      y: 4
+      width: 137
+      height: 251
+    spriteID: bfc3c851f06477c00800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 364, y: 4}
+  - name: alien_split_42
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 662
+      y: 44
+      width: 143
+      height: 378
+    spriteID: 2398b7b2014bffe10800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 662, y: 44}
+  - name: alien_split_51
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 849
+      y: 4
+      width: 149
+      height: 331
+    spriteID: 89f780208ea1b2350800000000000000
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 849, y: 4}
+  platformSettings: []
+  mosaicLayers: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  importedTextureWidth: 1024
+  importedTextureHeight: 1024
+  documentSize: {x: 1600, y: 1200}
+  paperDollMode: 0
+  keepDupilcateSpriteName: 0
+  spriteCategoryList:
+    categories: []
+  textureActualWidth: 1024
+  textureActualHeight: 1024
+  spritePackingTag: 
+  resliceFromLayer: 0
+  characterMode: 1
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: head
+    spriteName: head
+    isGroup: 0
+    parentIndex: -1
+    spriteID: aecefa639b0fc324d9faea6445989c7f
+    layerID: 0
+    mosaicPosition: {x: 733, y: 629}
+  - name: neck
+    spriteName: neck
+    isGroup: 0
+    parentIndex: -1
+    spriteID: f6536a5fd18e69d4f918ce10aa53291f
+    layerID: -2081059649
+    mosaicPosition: {x: 887, y: 442}
+  - name: left arm coat
+    spriteName: left arm coat
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 37ced32344c9eea4794a40edecfa6bdb
+    layerID: -911135480
+    mosaicPosition: {x: 510, y: 629}
+  - name: left lower arm
+    spriteName: left lower arm
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 6735585f061599d4d8c4345c9a17df3b
+    layerID: 1616178220
+    mosaicPosition: {x: 623, y: 834}
+  - name: left coat
+    spriteName: left coat
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 05428bfc290eba54e83feabb162fd14a
+    layerID: 479752482
+    mosaicPosition: {x: 510, y: 4}
+  - name: torso
+    spriteName: torso
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 9f11aa1e498643f49abd9e58413d70ef
+    layerID: 82775369
+    mosaicPosition: {x: 4, y: 407}
+  - name: left leg
+    spriteName: left leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 092c439d7124a13419bbdd856109ea31
+    layerID: 733651749
+    mosaicPosition: {x: 623, y: 629}
+  - name: right leg
+    spriteName: right leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 99ddc283349e16044817fb8b27455615
+    layerID: -1469059724
+    mosaicPosition: {x: 510, y: 442}
+  - name: lower left leg
+    spriteName: lower left leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 6a47cd233316d5448a5b907cb649a92c
+    layerID: -1705571284
+    mosaicPosition: {x: 4, y: 4}
+  - name: right lower leg
+    spriteName: right lower leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 7b111a088e8c81c4a87bff13c6f2be31
+    layerID: 1541833501
+    mosaicPosition: {x: 4, y: 749}
+  - name: right coat
+    spriteName: right coat
+    isGroup: 0
+    parentIndex: -1
+    spriteID: ba7b82cd06ac9c44d94749fcd2aa51b5
+    layerID: 936492449
+    mosaicPosition: {x: 833, y: 4}
+  - name: right arm coat
+    spriteName: right arm coat
+    isGroup: 0
+    parentIndex: -1
+    spriteID: abbde8d704b8fe741bfd0a97b1fdc475
+    layerID: 2036376939
+    mosaicPosition: {x: 313, y: 749}
+  - name: right lower arm
+    spriteName: right lower arm
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 2260d2daf98255344aa37051179c100a
+    layerID: -1899510419
+    mosaicPosition: {x: 668, y: 834}
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+  generateGOHierarchy: 0
+  textureAssetName: alien_split Texture
+  prefabAssetName: alien_split Prefab
+  spriteLibAssetName: alien_split Sprite Lib
+  secondarySpriteTextures: []
