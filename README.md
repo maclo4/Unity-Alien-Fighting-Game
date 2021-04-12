@@ -15,3 +15,17 @@ This is a fighting game that I've been working on for fun in my free time. Its d
 ![Animations](https://media.giphy.com/media/XRlhIb6RHaASuKBUMV/giphy.gif)
 
 Ive made attacks an inheritable class that allows for every attack in the game to be customized easily with little code. Set various attributes like hitstun, blockstun, set the attack to mid, overhead, or low, etc.
+
+## List of features not explicitly shown
+- Custom input system to allow for motion inputs similar to other fighting games (quarter circle, double tap for dashes)
+- Custom hitbox and hurtbox implementations to allow for easy customization and inheritance
+- Blocking attacks
+- Health bars
+- 1 player or 2 player
+- Movement options: Walk, dash, back dash, crouch, air dash, aerial drift
+
+## Things that aren't done
+- The biggest thing is just better animations and UI
+- Still need to flesh out the offense system (offensive meter, chaining attacks together, launchers, special attacks)
+- Add more defensive options (pushblock, defensive meter, burst, aerial pushblock (maybe?)
+- More characters and stages
