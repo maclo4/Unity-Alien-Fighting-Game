@@ -1,6 +1,7 @@
 # Unity Fighting-Game (In progress)
 
-This is a fighting game that I've been working on for fun in my free time. Its definitely not complete but here are some images to show where its currently at.
+This is a fighting game that I've been working on for fun in my free time. Its definitely not complete but here are some images to show where its currently at. I plan on pretty much completely redoing all the animations, this is my first try animating so I'm hoping second try is better. Anyways, I'm looking for a job so if you're a recruiter for a job that I applied for, take a look. 
+
 
 
 ## Game Overview
@@ -29,3 +30,8 @@ Ive made attacks an inheritable class that allows for every attack in the game t
 - Still need to flesh out the offense system (offensive meter, chaining attacks together, launchers, special attacks)
 - Add more defensive options (pushblock, defensive meter, burst, aerial pushblock (maybe?)
 - More characters and stages
+
+## Tech Stack
+- C#
+- Unity
+- Krita for drawing
