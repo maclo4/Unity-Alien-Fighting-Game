@@ -28,7 +28,7 @@ Ive made attacks an inheritable class that allows for every attack in the game t
 ## Things that aren't done
 - The biggest thing is just better animations and UI
 - Still need to flesh out the offense system (offensive meter, chaining attacks together, launchers, special attacks)
-- Add more defensive options (pushblock, defensive meter, burst, aerial pushblock (maybe?)
+- Add more defensive options (pushblock, defensive meter, burst, hitstun psuhblock (maybe?)
 - More characters and stages
 
 ## Tech Stack
