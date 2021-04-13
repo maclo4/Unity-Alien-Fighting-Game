@@ -311,6 +311,62 @@ Transform:
   m_Father: {fileID: 787226072555060826}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2831266635681404146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 917998707053683704}
+  - component: {fileID: 2664835315090913008}
+  m_Layer: 9
+  m_Name: LightAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &917998707053683704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2831266635681404146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6250930116394132558}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2664835315090913008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2831266635681404146}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 391754035369589249}
+  lightAttackHitboxes: {fileID: 2862608672375813881}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 10
+  hitstunFrames: 10
+  blockstunFrames: 14
+  enableHitboxFrame: 5
+  disableHitboxFrame: 10
+  totalFrames: 15
+  attacking: 0
+  blockType: 0
 --- !u!1 &2862608672244231310
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +719,7 @@ Transform:
   - {fileID: 2862608672375813878}
   - {fileID: 2869088856334382177}
   - {fileID: 8614487244398959516}
+  - {fileID: 6250930116394132558}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -825,11 +882,18 @@ MonoBehaviour:
   pushboxLayerMask:
     serializedVersion: 2
     m_Bits: 4096
+  state: 0
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
   hurtbox: {fileID: 2869088856334382176}
+  health: 100
   target: {fileID: 0}
-  lightAttack: {fileID: 0}
+  lightAttack: {fileID: 2664835315090913008}
+  mediumAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  crouchingLight: {fileID: 8758496461050471297}
+  crouchingMedium: {fileID: 0}
+  crouchingHeavy: {fileID: 0}
 --- !u!114 &2862608671787703950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -959,6 +1023,7 @@ MonoBehaviour:
   hurtbox: {fileID: 2869088856334382176}
   animator: {fileID: 2862608671787704055}
   characterController: {fileID: 391754035369589249}
+  healthBar: {fileID: 0}
 --- !u!1 &4007089093849565634
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,6 +1054,38 @@ Transform:
   - {fileID: 3442265596843816247}
   m_Father: {fileID: 6977364926998465599}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4318498299203263433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6250930116394132558}
+  m_Layer: 9
+  m_Name: Normal Attacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6250930116394132558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4318498299203263433}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 917998707053683704}
+  - {fileID: 8496320596132809130}
+  m_Father: {fileID: 8194806763677954792}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4407558583600626746
 GameObject:
@@ -1023,6 +1120,62 @@ Transform:
   m_Father: {fileID: 8194806763677954792}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 88.076004}
+--- !u!1 &4874445460577748477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8496320596132809130}
+  - component: {fileID: 8758496461050471297}
+  m_Layer: 9
+  m_Name: Crouching Light Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8496320596132809130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874445460577748477}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6250930116394132558}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8758496461050471297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4874445460577748477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 391754035369589249}
+  lightAttackHitboxes: {fileID: 2862608672375813881}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 5
+  hitstunFrames: 10
+  blockstunFrames: 5
+  enableHitboxFrame: 5
+  disableHitboxFrame: 7
+  totalFrames: 15
+  attacking: 0
+  blockType: 1
 --- !u!1 &5181790535294817254
 GameObject:
   m_ObjectHideFlags: 0

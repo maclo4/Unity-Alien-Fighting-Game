@@ -265,8 +265,9 @@ public class CharacterController : MonoBehaviour
 	[SerializeField] private LayerMask platformLayerMask;
 	[SerializeField] private LayerMask playerLayerMask;
 	[SerializeField] private LayerMask pushboxLayerMask;
-	private enum CharState { Normal, Dashing, Jump, Tumble, AirDash, Block, Crouch, Walk, Backdash, LightAttack, Hitstun }
-	CharState state = CharState.Normal;
+	public enum CharState { Normal, Dashing, Jump, Tumble, AirDash, Block, Crouch, Walk, Backdash, LightAttack, CrouchingLightAttack, Hitstun }
+	[HideInInspector]
+	public CharState state = CharState.Normal;
 	
 	public enum DirectionFacing { Left, Right}
 	public DirectionFacing directionFacing { get; set; }
@@ -330,7 +331,10 @@ public class CharacterController : MonoBehaviour
 	Vector2 hitboxSize = new Vector2(5, 10); 
 	Vector2 hitboxCenter = new Vector2(0, 2);
 	*/
-	public CuteAlienLightAttack lightAttack;
+	
+
+	public CuteAlienAttack lightAttack;
+	public CuteAlienAttack mediumAttack, heavyAttack, crouchingLight, crouchingMedium, crouchingHeavy;
 	// ===========================================================
 
 	// variable to hold a reference to our SpriteRenderer component
@@ -391,7 +395,7 @@ public class CharacterController : MonoBehaviour
 		inputSystem = ScriptableObject.CreateInstance<CustomInputSystem>();
 		joyStickInputsVertical = ScriptableObject.CreateInstance<CustomInputSystem>();
 		//hitbox = ScriptableObject.CreateInstance<Hitbox>();
-		lightAttack = gameObject.GetComponent<CuteAlienLightAttack>();
+		//lightAttack = gameObject.GetComponent<CuteAlienAttack>();
 		// get a reference to the SpriteRenderer component on this gameObject
 		mySpriteRenderer = GetComponent<SpriteRenderer>();
 		//playerBase = gameObject.GetComponent<Player_Base>();
@@ -686,7 +690,7 @@ public class CharacterController : MonoBehaviour
 
 				if (state == CharState.Crouch)
 				{
-					checkForLightAttack();
+					checkForCrouchingLightAttack();
 				}
 				if (state == CharState.Crouch)
 				{
@@ -1131,6 +1135,7 @@ public class CharacterController : MonoBehaviour
     {
 		if (lightDownThisFrame)
 		{
+			lightAttack.attack();
 			state = CharState.LightAttack;
 			animator.SetBool("isLightAttack", true);
 			animator.SetBool("isRunning", false);
@@ -1140,6 +1145,22 @@ public class CharacterController : MonoBehaviour
 			
 		}
     }
+
+	private void checkForCrouchingLightAttack()
+	{
+		if (lightDownThisFrame && state == CharState.Crouch)
+		{
+			crouchingLight.attack();
+			state = CharState.CrouchingLightAttack;
+			animator.SetTrigger("isCrouchingLightAttack");
+			animator.SetBool("isLightAttack", false);
+			animator.SetBool("isRunning", false);
+			animator.SetBool("isBackDashing", false);
+			animator.SetBool("isJumping", false);
+			animator.SetBool("isWalking", false);
+
+		}
+	}
 	public bool wasAttackBlocked(BlockType blockType, int blockStun)
     {
 		//holding back, attack hits mid

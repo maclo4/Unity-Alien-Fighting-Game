@@ -1699,6 +1699,62 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &857635425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 857635427}
+  - component: {fileID: 857635426}
+  m_Layer: 9
+  m_Name: Crouching Light Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &857635426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857635425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
+  lightAttackHitboxes: {fileID: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
+  damage: 5
+  hitstunFrames: 10
+  blockstunFrames: 5
+  enableHitboxFrame: 5
+  disableHitboxFrame: 7
+  totalFrames: 15
+  attacking: 0
+  blockType: 0
+--- !u!4 &857635427
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857635425}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1538930935}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &889598219
 GameObject:
   m_ObjectHideFlags: 0
@@ -3464,6 +3520,62 @@ MonoBehaviour:
   - {fileID: 1769170157}
   p1Healthbar: {fileID: 2082092488}
   p2Healthbar: {fileID: 515701584}
+--- !u!1 &1481319097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1481319098}
+  - component: {fileID: 1481319099}
+  m_Layer: 9
+  m_Name: LightAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1481319098
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481319097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1538930935}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1481319099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1481319097}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 4960492967191432288}
+  lightAttackHitboxes: {fileID: 2039772209}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 10
+  hitstunFrames: 10
+  blockstunFrames: 14
+  enableHitboxFrame: 5
+  disableHitboxFrame: 10
+  totalFrames: 15
+  attacking: 0
+  blockType: 0
 --- !u!1 &1481584192
 GameObject:
   m_ObjectHideFlags: 0
@@ -3806,12 +3918,18 @@ MonoBehaviour:
   pushboxLayerMask:
     serializedVersion: 2
     m_Bits: 4096
+  state: 0
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
   hurtbox: {fileID: 1526459548}
   health: 100
   target: {fileID: 389834690}
   lightAttack: {fileID: 0}
+  mediumAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  crouchingLight: {fileID: 0}
+  crouchingMedium: {fileID: 0}
+  crouchingHeavy: {fileID: 0}
 --- !u!61 &1526459548
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3838,6 +3956,38 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7120495, y: 2.2755296}
   m_EdgeRadius: 0
+--- !u!1 &1538930934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1538930935}
+  m_Layer: 9
+  m_Name: Normal Attacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1538930935
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538930934}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1481319098}
+  - {fileID: 857635427}
+  m_Father: {fileID: 1865578611}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1572716751
 GameObject:
   m_ObjectHideFlags: 0
@@ -4242,12 +4392,18 @@ MonoBehaviour:
   pushboxLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  state: 0
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
   hurtbox: {fileID: 0}
   health: 100
   target: {fileID: 0}
   lightAttack: {fileID: 0}
+  mediumAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  crouchingLight: {fileID: 0}
+  crouchingMedium: {fileID: 0}
+  crouchingHeavy: {fileID: 0}
 --- !u!114 &1719130745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5182,6 +5338,12 @@ Transform:
   m_Father: {fileID: 451450339}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1865578611 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8194806763677954792, guid: 95732db0a060fde49848195e778e303f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7672977578527571877}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2004157250
 GameObject:
   m_ObjectHideFlags: 0
@@ -5246,6 +5408,12 @@ Transform:
   m_Father: {fileID: 1526459541}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2039772209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2862608672375813881, guid: 95732db0a060fde49848195e778e303f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7672977578527571877}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2082092488
 GameObject:
   m_ObjectHideFlags: 0
@@ -5418,18 +5586,28 @@ PrefabInstance:
     - target: {fileID: 244681011330996221, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.015735665
+      value: -0.42775717
       objectReference: {fileID: 0}
     - target: {fileID: 244681011330996221, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.9998762
+      value: -0.9038937
       objectReference: {fileID: 0}
     - target: {fileID: 391754035369589249, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 389834690}
+    - target: {fileID: 391754035369589249, guid: 95732db0a060fde49848195e778e303f,
+        type: 3}
+      propertyPath: lightAttack
+      value: 
+      objectReference: {fileID: 1481319099}
+    - target: {fileID: 391754035369589249, guid: 95732db0a060fde49848195e778e303f,
+        type: 3}
+      propertyPath: crouchingLight
+      value: 
+      objectReference: {fileID: 857635426}
     - target: {fileID: 787226072555060826, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5443,12 +5621,12 @@ PrefabInstance:
     - target: {fileID: 787226072555060826, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.10173969
+      value: -0.0907921
       objectReference: {fileID: 0}
     - target: {fileID: 787226072555060826, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.99481106
+      value: -0.99586993
       objectReference: {fileID: 0}
     - target: {fileID: 898783916058040320, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
@@ -5458,7 +5636,7 @@ PrefabInstance:
     - target: {fileID: 898783916058040320, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.99553555
+      value: -0.9955356
       objectReference: {fileID: 0}
     - target: {fileID: 898783916312992093, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
@@ -5468,12 +5646,12 @@ PrefabInstance:
     - target: {fileID: 898783917283528010, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.15335596
+      value: -0.153356
       objectReference: {fileID: 0}
     - target: {fileID: 898783917283528010, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.0673602
+      value: -1.0094627
       objectReference: {fileID: 0}
     - target: {fileID: 1843235663688078276, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
@@ -5503,22 +5681,22 @@ PrefabInstance:
     - target: {fileID: 2862608672244231311, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9978975
+      value: 0.737554
       objectReference: {fileID: 0}
     - target: {fileID: 2862608672244231311, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.06481146
+      value: -0.67528814
       objectReference: {fileID: 0}
     - target: {fileID: 2862608672244231311, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -7.432
+      value: -84.953
       objectReference: {fileID: 0}
     - target: {fileID: 3442265596843816247, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99998116
+      value: 0.6448297
       objectReference: {fileID: 0}
     - target: {fileID: 3442265596843816247, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
@@ -5528,7 +5706,7 @@ PrefabInstance:
     - target: {fileID: 3442265596843816247, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.006146619
+      value: 0.76432633
       objectReference: {fileID: 0}
     - target: {fileID: 3442265596843816247, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
@@ -5598,22 +5776,27 @@ PrefabInstance:
     - target: {fileID: 5596542125433084932, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99997556
+      value: 0.9079702
       objectReference: {fileID: 0}
     - target: {fileID: 5596542125433084932, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0070012663
+      value: -0.41903463
       objectReference: {fileID: 0}
     - target: {fileID: 5596542125433084932, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 1080.802
+      value: 1030.453
+      objectReference: {fileID: 0}
+    - target: {fileID: 6250930116394132558, guid: 95732db0a060fde49848195e778e303f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6316034718272531562, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.988187
+      value: 0.68400943
       objectReference: {fileID: 0}
     - target: {fileID: 6316034718272531562, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
@@ -5628,7 +5811,7 @@ PrefabInstance:
     - target: {fileID: 6316034718272531562, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.15325311
+      value: 0.72947323
       objectReference: {fileID: 0}
     - target: {fileID: 6316034718272531562, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
@@ -5638,7 +5821,7 @@ PrefabInstance:
     - target: {fileID: 6977364926998465599, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.121622965
+      value: 0.121623
       objectReference: {fileID: 0}
     - target: {fileID: 6977364926998465599, guid: 95732db0a060fde49848195e778e303f,
         type: 3}

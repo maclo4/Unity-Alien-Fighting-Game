@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum BlockType { Mid, Low, Overhead }
+public class AttackFrameData
+{
+	public int damage = 1;
+	public int hitstunFrames = 10;
+	public int blockstunFrames = 5;
+	public int enableHitboxFrame = 0;
+	public int disableHitboxFrame = 1;
+	public int totalFrames = 0;
+}
 /// <summary>
 /// This is the parent class for all light attacks, maybe even all normal attacks.
 /// It has everything implemented except for the update function. Inherit this class
@@ -23,7 +32,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 	public int disableHitboxFrame = 1;
 	public int totalFrames = 0;
 	protected int currentActiveFrame = 1;
-
+	//public Attack lightAttack;
 	protected Hitbox hitbox { get; set; } //TODO: delet this
 	protected Hitbox[] hitboxes;
 	public bool attacking = false;
@@ -98,5 +107,30 @@ public class Attack : MonoBehaviour, IHitboxResponder
         hurtbox?.getHitBy(damage, hitstunFrames, blockstunFrames, blockType);
 		hitbox.stopCheckingCollision();
     }
+
+	//protected void standardAttackUpdate(AttackFrameData frameData)
+ //   {
+	//	if (currentActiveFrame == frameData.disableHitboxFrame)
+	//	{
+	//		hitboxes[0].stopCheckingCollision();
+	//		UnityEngine.Debug.Log("Stop checking collision");
+	//	}
+	//	else if (currentActiveFrame == frameData.enableHitboxFrame)
+	//	{
+	//		hitboxes[0].startCheckingCollision();
+	//	}
+	//	else if (currentActiveFrame >= frameData.totalFrames)
+	//	{
+	//		characterController.setNormalState();
+	//		currentActiveFrame = 0;
+	//		enabled = false;
+	//		return;
+	//	}
+
+	//	hitboxes[0].hitboxUpdate();
+
+	//	currentActiveFrame++;
+
+	//}
 
 }
