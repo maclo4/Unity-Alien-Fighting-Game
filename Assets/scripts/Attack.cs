@@ -36,6 +36,8 @@ public class Attack : MonoBehaviour, IHitboxResponder
 	protected Hitbox hitbox { get; set; } //TODO: delet this
 	protected Hitbox[] hitboxes;
 	public bool attacking = false;
+	public bool chainingAttackAllowed = false;
+	public bool followUpAttackChained = false;
 	
 	//public enum BlockType { Mid, Low, Overhead}
 	public BlockType blockType = BlockType.Mid;
@@ -99,6 +101,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 
     void IHitboxResponder.collisionedWith(Collider2D collider)
     {
+		chainingAttackAllowed = true;
         UnityEngine.Debug.Log("collisioned with being called");
 	
         //Hurtbox hurtbox = collider.GetComponent<Hurtbox>();

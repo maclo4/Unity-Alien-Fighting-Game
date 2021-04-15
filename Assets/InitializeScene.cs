@@ -43,6 +43,7 @@ public class InitializeScene : MonoBehaviour
         // PlayerInput.Instantiate(characters[characterIndex], new Vector3(-1, 0, 0), Quaternion.identity);
         //PlayerInput player1 =  
         PlayerInput player1 = PlayerInput.Instantiate(characters[characterIndex], 0, null, -1, gamepads[player1GamepadIndex]);
+      
         PlayerInput player2;
 
         if (player2GamepadIndex == -1)

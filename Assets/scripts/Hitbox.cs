@@ -124,16 +124,16 @@ public class Hitbox : MonoBehaviour
         switch (_state)
         {
             case ColliderState.Closed:
-                currentColor = Color.blue;
-                Gizmos.color = new Color(0, 0, 1, .1f);
+
+                Gizmos.color = inactiveColor;
                 break;
             case ColliderState.Open:
-                currentColor = Color.green;
-                Gizmos.color = Color.green;
+
+                Gizmos.color = collisionOpenColor;
                 break;
             case ColliderState.Colliding:
-                currentColor = Color.red;
-                Gizmos.color = Color.red;
+                
+                Gizmos.color = collidingColor;
                 break;
         }
     }

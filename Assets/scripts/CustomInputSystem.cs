@@ -14,6 +14,7 @@ public class CustomInputSystem : ScriptableObject
 	bool lastAirdashState = false;
 
 	bool lastLightState = false;
+	bool lastMediumState = false;
 	/// <summary>
 	/// Gets the axis input like an on key down event, returning <c>true</c> only 
 	/// on the first press, after this return <c>false</c> until the next press. 
@@ -105,5 +106,23 @@ public class CustomInputSystem : ScriptableObject
 		return lightButtonDown;
 	}
 
+	public bool getMediumDownThisFrame(bool mediumButtonDown)
+	{
+
+
+
+		// prevent keep returning true when axis still pressed.
+		if (mediumButtonDown && lastMediumState)
+		{
+			//UnityEngine.Debug.Log("getaxisbuttondown return false bc last input was true= " + lastInputAxisState);
+			return false;
+		}
+
+
+		lastMediumState = mediumButtonDown;
+
+		//UnityEngine.Debug.Log("getaxisbuttondown last value was false so return current value= " + currentInputValue + Input.GetAxis(axisName));
+		return mediumButtonDown;
+	}
 
 }

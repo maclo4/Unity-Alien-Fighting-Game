@@ -20,11 +20,21 @@ public class CuteAlienAttack : Attack
         {
             hitboxes[0].startCheckingCollision();
         }
-        else if (currentActiveFrame >= totalFrames)
+        else if (currentActiveFrame >= totalFrames || followUpAttackChained == true)
         {
-            characterController.setNormalState();
+            if(followUpAttackChained == false)
+            {
+                UnityEngine.Debug.Log("setnormalstate from attack update");
+                
+               characterController.setNormalState();
+                
+                followUpAttackChained = false;
+            }
+          
             currentActiveFrame = 0;
             enabled = false;
+            chainingAttackAllowed = false;
+            followUpAttackChained = false;
             return;
         }
 

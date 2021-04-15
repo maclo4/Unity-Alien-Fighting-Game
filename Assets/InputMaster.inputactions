@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Medium Attack",
+                    "type": "Button",
+                    "id": "389dd5d2-4152-4892-a65a-30c14921bbe8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -121,6 +129,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Light",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8acfa2dd-2244-428b-959e-b94b3fbd87a1",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Medium Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

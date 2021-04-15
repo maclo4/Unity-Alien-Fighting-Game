@@ -57,6 +57,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Medium Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""389dd5d2-4152-4892-a65a-30c14921bbe8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -136,6 +144,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Light"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8acfa2dd-2244-428b-959e-b94b3fbd87a1"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Medium Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -149,6 +168,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerControls_Joystick = m_PlayerControls.FindAction("Joystick", throwIfNotFound: true);
         m_PlayerControls_Airdash = m_PlayerControls.FindAction("Airdash", throwIfNotFound: true);
         m_PlayerControls_Light = m_PlayerControls.FindAction("Light", throwIfNotFound: true);
+        m_PlayerControls_MediumAttack = m_PlayerControls.FindAction("Medium Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -203,6 +223,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Joystick;
     private readonly InputAction m_PlayerControls_Airdash;
     private readonly InputAction m_PlayerControls_Light;
+    private readonly InputAction m_PlayerControls_MediumAttack;
     public struct PlayerControlsActions
     {
         private @InputMaster m_Wrapper;
@@ -212,6 +233,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Joystick => m_Wrapper.m_PlayerControls_Joystick;
         public InputAction @Airdash => m_Wrapper.m_PlayerControls_Airdash;
         public InputAction @Light => m_Wrapper.m_PlayerControls_Light;
+        public InputAction @MediumAttack => m_Wrapper.m_PlayerControls_MediumAttack;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -236,6 +258,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Light.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLight;
                 @Light.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLight;
                 @Light.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnLight;
+                @MediumAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMediumAttack;
+                @MediumAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMediumAttack;
+                @MediumAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMediumAttack;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -255,6 +280,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Light.started += instance.OnLight;
                 @Light.performed += instance.OnLight;
                 @Light.canceled += instance.OnLight;
+                @MediumAttack.started += instance.OnMediumAttack;
+                @MediumAttack.performed += instance.OnMediumAttack;
+                @MediumAttack.canceled += instance.OnMediumAttack;
             }
         }
     }
@@ -266,5 +294,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnJoystick(InputAction.CallbackContext context);
         void OnAirdash(InputAction.CallbackContext context);
         void OnLight(InputAction.CallbackContext context);
+        void OnMediumAttack(InputAction.CallbackContext context);
     }
 }
