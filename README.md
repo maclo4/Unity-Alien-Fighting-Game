@@ -17,7 +17,7 @@ You can chain attacks in any order, but you can't use the same move twice (simil
 ![Animations](https://media.giphy.com/media/XLr7J1y5WkoejXCF7a/giphy.gif)
 
 
-## Customizable Attacks
+## Easily Customize the Frame Data for Attacks
 ![Animations](https://media.giphy.com/media/XRlhIb6RHaASuKBUMV/giphy.gif)
 
 Ive made attacks an inheritable class that allows for every attack in the game to be customized easily with little code. Set various attributes like hitstun, blockstun, set the attack to mid, overhead, or low, etc.
