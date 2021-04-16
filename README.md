@@ -13,6 +13,9 @@ This is a fighting game that I've been working on for fun in my free time. Its d
 
 You can chain attacks in any order, but you can't use the same move twice (similar to Under Night's chaining system). Hold back or down-back to block. I'm still working on the block and hitstun animations, because currently there's no crouching animation for either and characters dont get pushed away when they block.
 
+## Main Menu
+![Main Menu](https://media.giphy.com/media/dZIe04gejQrGL2ReAb/giphy.gif)
+
 ## Bone Based Animations
 ![Animations](https://media.giphy.com/media/XLr7J1y5WkoejXCF7a/giphy.gif)
 
