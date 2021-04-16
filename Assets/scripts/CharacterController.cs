@@ -377,6 +377,7 @@ public class CharacterController : MonoBehaviour
 	bool verticalDownThisFrame;
 	bool lightDownThisFrame;
 	bool mediumDownThisFrame;
+	bool heavyDownThisFrame;
 	//bool downButtonDown;
 	//bool upButtonDown;
 	//bool leftButtonDown;
@@ -515,6 +516,7 @@ public class CharacterController : MonoBehaviour
 
 	public void OnLightAttack(InputAction.CallbackContext context)
 	{
+		
 		lightDownThisFrame = buttonDown(context);
 	}
 	public void OnMediumAttack(InputAction.CallbackContext context)
@@ -522,6 +524,11 @@ public class CharacterController : MonoBehaviour
 		mediumDownThisFrame = buttonDown(context);
 	}
 
+	public void OnHeavyAttack(InputAction.CallbackContext context) 
+	{
+
+		heavyDownThisFrame = buttonDown(context);
+	}
 	//     controls.PlayerControls.Light.performed += context => lightDownThisFrame = buttonDown(context);
 	//     controls.PlayerControls.Light.canceled += context => lightDownThisFrame = false;
 	bool buttonDown(InputAction.CallbackContext context)
@@ -796,6 +803,13 @@ public class CharacterController : MonoBehaviour
 					if (checkForGroundedAttack())
 					{
 						mediumAttack.followUpAttackChained = true;
+					}
+				}
+				else if (currentActiveAttack == CurrentActiveAttack.CrouchingMediumAttack && crouchingMediumAttack.chainingAttackAllowed == true)
+				{
+					if (checkForGroundedAttack())
+					{
+						crouchingMediumAttack.followUpAttackChained = true;
 					}
 				}
 				break;
@@ -1248,6 +1262,22 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.MediumAttack;
 			animator.SetTrigger("isMediumAttack");
+			animator.SetBool("isRunning", false);
+			animator.SetBool("isBackDashing", false);
+			animator.SetBool("isJumping", false);
+			animator.SetBool("isWalking", false);
+			animator.SetBool("isIdle", false);
+			//animator.SetBool("")
+			return true;
+		}
+		else if (checkForCrouchingMediumAttack() == true && currentActiveAttack != CurrentActiveAttack.CrouchingMediumAttack && attackChainQueue.crouchingMediumAttackUsed == false)
+		{
+
+			crouchingMediumAttack.attack();
+			attackChainQueue.crouchingMediumAttackUsed = true;
+			state = CharState.Attack;
+			currentActiveAttack = CurrentActiveAttack.CrouchingMediumAttack;
+			animator.SetTrigger("isCrouchingMediumAttack");
 			animator.SetBool("isRunning", false);
 			animator.SetBool("isBackDashing", false);
 			animator.SetBool("isJumping", false);

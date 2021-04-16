@@ -121,7 +121,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857635425}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
   m_Name: 
@@ -130,7 +130,7 @@ MonoBehaviour:
   lightAttackHitboxes: {fileID: 4973978471941700942}
   mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   damage: 5
   hitstunFrames: 10
   blockstunFrames: 5
@@ -229,6 +229,7 @@ Transform:
   - {fileID: 1481319098}
   - {fileID: 857635427}
   - {fileID: 2052387388}
+  - {fileID: 5204810520398106972}
   m_Father: {fileID: 8194806763677954792}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -509,6 +510,59 @@ Transform:
   m_Father: {fileID: 244681011330996221}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.2}
+--- !u!1 &1499448783851788747
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1121385532740113663}
+  - component: {fileID: 3709384399568504848}
+  m_Layer: 10
+  m_Name: CrouchingMediumAttackHitboxes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1121385532740113663
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499448783851788747}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1701986895209114805}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3709384399568504848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499448783851788747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87896518e87de1844ae9edefad87404d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  hitboxSize: {x: 1.5, y: 0.5}
+  hitboxOffset: {x: -1.5, y: -0.5}
+  radius: 0.5
+  inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
+  collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
+  collidingColor: {r: 1, g: 0, b: 0.01999569, a: 1}
+  character: {fileID: 391754035369589249}
 --- !u!1 &1569708341256444059
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,6 +931,7 @@ Transform:
   - {fileID: 2862608672375813878}
   - {fileID: 8492386974649366535}
   - {fileID: 492922863}
+  - {fileID: 1121385532740113663}
   m_Father: {fileID: 8194806763677954792}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1153,13 +1208,13 @@ MonoBehaviour:
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
   hurtbox: {fileID: 2869088856334382176}
-  health: 100
+  health: 1000
   target: {fileID: 0}
   lightAttack: {fileID: 1481319099}
   mediumAttack: {fileID: 2052387389}
   heavyAttack: {fileID: 0}
   crouchingLightAttack: {fileID: 857635426}
-  crouchingMediumAttack: {fileID: 0}
+  crouchingMediumAttack: {fileID: 7166691033535288793}
   crouchingHeavyAttack: {fileID: 0}
 --- !u!114 &2862608671787703950
 MonoBehaviour:
@@ -1373,6 +1428,64 @@ Transform:
   m_Father: {fileID: 8194806763677954792}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 88.076004}
+--- !u!1 &4547071062913892720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5204810520398106972}
+  - component: {fileID: 7166691033535288793}
+  m_Layer: 9
+  m_Name: Crouching Medium Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5204810520398106972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547071062913892720}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1538930935}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7166691033535288793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4547071062913892720}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 391754035369589249}
+  lightAttackHitboxes: {fileID: 1499448783851788747}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 5
+  hitstunFrames: 10
+  blockstunFrames: 8
+  enableHitboxFrame: 10
+  disableHitboxFrame: 15
+  totalFrames: 20
+  attacking: 0
+  chainingAttackAllowed: 0
+  followUpAttackChained: 0
+  blockType: 1
 --- !u!1 &4973978471941700942
 GameObject:
   m_ObjectHideFlags: 0

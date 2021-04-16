@@ -20,6 +20,7 @@ public class CuteAlienAttack : Attack
         {
             hitboxes[0].startCheckingCollision();
         }
+        //stop processing the attack here
         else if (currentActiveFrame >= totalFrames || followUpAttackChained == true)
         {
             if(followUpAttackChained == false)
