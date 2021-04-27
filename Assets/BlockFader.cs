@@ -6,7 +6,8 @@ public class BlockFader : MonoBehaviour
 {
 
     public SpriteRenderer renderer;
-    float alpha = 1f;
+    public bool fadeOut = false;
+    public bool fadeIn = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,20 +18,33 @@ public class BlockFader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Color c = renderer.material.color;
-        c.a = alpha;
-        renderer.material.color = c;
-
+       if(fadeIn == true)
+        {
+            StartCoroutine("FadeIn");
+        }
+       else if(fadeOut == true)
+        {
+            StartCoroutine("FadeOut");
+        }
        
     }
 
-    public void BeginFade()
+    public void BeginFadeIn()
     {
         enabled = true;
-        StartCoroutine("FadeOut");
+        fadeIn = true;
+
+    }
+    public void BeginFadeOut()
+    {
+        enabled = true;
+        fadeOut = true;
+
     }
     IEnumerator FadeOut()
     {
+        fadeOut = false;
+
         for (float ft = 1f; ft >= 0; ft -= 0.1f)
         {
             Color c = renderer.material.color;
@@ -39,11 +53,13 @@ public class BlockFader : MonoBehaviour
             
             yield return null;
         }
+        
         enabled = false;
     }
 
     IEnumerator FadeIn()
     {
+        fadeIn = false;
         for (float ft = 1f; ft <= 1; ft += 0.1f)
         {
             Color c = renderer.material.color;
