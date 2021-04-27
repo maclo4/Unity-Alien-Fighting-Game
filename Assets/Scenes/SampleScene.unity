@@ -4169,6 +4169,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 24ef5258-8fe0-416f-b312-6ff90ea28810
     m_ActionName: PlayerControls/Light[/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 389dd5d2-4152-4892-a65a-30c14921bbe8
+    m_ActionName: PlayerControls/Medium Attack[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
