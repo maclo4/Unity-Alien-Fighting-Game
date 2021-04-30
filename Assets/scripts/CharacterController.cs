@@ -391,10 +391,11 @@ public class CharacterController : MonoBehaviour
 		//TODO: MOVE SOME OF THESE OUTSIDE OF START IF POSSIBLE.. DONE?h
 		
 		pauseController = GameObject.FindObjectOfType(typeof(PauseController)) as PauseController;
+		QualitySettings.vSyncCount = 0;
 		Application.targetFrameRate = 60;
 		animator = GetComponent<Animator>(); // todo uncomment
 
-
+		
 		inputQueue = new InputBuffer();
 
 
@@ -772,6 +773,10 @@ public class CharacterController : MonoBehaviour
 
 					walk();
 				}
+				if(state != CharState.Walk)
+                {
+					animator.SetBool("isWalking", false);
+                }
 				break;
 			case CharState.Backdash:
 				
@@ -820,7 +825,7 @@ public class CharacterController : MonoBehaviour
 				if (blockstunFrames <= 0)
 				{
 					setNormalState();
-
+					//resetAnimationState();
 				}
 				break;
 
@@ -1011,8 +1016,72 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
+	public void determineNextFrameState()
+    {
+		state = CharState.Idle;
+		if (state == CharState.Idle)
+		{
+			dash();
+		}
+		if (state == CharState.Idle)
+		{
+			backDash();
+		}
+		// jumping is allowed, handles checking for jumps as well
+		if (state == CharState.Idle)
+		{
+			jump();
+		}
+		// running is allowed, handles checking for dashes as well
+		if (state == CharState.Idle)
+		{
+			isWalk();
+		}
 
-	public void setNormalState()
+		if (state == CharState.Idle)
+		{
+			crouch();
+		}
+
+		if (state == CharState.Idle)
+		{
+			checkForGroundedAttack();
+		}
+
+
+		if (state == CharState.Idle && animator.GetBool("isIdle") == false)
+		{
+			UnityEngine.Debug.Log("set isidle true");
+			animator.SetBool("isIdle", true);
+		}
+
+		else if (state != CharState.Idle)
+		{
+			animator.SetBool("isIdle", false);
+		}
+
+	}
+	public void resetAnimationState()
+    {
+		
+		//state = CharState.Idle;
+		currentActiveAttack = CurrentActiveAttack.None;
+		animator.SetTrigger("triggerReset");
+		attackChainQueue.resetQueue();
+		animator.SetBool("isJumping", false);
+		animator.SetBool("isGrounded", false);
+		//animator.SetBool("isIdle", true);
+		animator.SetBool("isRunning", false);
+		animator.SetBool("isWalking", false);
+
+		animator.SetBool("isBlocking", false);
+		animator.SetBool("isCrouchBlocking", false);
+		animator.SetBool("isCrouching", false);
+		animator.SetBool("wasHitOnGround", false);
+
+		determineNextFrameState();
+	}
+    public void setNormalState()
     {
 		// todo uncomment isidle line?
 		state = CharState.Idle;
@@ -1025,6 +1094,7 @@ public class CharacterController : MonoBehaviour
 		animator.SetBool("isWalking", false);
 		
 		animator.SetBool("isBlocking", false);
+		animator.SetBool("isCrouchBlocking", false);
 		animator.SetBool("isCrouching", false);
 		animator.SetBool("wasHitOnGround", false);
 	}
@@ -1324,7 +1394,7 @@ public class CharacterController : MonoBehaviour
 		return false;
 	}
 	
-	public bool wasAttackBlocked(BlockType blockType, int blockStun)
+	public bool wasAttackBlocked(BlockType blockType, int blockStun, float pushback)
     {
 		//holding back, attack hits mid
 		if(blockType == BlockType.Mid && (
@@ -1332,8 +1402,14 @@ public class CharacterController : MonoBehaviour
 			(joystickAxis.x < -0.5 && directionFacing == DirectionFacing.Right))){
 
 			UnityEngine.Debug.Log("mid attack blocked!");
-			setBlockstunState();
-			calculateBlockstunLength(blockStun);
+			if (joystickAxis.y < -0.5f)
+			{
+				setBlockstunState(blockStun, pushback, false);
+			}
+            else
+            {
+				setBlockstunState(blockStun, pushback, true);
+			}
 			return true;
         }
 		//holding down back back, attack hits low
@@ -1342,8 +1418,7 @@ public class CharacterController : MonoBehaviour
 			(joystickAxis.x < -0.5 && joystickAxis.y < -0.5f && directionFacing == DirectionFacing.Right))) // target.position.x < transform.position.x
 		{
 
-			setBlockstunState();
-			calculateBlockstunLength(blockStun);
+			setBlockstunState(blockStun, pushback, false);
 			return true;
 		}
 		// holding back but not down, attack hits overhead
@@ -1351,8 +1426,7 @@ public class CharacterController : MonoBehaviour
 			(joystickAxis.x > 0.5 && joystickAxis.y >= -0.5f && directionFacing == DirectionFacing.Left) ||
 			(joystickAxis.x < -0.5 && joystickAxis.y >= -0.5f && directionFacing == DirectionFacing.Right)) {
 
-			setBlockstunState();
-			calculateBlockstunLength(blockStun);
+			setBlockstunState(blockStun, pushback, true);
 			return true;
 		}
         else
@@ -1368,20 +1442,30 @@ public class CharacterController : MonoBehaviour
 		blockstunFrames = blockstun;
 
 	}
-	public void setBlockstunState()
+	public void setBlockstunState(int blockStun, float pushback, bool standingBlock)
     {
 		state = CharState.Block;
 
-		animator.SetBool("isBlocking", true);
+		if (standingBlock == true)
+		{
+			animator.SetBool("isBlocking", true);
+		}
+        else
+        {
+			animator.SetBool("isCrouchBlocking", true);
+        }
+		animator.SetTrigger("beginBlocking");
 		animator.SetBool("isRunning", false);
 		animator.SetBool("isBackDashing", false);
 		animator.SetBool("isJumping", false);
 		animator.SetBool("isWalking", false);
 		animator.SetBool("isIdle", false);
 
+		calculateBlockstunLength(blockStun);
+		applyPushback(pushback);
 	}
 
-	public void setHitstunState(int damage, int hitstun)
+	public void setHitstunState(int damage, int hitstun, float pushback)
     {
 		state = CharState.Hitstun;
 		animator.SetBool("wasHitOnGround", true);
@@ -1398,6 +1482,8 @@ public class CharacterController : MonoBehaviour
 
 		UnityEngine.Debug.Log("health left = " + health + ": " + damage);
 		calculateGroundedHitsunLength(hitstun);
+		
+
 		if (health <= 0)
 		{
 			animator.SetBool("isDead", true);
@@ -1416,6 +1502,17 @@ public class CharacterController : MonoBehaviour
 		hitstunFrames = hitstun;
     }
 
+	public void applyPushback(float pushback)
+    {
+		if (directionFacing == DirectionFacing.Left)
+		{
+			rigidbody2d.AddForce(new Vector2(pushback, 0), ForceMode2D.Impulse);
+		}
+        else
+        {
+			rigidbody2d.AddForce(new Vector2(pushback * -1, 0), ForceMode2D.Impulse);
+		}
+    }
 	
 
 	// TODO CHANGE TO VOID
@@ -1467,9 +1564,10 @@ public class CharacterController : MonoBehaviour
 
 		// if the analog stick is being held between a certain range for a certain number of frames, PREWALKFRAMES, then start walking
 		if (prewalkframes == 0 && IsGrounded() &&
-			(joystickAxis.x > .1 || joystickAxis.x < -.1))// && 
+			(joystickAxis.x > .1 || joystickAxis.x < -.1) && (joystickAxis.y > -.1))// && 
 														  //(Input.GetAxisRaw("Horizontal") < .75 || Input.GetAxisRaw("Horizontal") > -.75))
 		{
+			UnityEngine.Debug.Log("joystickaxis.y = " + joystickAxis.y);
 			//prewalkframes = PREWALKFRAMES;
 			animator.SetBool("isWalking", true);
 			animator.SetBool("isRunning", false);

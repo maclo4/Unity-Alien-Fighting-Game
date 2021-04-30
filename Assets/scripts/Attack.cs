@@ -32,6 +32,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 	public int disableHitboxFrame = 1;
 	public int totalFrames = 0;
 	protected int currentActiveFrame = 1;
+	public float pushback = 1;
 	//public Attack lightAttack;
 	protected Hitbox hitbox { get; set; } //TODO: delet this
 	protected Hitbox[] hitboxes;
@@ -107,7 +108,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
         //Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         Hurtbox hurtbox = collider.transform.parent.gameObject.GetComponent<Hurtbox>();
 		Debug.Log("Hurtbox.name: " + hurtbox.name);
-        hurtbox?.getHitBy(damage, hitstunFrames, blockstunFrames, blockType);
+        hurtbox?.getHitBy(damage, hitstunFrames, blockstunFrames, pushback, blockType);
 		hitbox.stopCheckingCollision();
     }
 

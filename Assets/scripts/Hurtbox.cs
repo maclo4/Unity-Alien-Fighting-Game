@@ -22,16 +22,16 @@ public class Hurtbox : MonoBehaviour
 
 
     }
-    public bool getHitBy(int damage, int hitstun, int blockstun, BlockType blockType)
+    public bool getHitBy(int damage, int hitstun, int blockstun, float pushback, BlockType blockType)
     {
 
         // Do something with the damage and the state
         Debug.Log("GetHitBy: " + damage);
 
-        if (!characterController.wasAttackBlocked(blockType, blockstun))
+        if (characterController.wasAttackBlocked(blockType, blockstun, pushback) == false)
         {
             // apply hitstun if attack was NOT blocked
-            characterController.setHitstunState(damage, hitstun);
+            characterController.setHitstunState(damage, hitstun, pushback); //TODO change pushback to something trajectory
             healthBar.TryGetComponent<TMPro.TextMeshProUGUI>(out TMPro.TextMeshProUGUI healthText);
             healthText.text = (characterController.health.ToString() + "/100");
         }
