@@ -36,6 +36,7 @@ public class CuteAlienAttack : Attack
             enabled = false;
             chainingAttackAllowed = false;
             followUpAttackChained = false;
+            jumpCancelAllowed = false;
             return;
         }
 

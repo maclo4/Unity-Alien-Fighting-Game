@@ -32,13 +32,15 @@ public class Attack : MonoBehaviour, IHitboxResponder
 	public int disableHitboxFrame = 1;
 	public int totalFrames = 0;
 	protected int currentActiveFrame = 1;
-	public float pushback = 1;
+	public float blockPushback = 1;
+	public Vector2 hitTrajectory;
 	//public Attack lightAttack;
 	protected Hitbox hitbox { get; set; } //TODO: delet this
 	protected Hitbox[] hitboxes;
 	public bool attacking = false;
 	public bool chainingAttackAllowed = false;
 	public bool followUpAttackChained = false;
+	public bool jumpCancelAllowed = false;
 	
 	//public enum BlockType { Mid, Low, Overhead}
 	public BlockType blockType = BlockType.Mid;
@@ -108,33 +110,11 @@ public class Attack : MonoBehaviour, IHitboxResponder
         //Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
         Hurtbox hurtbox = collider.transform.parent.gameObject.GetComponent<Hurtbox>();
 		Debug.Log("Hurtbox.name: " + hurtbox.name);
-        hurtbox?.getHitBy(damage, hitstunFrames, blockstunFrames, pushback, blockType);
-		hitbox.stopCheckingCollision();
+        jumpCancelAllowed = (bool)(hurtbox?.getHitBy(damage, hitstunFrames, blockstunFrames, blockPushback, hitTrajectory, blockType));
+
+		hitbox.setCollidedState();
     }
 
-	//protected void standardAttackUpdate(AttackFrameData frameData)
- //   {
-	//	if (currentActiveFrame == frameData.disableHitboxFrame)
-	//	{
-	//		hitboxes[0].stopCheckingCollision();
-	//		UnityEngine.Debug.Log("Stop checking collision");
-	//	}
-	//	else if (currentActiveFrame == frameData.enableHitboxFrame)
-	//	{
-	//		hitboxes[0].startCheckingCollision();
-	//	}
-	//	else if (currentActiveFrame >= frameData.totalFrames)
-	//	{
-	//		characterController.setNormalState();
-	//		currentActiveFrame = 0;
-	//		enabled = false;
-	//		return;
-	//	}
 
-	//	hitboxes[0].hitboxUpdate();
-
-	//	currentActiveFrame++;
-
-	//}
 
 }

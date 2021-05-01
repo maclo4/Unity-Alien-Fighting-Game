@@ -76,12 +76,13 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 2, y: 1}
-  hitboxOffset: {x: -1.6, y: 0}
+  hitboxSize: {x: 2, y: 0.5}
+  hitboxOffset: {x: -2, y: 0.5}
   radius: 0.5
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0.061599493, g: 1, b: 0, a: 1}
   collidingColor: {r: 1, g: 0, b: 0, a: 1}
+  collidedColor: {r: 1, g: 0, b: 0, a: 0.6039216}
   character: {fileID: 391754035369589249}
 --- !u!1 &857635425
 GameObject:
@@ -137,10 +138,12 @@ MonoBehaviour:
   enableHitboxFrame: 5
   disableHitboxFrame: 7
   totalFrames: 15
-  pushback: 5
+  blockPushback: 5
+  hitTrajectory: {x: 5, y: 0}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
+  jumpCancelAllowed: 0
   blockType: 1
 --- !u!1 &1481319097
 GameObject:
@@ -196,10 +199,12 @@ MonoBehaviour:
   enableHitboxFrame: 6
   disableHitboxFrame: 8
   totalFrames: 20
-  pushback: 5
+  blockPushback: 5
+  hitTrajectory: {x: 5, y: 0}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
+  jumpCancelAllowed: 0
   blockType: 0
 --- !u!1 &1538930934
 GameObject:
@@ -232,6 +237,8 @@ Transform:
   - {fileID: 857635427}
   - {fileID: 2052387388}
   - {fileID: 5204810520398106972}
+  - {fileID: 6259609840107339062}
+  - {fileID: 5843568309328217330}
   m_Father: {fileID: 8194806763677954792}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -289,10 +296,12 @@ MonoBehaviour:
   enableHitboxFrame: 7
   disableHitboxFrame: 10
   totalFrames: 29
-  pushback: 5
+  blockPushback: 5
+  hitTrajectory: {x: 6, y: 0}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
+  jumpCancelAllowed: 0
   blockType: 0
 --- !u!1 &898783916058040323
 GameObject:
@@ -505,7 +514,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387152963822772142}
-  m_LocalRotation: {x: 0, y: 0, z: 0.006146604, w: 0.99998116}
+  m_LocalRotation: {x: 0, y: 0, z: 0.5599187, w: 0.8285476}
   m_LocalPosition: {x: 0.41822982, y: 0.00000007776771, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children:
@@ -565,6 +574,7 @@ MonoBehaviour:
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
   collidingColor: {r: 1, g: 0, b: 0.01999569, a: 1}
+  collidedColor: {r: 1, g: 0, b: 0, a: 0.6039216}
   character: {fileID: 391754035369589249}
 --- !u!1 &1569708341256444059
 GameObject:
@@ -650,7 +660,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2176207463933505639}
-  m_LocalRotation: {x: 0, y: 0, z: 0.195661, w: 0.9806716}
+  m_LocalRotation: {x: 0, y: 0, z: 0.29301506, w: 0.95610785}
   m_LocalPosition: {x: 0.436669, y: 0.00000003721185, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children:
@@ -658,6 +668,60 @@ Transform:
   m_Father: {fileID: 787226072555060826}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2643497660179426018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 430245494106823493}
+  - component: {fileID: 773626730771355622}
+  m_Layer: 10
+  m_Name: HeavyAttackHitboxes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &430245494106823493
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643497660179426018}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1701986895209114805}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &773626730771355622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643497660179426018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87896518e87de1844ae9edefad87404d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  hitboxSize: {x: 1.5, y: 0.5}
+  hitboxOffset: {x: -2.5, y: 0.5}
+  radius: 0.5
+  inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
+  collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
+  collidingColor: {r: 1, g: 0, b: 0.01999569, a: 1}
+  collidedColor: {r: 1, g: 0, b: 0, a: 0.6039216}
+  character: {fileID: 391754035369589249}
 --- !u!1 &2862608672244231310
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,13 +745,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2862608672244231310}
-  m_LocalRotation: {x: -0, y: -0, z: -0.087734714, w: 0.99614394}
+  m_LocalRotation: {x: -0, y: -0, z: -0.24842936, w: 0.96865}
   m_LocalPosition: {x: 0.401, y: -0.0045, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6316034718272531562}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10.067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.769}
 --- !u!1 &2862608672375813881
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,6 +804,7 @@ MonoBehaviour:
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0.061599493, g: 1, b: 0, a: 1}
   collidingColor: {r: 1, g: 0, b: 0, a: 1}
+  collidedColor: {r: 1, g: 0, b: 0, a: 0.6039216}
   character: {fileID: 391754035369589249}
 --- !u!1 &2869088856334382183
 GameObject:
@@ -782,7 +847,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1}
@@ -900,8 +965,8 @@ MonoBehaviour:
   - {fileID: 787226072555060826}
   - {fileID: 6977364926998465599}
   m_Bounds:
-    m_Center: {x: 0.42213613, y: -0.055899948, z: 0}
-    m_Extent: {x: 0.17605826, y: 0.30784994, z: 0}
+    m_Center: {x: 0.6223582, y: -0.19694087, z: 0}
+    m_Extent: {x: 0.19907486, y: 0.2734897, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &3344162606026810457
@@ -935,6 +1000,8 @@ Transform:
   - {fileID: 8492386974649366535}
   - {fileID: 492922863}
   - {fileID: 1121385532740113663}
+  - {fileID: 430245494106823493}
+  - {fileID: 1192776152622033108}
   m_Father: {fileID: 8194806763677954792}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1217,10 +1284,10 @@ MonoBehaviour:
   target: {fileID: 0}
   lightAttack: {fileID: 1481319099}
   mediumAttack: {fileID: 2052387389}
-  heavyAttack: {fileID: 0}
+  heavyAttack: {fileID: 948173565796778190}
   crouchingLightAttack: {fileID: 857635426}
   crouchingMediumAttack: {fileID: 7166691033535288793}
-  crouchingHeavyAttack: {fileID: 0}
+  crouchingHeavyAttack: {fileID: 1176983388409645820}
 --- !u!114 &2862608671787703950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,10 +1311,12 @@ MonoBehaviour:
   enableHitboxFrame: 5
   disableHitboxFrame: 10
   totalFrames: 15
-  pushback: 10
+  blockPushback: 1
+  hitTrajectory: {x: 0, y: 0}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
+  jumpCancelAllowed: 0
   blockType: 0
 --- !u!114 &2862608671787703951
 MonoBehaviour:
@@ -1347,6 +1416,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 389dd5d2-4152-4892-a65a-30c14921bbe8
     m_ActionName: PlayerControls/Medium Attack[/XInputControllerWindows/buttonNorth,/XInputControllerWindows/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 391754035369589249}
+        m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
+        m_MethodName: OnHeavyAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7847af51-5031-47a4-8a41-ef00f8568d80
+    m_ActionName: PlayerControls/Heavy Attack[/XInputControllerWindows/rightShoulder,/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -1365,11 +1450,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0}
-  size: {x: 1.35, y: 1.945}
+  size: {x: 0, y: 0}
   hurtbox: {fileID: 2869088856334382176}
   animator: {fileID: 2862608671787704055}
   characterController: {fileID: 391754035369589249}
   healthBar: {fileID: 0}
+  hurtboxColor: {r: 1, g: 0, b: 0.11284256, a: 0.2784314}
 --- !u!114 &6964975132560592484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1498,17 +1584,73 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  damage: 5
-  hitstunFrames: 10
-  blockstunFrames: 8
-  enableHitboxFrame: 10
-  disableHitboxFrame: 15
-  totalFrames: 20
-  pushback: 5
+  damage: 20
+  hitstunFrames: 11
+  blockstunFrames: 12
+  enableHitboxFrame: 8
+  disableHitboxFrame: 11
+  totalFrames: 27
+  blockPushback: 5
+  hitTrajectory: {x: 5, y: 0}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
+  jumpCancelAllowed: 0
   blockType: 1
+--- !u!1 &4735382531010547973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1192776152622033108}
+  - component: {fileID: 2589599821743494995}
+  m_Layer: 10
+  m_Name: CrouchingHeavyAttackHitboxes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1192776152622033108
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4735382531010547973}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1701986895209114805}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2589599821743494995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4735382531010547973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87896518e87de1844ae9edefad87404d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  hitboxSize: {x: 1.5, y: 0.5}
+  hitboxOffset: {x: -2, y: -0.5}
+  radius: 0.5
+  inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
+  collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
+  collidingColor: {r: 1, g: 0, b: 0.01999569, a: 1}
+  collidedColor: {r: 1, g: 0, b: 0, a: 0.6039216}
+  character: {fileID: 391754035369589249}
 --- !u!1 &4973978471941700942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,11 +1698,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   hitboxSize: {x: 1.5, y: 0.5}
-  hitboxOffset: {x: -1.5, y: 0}
+  hitboxOffset: {x: -1, y: -0.5}
   radius: 0.5
   inactiveColor: {r: 0, g: 0, b: 0, a: 0}
   collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
   collidingColor: {r: 1, g: 0, b: 0.01999569, a: 1}
+  collidedColor: {r: 1, g: 0, b: 0, a: 0.6039216}
   character: {fileID: 391754035369589249}
 --- !u!1 &5181790535294817254
 GameObject:
@@ -1695,8 +1838,8 @@ MonoBehaviour:
   - {fileID: 3442265596843816247}
   - {fileID: 244681011330996221}
   m_Bounds:
-    m_Center: {x: -0.18729843, y: -0.045187533, z: 0}
-    m_Extent: {x: 0.09498109, y: 0.31662035, z: 0}
+    m_Center: {x: -0.16252324, y: -0.12740025, z: 0}
+    m_Extent: {x: 0.1737198, y: 0.2980108, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &5596542125433084931
@@ -1722,13 +1865,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5596542125433084931}
-  m_LocalRotation: {x: -0, y: -0, z: 0.010127999, w: 0.9999488}
+  m_LocalRotation: {x: -0, y: -0, z: -0.28846455, w: 0.95749056}
   m_LocalPosition: {x: 0.4067, y: -0.005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3442265596843816247}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1081.161}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1046.468}
 --- !u!1 &6112237759413479369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1969,8 +2112,8 @@ MonoBehaviour:
   - {fileID: 244681011330996221}
   - {fileID: 6977364926998465599}
   m_Bounds:
-    m_Center: {x: 0.13861501, y: -0.10265511, z: 0}
-    m_Extent: {x: 0.1638438, y: 0.3136581, z: 0}
+    m_Center: {x: 0.1724101, y: -0.27454755, z: 0}
+    m_Extent: {x: 0.26283026, y: 0.25084004, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &6912423334840311348
@@ -2173,8 +2316,8 @@ MonoBehaviour:
   - {fileID: 6977364926998465599}
   - {fileID: 4868190519654670739}
   m_Bounds:
-    m_Center: {x: 1.238299, y: -0.19918263, z: 0}
-    m_Extent: {x: 0.43597564, y: 1.2527069, z: 0}
+    m_Center: {x: 1.2690842, y: -0.46989834, z: 0}
+    m_Extent: {x: 0.49929142, y: 1.2167016, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &8238950220566015477
@@ -2278,8 +2421,8 @@ MonoBehaviour:
   - {fileID: 4868190519654670739}
   - {fileID: 2110299758473861195}
   m_Bounds:
-    m_Center: {x: 0.15723938, y: -0.3323542, z: 0}
-    m_Extent: {x: 0.92790926, y: 0.92059386, z: 0}
+    m_Center: {x: -0.07669705, y: -0.5500609, z: 0}
+    m_Extent: {x: 0.84345984, y: 0.98379225, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &8252957337243297802
@@ -2314,6 +2457,67 @@ Transform:
   m_Father: {fileID: 4868190519654670739}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 105.572}
+--- !u!1 &8425177522563276713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6259609840107339062}
+  - component: {fileID: 948173565796778190}
+  m_Layer: 9
+  m_Name: Heavy Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6259609840107339062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8425177522563276713}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1538930935}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &948173565796778190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8425177522563276713}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 391754035369589249}
+  lightAttackHitboxes: {fileID: 2643497660179426018}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 15
+  hitstunFrames: 10
+  blockstunFrames: 14
+  enableHitboxFrame: 26
+  disableHitboxFrame: 30
+  totalFrames: 45
+  blockPushback: 5
+  hitTrajectory: {x: 3, y: 0}
+  attacking: 0
+  chainingAttackAllowed: 0
+  followUpAttackChained: 0
+  jumpCancelAllowed: 0
+  blockType: 2
 --- !u!1 &8465860406866094063
 GameObject:
   m_ObjectHideFlags: 0
@@ -7219,10 +7423,71 @@ MonoBehaviour:
   - {fileID: 6316034718272531562}
   - {fileID: 787226072555060826}
   m_Bounds:
-    m_Center: {x: -0.047364406, y: -0.060225606, z: 0}
-    m_Extent: {x: 0.1097279, y: 0.3097035, z: 0}
+    m_Center: {x: 0.30321622, y: -0.15859285, z: 0}
+    m_Extent: {x: 0.17248806, y: 0.29490286, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
+--- !u!1 &8821166518511832309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5843568309328217330}
+  - component: {fileID: 1176983388409645820}
+  m_Layer: 9
+  m_Name: Crouching Heavy Attack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5843568309328217330
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8821166518511832309}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1538930935}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1176983388409645820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8821166518511832309}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 391754035369589249}
+  lightAttackHitboxes: {fileID: 4735382531010547973}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 15
+  hitstunFrames: 30
+  blockstunFrames: 13
+  enableHitboxFrame: 9
+  disableHitboxFrame: 14
+  totalFrames: 34
+  blockPushback: 5
+  hitTrajectory: {x: 1, y: 15}
+  attacking: 0
+  chainingAttackAllowed: 0
+  followUpAttackChained: 0
+  jumpCancelAllowed: 0
+  blockType: 0
 --- !u!1 &8856435966316652722
 GameObject:
   m_ObjectHideFlags: 0
@@ -7324,7 +7589,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 3658556589122228503}
   m_Bounds:
-    m_Center: {x: 1.5620061, y: -0.69145775, z: 0}
-    m_Extent: {x: 1.3192672, y: 0.48282006, z: 0}
+    m_Center: {x: 0.7028002, y: -1.1920635, z: 0}
+    m_Extent: {x: 0.9633954, y: 1.0530127, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1

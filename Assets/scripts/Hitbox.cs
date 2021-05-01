@@ -11,7 +11,8 @@ public enum ColliderState
 {
     Closed,
     Open,
-    Colliding
+    Colliding,
+    Collided
 }
 
 
@@ -25,6 +26,7 @@ public class Hitbox : MonoBehaviour
     public Color inactiveColor;
     public Color collisionOpenColor;
     public Color collidingColor;
+    public Color collidedColor;
     private Color currentColor;
     
 
@@ -53,7 +55,7 @@ public class Hitbox : MonoBehaviour
     public void hitboxUpdate()
     {
         
-        if (_state == ColliderState.Closed) { return; }
+        if (_state == ColliderState.Closed || _state == ColliderState.Collided) { return; }
 
         if (character.directionFacing == CharacterController.DirectionFacing.Left)
         {
@@ -64,19 +66,24 @@ public class Hitbox : MonoBehaviour
             hitboxPoint.x = transform.position.x + (hitboxOffset.x * -1);
         }
         hitboxPoint.y = transform.position.y + hitboxOffset.y;
-        Collider2D colliders = Physics2D.OverlapBox(hitboxPoint, hitboxSize, 0f, mask);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(hitboxPoint, hitboxSize, 0f, mask);
         //UnityEngine.Debug.Log("hitboxPoint: " + hitboxPoint.x + ":" + hitboxPoint.y);
 
-        if (colliders != null)
+        foreach (Collider2D collider in colliders)
         {
-            _state = ColliderState.Colliding;
-            _responder?.collisionedWith(colliders);
-            Debug.Log(colliders.gameObject);
-            // We should do something with the colliders
-        }
-        else
-        {
-            _state = ColliderState.Open;
+
+            if (collider != null)
+            {
+                _state = ColliderState.Colliding;
+                _responder?.collisionedWith(collider);
+                Debug.Log(collider.gameObject); // todo this isnt tested
+
+                // We should do something with the colliders
+            }
+            else
+            {
+                _state = ColliderState.Open;
+            }
         }
 
     }
@@ -135,16 +142,24 @@ public class Hitbox : MonoBehaviour
                 
                 Gizmos.color = collidingColor;
                 break;
+            case ColliderState.Collided:
+                Gizmos.color = collidedColor;
+                break;
         }
     }
     public void startCheckingCollision()
     {
         _state = ColliderState.Open;
     }
-
+    
+    public void setCollidedState()
+    {
+        _state = ColliderState.Collided;
+    }
     public void stopCheckingCollision()
     {
         _state = ColliderState.Closed;
+        
     }
     public void setResponder(IHitboxResponder responder)
     {

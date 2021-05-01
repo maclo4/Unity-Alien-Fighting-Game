@@ -65,6 +65,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Heavy Attack"",
+                    ""type"": ""Button"",
+                    ""id"": ""7847af51-5031-47a4-8a41-ef00f8568d80"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -155,6 +163,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Medium Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fd5e29f-1451-4222-851f-f80ad50a91f5"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Heavy Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -169,6 +188,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerControls_Airdash = m_PlayerControls.FindAction("Airdash", throwIfNotFound: true);
         m_PlayerControls_Light = m_PlayerControls.FindAction("Light", throwIfNotFound: true);
         m_PlayerControls_MediumAttack = m_PlayerControls.FindAction("Medium Attack", throwIfNotFound: true);
+        m_PlayerControls_HeavyAttack = m_PlayerControls.FindAction("Heavy Attack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -224,6 +244,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Airdash;
     private readonly InputAction m_PlayerControls_Light;
     private readonly InputAction m_PlayerControls_MediumAttack;
+    private readonly InputAction m_PlayerControls_HeavyAttack;
     public struct PlayerControlsActions
     {
         private @InputMaster m_Wrapper;
@@ -234,6 +255,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Airdash => m_Wrapper.m_PlayerControls_Airdash;
         public InputAction @Light => m_Wrapper.m_PlayerControls_Light;
         public InputAction @MediumAttack => m_Wrapper.m_PlayerControls_MediumAttack;
+        public InputAction @HeavyAttack => m_Wrapper.m_PlayerControls_HeavyAttack;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -261,6 +283,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @MediumAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMediumAttack;
                 @MediumAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMediumAttack;
                 @MediumAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMediumAttack;
+                @HeavyAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnHeavyAttack;
+                @HeavyAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnHeavyAttack;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -283,6 +308,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @MediumAttack.started += instance.OnMediumAttack;
                 @MediumAttack.performed += instance.OnMediumAttack;
                 @MediumAttack.canceled += instance.OnMediumAttack;
+                @HeavyAttack.started += instance.OnHeavyAttack;
+                @HeavyAttack.performed += instance.OnHeavyAttack;
+                @HeavyAttack.canceled += instance.OnHeavyAttack;
             }
         }
     }
@@ -295,5 +323,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnAirdash(InputAction.CallbackContext context);
         void OnLight(InputAction.CallbackContext context);
         void OnMediumAttack(InputAction.CallbackContext context);
+        void OnHeavyAttack(InputAction.CallbackContext context);
     }
 }

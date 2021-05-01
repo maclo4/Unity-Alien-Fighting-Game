@@ -287,7 +287,7 @@ public class CharacterController : MonoBehaviour
 	[HideInInspector]
 	public CharState state = CharState.Idle;
 	
-	private enum CurrentActiveAttack { LightAttack, CrouchingLightAttack, MediumAttack, CrouchingMediumAttack, HeavyAttack, CrouchingHeavyAttack, None }
+	private enum CurrentActiveAttack { LightAttack, CrouchingLightAttack, MediumAttack, CrouchingMediumAttack, HeavyAttack, CrouchingHeavyAttack, AerialLightAttack, AerialMediumAttack, AerialHeavyAttack, None }
 	CurrentActiveAttack currentActiveAttack = CurrentActiveAttack.None;
 	AttackChainQueue attackChainQueue = new AttackChainQueue();
 	
@@ -696,9 +696,13 @@ public class CharacterController : MonoBehaviour
 					animator.SetBool("isGrounded", true);
 
 				}
-				else if (airdashDownThisFrame && airDashState == AirDashState.Ready)
+				else if (checkForAirdash())
 				{
-					setAirdash();
+					beginAirdash();
+				}
+				if (state == CharState.Idle)
+				{
+					checkForAerialAttack();
 				}
 
 				/*else
@@ -712,14 +716,15 @@ public class CharacterController : MonoBehaviour
 
 			case CharState.AirDash:
 
-				airdash();
+				//executeAirdash();
 				//float airDashSpeedDropMultiplier = 5f;
 				//rollSpeed -= rollSpeed * airDashSpeedDropMultiplier * Time.deltaTime;
 
 				//float rollSpeedMinimum = 50f;
 				//GetComponent<Rigidbody2D>().useGravity = false;
 
-				rigidbody2d.gravityScale = 0;
+				airdashAerialDrift();
+				rigidbody2d.gravityScale = 1;
 				airdashFrames--;
 
 				if (airdashFrames == 0)
@@ -732,7 +737,6 @@ public class CharacterController : MonoBehaviour
 
 					rigidbody2d.gravityScale = 5;
 
-					//rb.useGravity = true;
 				}
 				break;
 		
@@ -788,13 +792,15 @@ public class CharacterController : MonoBehaviour
 			case CharState.Attack:
 
                 if (currentActiveAttack == CurrentActiveAttack.None) { }
-
+				
+				
 				else if(currentActiveAttack == CurrentActiveAttack.LightAttack && lightAttack.chainingAttackAllowed == true)
                 {
                     if (checkForGroundedAttack())
                     {
 						lightAttack.followUpAttackChained = true;
                     }
+					
                 }
 				else if(currentActiveAttack == CurrentActiveAttack.CrouchingLightAttack && crouchingLightAttack.chainingAttackAllowed == true)
                 {
@@ -817,6 +823,32 @@ public class CharacterController : MonoBehaviour
 						crouchingMediumAttack.followUpAttackChained = true;
 					}
 				}
+				else if (currentActiveAttack == CurrentActiveAttack.HeavyAttack && heavyAttack.chainingAttackAllowed == true)
+				{
+					if (checkForGroundedAttack())
+					{
+						heavyAttack.followUpAttackChained = true;
+					}
+					
+				}
+				else if (currentActiveAttack == CurrentActiveAttack.CrouchingHeavyAttack && crouchingHeavyAttack.chainingAttackAllowed == true)
+				{
+					//if (checkForGroundedAttack())
+					//{
+					//	crouchingHeavyAttack.followUpAttackChained = true;
+					//}
+					handleAttackFollowups(crouchingHeavyAttack, true);
+				}
+				//else if ((currentActiveAttack == CurrentActiveAttack.LightAttack && lightAttack.jumpCancelAllowed == true) ||
+				//	(currentActiveAttack == CurrentActiveAttack.CrouchingLightAttack && crouchingLightAttack.jumpCancelAllowed == true) ||
+				//	(currentActiveAttack == CurrentActiveAttack.MediumAttack && mediumAttack.jumpCancelAllowed == true) ||
+				//	(currentActiveAttack == CurrentActiveAttack.CrouchingMediumAttack && crouchingMediumAttack.jumpCancelAllowed == true) ||
+				//	(currentActiveAttack == CurrentActiveAttack.HeavyAttack && heavyAttack.jumpCancelAllowed == true) ||
+				//	(currentActiveAttack == CurrentActiveAttack.CrouchingHeavyAttack && crouchingHeavyAttack.jumpCancelAllowed == true))
+				//{
+				//	UnityEngine.Debug.Log("Jump() called");
+				//	jump();
+				//}
 				break;
 			case CharState.Block:
 
@@ -842,6 +874,24 @@ public class CharacterController : MonoBehaviour
 		}
 
 
+	}
+
+	public void handleAttackFollowups(CuteAlienAttack cuteAlienAttack, bool isJumpCancelable)
+    {
+		if (checkForGroundedAttack())
+		{
+			cuteAlienAttack.followUpAttackChained = true;
+		}
+		else if (cuteAlienAttack.jumpCancelAllowed == true)
+		{
+			bool executedJump = jump();
+			if(executedJump == true)
+            {
+				cuteAlienAttack.followUpAttackChained = true;
+				attackChainQueue.resetQueue();
+				currentActiveAttack = CurrentActiveAttack.None;
+			}
+		}
 	}
 
 	// TODO MAYBE USE FIXED UPDATE AGAIN AT SOME POINT? APPARENTLY ITS BETTER FOR PHYSICS
@@ -1127,12 +1177,12 @@ public class CharacterController : MonoBehaviour
 			animator.SetBool("isCrouching", false);
 			// give jump velocity
 			//float jumpVelocity = 20f;
-			if ((state == CharState.Walk || state == CharState.Idle) && jumpInputs[0].input == "UpLeft")
+			if ((state == CharState.Walk || state == CharState.Attack || state == CharState.Idle) && jumpInputs[0].input == "UpLeft")
 			{
 				UnityEngine.Debug.Log("diag jump");
 				rigidbody2d.velocity = (Vector2.left * jumpVelocity * .3f) + (Vector2.up * jumpVelocity);
 			}
-			else if ((state == CharState.Walk || state == CharState.Idle) && jumpInputs[0].input == "UpRight")
+			else if ((state == CharState.Walk || state == CharState.Attack || state == CharState.Idle) && jumpInputs[0].input == "UpRight")
 			{
 				UnityEngine.Debug.Log("diag jump");
 				rigidbody2d.velocity = (Vector2.right * jumpVelocity * .3f) + (Vector2.up * jumpVelocity);
@@ -1165,6 +1215,17 @@ public class CharacterController : MonoBehaviour
 
 	}
 
+	private void airdashAerialDrift()
+	{
+		if ((rigidbody2d.velocity.x < MAXAIRDRIFTSPEED && rigidbody2d.velocity.x > -1 * MAXAIRDRIFTSPEED) || 
+			(rigidbody2d.velocity.x > MAXAIRDRIFTSPEED && joystickAxis.x < 0 ) || ( rigidbody2d.velocity.x < -1 * MAXAIRDRIFTSPEED && joystickAxis.x > 0) )
+		{
+
+			rigidbody2d.velocity = rigidbody2d.velocity + (Vector2.right * joystickAxis.x * AIRDRIFTMULTIPLIER);
+		}
+
+
+	}
 	// TODO: CHANGE TO VOID
 	// TODO: CHANGE ALL MOVEMENT FORMULAS TO USE TIME SINCE LAST FRAME SO THAT MOVEMENT WILL BE CONSISTENT	
 	private bool dash()
@@ -1294,6 +1355,27 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
+	public bool checkForAerialAttack()
+    {
+		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.LightAttack && attackChainQueue.lightAttackUsed == false) {
+
+			lightAttack.attack();
+			attackChainQueue.lightAttackUsed = true;
+			state = CharState.Attack;
+			currentActiveAttack = CurrentActiveAttack.AerialLightAttack;
+			animator.SetTrigger("isAerialLightAttack");
+			animator.SetBool("isRunning", false);
+			animator.SetBool("isBackDashing", false);
+			animator.SetBool("isWalking", false);
+			animator.SetBool("isIdle", false);
+			return true;
+		}
+        else
+        {
+			return false; //todo im drunk probly rewrite this
+
+        }
+    }
 	public bool checkForGroundedAttack()
     {
 		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.LightAttack && attackChainQueue.lightAttackUsed == false) {
@@ -1356,6 +1438,38 @@ public class CharacterController : MonoBehaviour
 			//animator.SetBool("")
 			return true;
 		}
+		else if (checkForHeavyAttack() == true && currentActiveAttack != CurrentActiveAttack.HeavyAttack && attackChainQueue.heavyAttackUsed == false)
+		{
+
+			heavyAttack.attack();
+			attackChainQueue.heavyAttackUsed = true;
+			state = CharState.Attack;
+			currentActiveAttack = CurrentActiveAttack.HeavyAttack;
+			animator.SetTrigger("isHeavyAttack");
+			animator.SetBool("isRunning", false);
+			animator.SetBool("isBackDashing", false);
+			animator.SetBool("isJumping", false);
+			animator.SetBool("isWalking", false);
+			animator.SetBool("isIdle", false);
+			//animator.SetBool("")
+			return true;
+		}
+		else if (checkForCrouchingHeavyAttack() == true && currentActiveAttack != CurrentActiveAttack.CrouchingHeavyAttack && attackChainQueue.crouchingHeavyAttackUsed == false)
+		{
+
+			crouchingHeavyAttack.attack();
+			attackChainQueue.crouchingHeavyAttackUsed = true;
+			state = CharState.Attack;
+			currentActiveAttack = CurrentActiveAttack.CrouchingHeavyAttack;
+			animator.SetTrigger("isCrouchingHeavyAttack");
+			animator.SetBool("isRunning", false);
+			animator.SetBool("isBackDashing", false);
+			animator.SetBool("isJumping", false);
+			animator.SetBool("isWalking", false);
+			animator.SetBool("isIdle", false);
+			//animator.SetBool("")
+			return true;
+		}
 		return false;
     }
 	private bool checkForLightAttack()
@@ -1393,7 +1507,26 @@ public class CharacterController : MonoBehaviour
 		}
 		return false;
 	}
-	
+
+	private bool checkForHeavyAttack()
+	{
+		if (heavyDownThisFrame && joystickAxis.y > -.2)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private bool checkForCrouchingHeavyAttack()
+	{
+		if (heavyDownThisFrame && joystickAxis.y <= -.2)
+		{
+
+			return true;
+		}
+		return false;
+	}
+
 	public bool wasAttackBlocked(BlockType blockType, int blockStun, float pushback)
     {
 		//holding back, attack hits mid
@@ -1465,7 +1598,7 @@ public class CharacterController : MonoBehaviour
 		applyPushback(pushback);
 	}
 
-	public void setHitstunState(int damage, int hitstun, float pushback)
+	public void setHitstunState(int damage, int hitstun, Vector2 hitTrajectory)
     {
 		state = CharState.Hitstun;
 		animator.SetBool("wasHitOnGround", true);
@@ -1482,7 +1615,7 @@ public class CharacterController : MonoBehaviour
 
 		UnityEngine.Debug.Log("health left = " + health + ": " + damage);
 		calculateGroundedHitsunLength(hitstun);
-		
+		applyHitTrajectory(hitTrajectory);
 
 		if (health <= 0)
 		{
@@ -1502,6 +1635,21 @@ public class CharacterController : MonoBehaviour
 		hitstunFrames = hitstun;
     }
 
+	public void applyHitTrajectory(Vector2 hitTrajectory)
+    {
+		if (directionFacing == DirectionFacing.Left)
+		{
+			rigidbody2d.AddForce(hitTrajectory, ForceMode2D.Impulse);
+			//rigidbody2d.velocity =  hitTrajectory;
+		}
+		else
+		{
+			hitTrajectory.x *= -1;
+			//rigidbody2d.velocity =  hitTrajectory;
+            
+            rigidbody2d.AddForce(hitTrajectory, ForceMode2D.Impulse);
+        }
+	}
 	public void applyPushback(float pushback)
     {
 		if (directionFacing == DirectionFacing.Left)
@@ -1627,15 +1775,28 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
-	private void airdash()
+	private bool checkForAirdash()
+    {
+		if (airdashDownThisFrame && airDashState == AirDashState.Ready && transform.position.y > 1.25)
+        {
+			return true;
+        }
+        else
+        {
+			return false;
+        }
+
+	}
+	private void executeAirdash()
 	{
 		if (airDashDirection == AirDashDirection.Right)
 		{
-			transform.position = new Vector2(transform.position.x + AIRDASHSPEED, transform.position.y);
-			rigidbody2d.velocity = Vector2.right * AIRDASHVELOCITY;
-			//AIRDASHSPEED;
+            //rigidbody2d.velocity = (Vector2.right * AIRDASHVELOCITY * .5f) + (Vector2.up * jumpVelocity * .2f);
+            transform.position = new Vector2(transform.position.x + AIRDASHSPEED, transform.position.y);
+            rigidbody2d.velocity = Vector2.right * AIRDASHVELOCITY;
+            //AIRDASHSPEED;
 
-		}
+        }
 		else if (airDashDirection == AirDashDirection.Left)
 		{
 			rigidbody2d.velocity = Vector2.left * AIRDASHVELOCITY;
@@ -1646,7 +1807,7 @@ public class CharacterController : MonoBehaviour
 
 	}
 
-	private void setAirdash()
+	private void beginAirdash()
 	{
 
 
@@ -1661,7 +1822,7 @@ public class CharacterController : MonoBehaviour
 			animator.SetBool("isJumping", false);
 			animator.SetBool("isAirdash", true);
 			rigidbody2d.velocity = Vector2.zero;
-
+			rigidbody2d.AddForce(new Vector2(14, 11), ForceMode2D.Impulse); // todo remove maybe
 
 		}
 		// character facing right and airdashing right
@@ -1673,6 +1834,8 @@ public class CharacterController : MonoBehaviour
 			state = CharState.AirDash;
 
 			rigidbody2d.velocity = Vector2.zero;
+			rigidbody2d.AddForce(new Vector2(14, 11), ForceMode2D.Impulse); // todo remove maybe
+
 			animator.SetBool("isAirdashForward", true);
 			animator.SetBool("isJumping", false);
 
@@ -1687,6 +1850,8 @@ public class CharacterController : MonoBehaviour
 			airDashDirection = AirDashDirection.Left;
 
 			rigidbody2d.velocity = Vector2.zero;
+			rigidbody2d.AddForce(new Vector2(-14, 11), ForceMode2D.Impulse); // todo remove maybe
+
 			animator.SetBool("isAirdash", true);
 			animator.SetBool("isJumping", false);
 
@@ -1699,6 +1864,8 @@ public class CharacterController : MonoBehaviour
 			state = CharState.AirDash;
 
 			rigidbody2d.velocity = Vector2.zero;
+			rigidbody2d.AddForce(new Vector2(-14, 11), ForceMode2D.Impulse); // todo remove maybe
+
 			animator.SetBool("isAirdashForward", true);
 			animator.SetBool("isJumping", false);
 
@@ -1754,21 +1921,22 @@ public class CharacterController : MonoBehaviour
 					UnityEngine.Debug.Log("is on other player triggered");
 					rayColor = Color.green;
 
-					// enemy is to the left
-					if (target.position.x > transform.position.x)
-					{
-						//float shift = target.position.x - transform.position.x;
-						float shift = (enemyBoxCollider2d.bounds.size.x + .1f); //- (target.position.x - transform.position.x)) ;
-						transform.position = new Vector2(target.position.x - shift, transform.position.y - .2f);
-					}
-					else
-					{
-						//float shift = target.position.x - transform.position.x;
-						float shift = (enemyBoxCollider2d.bounds.size.x + .1f); //- (target.position.x - transform.position.x)) ;
-						transform.position = new Vector2(target.position.x + shift, transform.position.y - .2f);
-					}
+                    //StartCoroutine("moveOffOtherCharacter");
+                    // enemy is to the left
+                    if (target.position.x > transform.position.x)
+                    {
+                        //float shift = target.position.x - transform.position.x;
+                        float shift = (enemyBoxCollider2d.bounds.size.x + .1f); //- (target.position.x - transform.position.x)) ;
+                        transform.position = new Vector2(target.position.x - shift, transform.position.y - .2f);
+                    }
+                    else
+                    {
+                        //float shift = target.position.x - transform.position.x;
+                        float shift = (enemyBoxCollider2d.bounds.size.x + .1f); //- (target.position.x - transform.position.x)) ;
+                        transform.position = new Vector2(target.position.x + shift, transform.position.y - .2f);
+                    }
 
-				}
+                }
 				else
 				{
 					rayColor = Color.red;
@@ -1791,7 +1959,27 @@ public class CharacterController : MonoBehaviour
 		return raycastHits.Count != 0;
 	}
 
-
+	IEnumerator moveOffOtherCharacter()
+    {
+		
+	
+		if (target.position.x > transform.position.x)
+		{
+			while (IsOnOtherPlayer() == true)
+			{
+				transform.position = new Vector2(transform.position.x - .2f, transform.position.y);
+				yield return null;
+			}
+		}
+        else
+        {
+			while (IsOnOtherPlayer() == true)
+			{
+				transform.position = new Vector2(transform.position.x + .2f, transform.position.y);
+				yield return null;
+			}
+		}
+    }
 
 }
 
