@@ -71,8 +71,9 @@ public class Hitbox : MonoBehaviour
 
         foreach (Collider2D collider in colliders)
         {
+            
 
-            if (collider != null)
+            if (collider != null && collider.transform.root.gameObject.GetInstanceID() != gameObject.transform.root.gameObject.GetInstanceID())
             {
                 _state = ColliderState.Colliding;
                 _responder?.collisionedWith(collider);

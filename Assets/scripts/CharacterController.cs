@@ -283,7 +283,9 @@ public class CharacterController : MonoBehaviour
 	[SerializeField] private LayerMask platformLayerMask;
 	[SerializeField] private LayerMask playerLayerMask;
 	[SerializeField] private LayerMask pushboxLayerMask;
-	public enum CharState { Idle, Dashing, Jump, Tumble, AirDash, Block, Crouch, Walk, Backdash, Attack, Hitstun }
+	public enum CharState { Idle, Dashing, Jump, Tumble, AirDash, Block, Crouch, Walk, Backdash, Attack, Hitstun,
+        AirAttack
+    }
 	[HideInInspector]
 	public CharState state = CharState.Idle;
 	
@@ -302,7 +304,7 @@ public class CharacterController : MonoBehaviour
 	public static float AIRDASHSPEED = .11f;
 	public static float AIRDASHVELOCITY = 10f;
 	public static int PREWALKFRAMES = 2;
-	public static float WALKSPEED = 3f;
+	public static float WALKSPEED = 4.5f;
 	public static float MAXAIRDRIFTSPEED = 10f;
 	public static float AIRDRIFTMULTIPLIER = .2f;
 	public static float BACKDASHSPEED = .17f;
@@ -355,8 +357,8 @@ public class CharacterController : MonoBehaviour
 	*/
 	
 
-	public CuteAlienAttack lightAttack;
-	public CuteAlienAttack mediumAttack, heavyAttack, crouchingLightAttack, crouchingMediumAttack, crouchingHeavyAttack;
+	public CuteAlienAttack lightAttack, mediumAttack, heavyAttack, crouchingLightAttack, crouchingMediumAttack, crouchingHeavyAttack,
+							aerialLightAttack, aerialMediumAttack, aerialHeavyAttack;
 	// ===========================================================
 
 	// variable to hold a reference to our SpriteRenderer component
@@ -700,7 +702,7 @@ public class CharacterController : MonoBehaviour
 				{
 					beginAirdash();
 				}
-				if (state == CharState.Idle)
+				else if (state == CharState.Jump)
 				{
 					checkForAerialAttack();
 				}
@@ -849,6 +851,20 @@ public class CharacterController : MonoBehaviour
 				//	UnityEngine.Debug.Log("Jump() called");
 				//	jump();
 				//}
+				break;
+			case CharState.AirAttack:
+
+				if (currentActiveAttack == CurrentActiveAttack.None) { }
+
+
+				else if (currentActiveAttack == CurrentActiveAttack.LightAttack && aerialLightAttack.chainingAttackAllowed == true)
+				{
+					if (checkForGroundedAttack())
+					{
+						aerialLightAttack.followUpAttackChained = true;
+					}
+
+				}
 				break;
 			case CharState.Block:
 
@@ -1355,27 +1371,26 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
-	public bool checkForAerialAttack()
-    {
-		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.LightAttack && attackChainQueue.lightAttackUsed == false) {
 
-			lightAttack.attack();
+	public bool checkForAerialAttack()
+	{
+		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.AerialLightAttack && attackChainQueue.lightAttackUsed == false)
+		{
+
+			aerialLightAttack.attack();
 			attackChainQueue.lightAttackUsed = true;
 			state = CharState.Attack;
-			currentActiveAttack = CurrentActiveAttack.AerialLightAttack;
-			animator.SetTrigger("isAerialLightAttack");
-			animator.SetBool("isRunning", false);
-			animator.SetBool("isBackDashing", false);
-			animator.SetBool("isWalking", false);
-			animator.SetBool("isIdle", false);
+			currentActiveAttack = CurrentActiveAttack.LightAttack;
+			animator.SetTrigger("aerialLightAttack");
+			resetAnimationStates();
 			return true;
 		}
         else
         {
-			return false; //todo im drunk probly rewrite this
-
+			return false;
         }
-    }
+	}
+
 	public bool checkForGroundedAttack()
     {
 		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.LightAttack && attackChainQueue.lightAttackUsed == false) {
@@ -1385,10 +1400,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.LightAttack;
 			animator.SetTrigger("isLightAttack");
-			animator.SetBool("isRunning", false);
-			animator.SetBool("isBackDashing", false);
-			animator.SetBool("isWalking", false);
-			animator.SetBool("isIdle", false);
+			resetAnimationStates();
 			return true;
 		}
 		else if (checkForCrouchingLightAttack() == true && currentActiveAttack != CurrentActiveAttack.CrouchingLightAttack && attackChainQueue.crouchingLightAttackUsed == false) {
@@ -1398,12 +1410,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.CrouchingLightAttack;
 			animator.SetTrigger("isCrouchingLightAttack");
-			animator.SetBool("isRunning", false);
-			animator.SetBool("isBackDashing", false);
-			animator.SetBool("isJumping", false);
-			animator.SetBool("isWalking", false);
-			animator.SetBool("isIdle", false);
-			//animator.SetBool("")
+			resetAnimationStates();
 			return true;
 		}
 		else if (checkForMediumAttack() == true && currentActiveAttack != CurrentActiveAttack.MediumAttack && attackChainQueue.mediumAttackUsed == false)
@@ -1414,12 +1421,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.MediumAttack;
 			animator.SetTrigger("isMediumAttack");
-			animator.SetBool("isRunning", false);
-			animator.SetBool("isBackDashing", false);
-			animator.SetBool("isJumping", false);
-			animator.SetBool("isWalking", false);
-			animator.SetBool("isIdle", false);
-			//animator.SetBool("")
+			resetAnimationStates();
 			return true;
 		}
 		else if (checkForCrouchingMediumAttack() == true && currentActiveAttack != CurrentActiveAttack.CrouchingMediumAttack && attackChainQueue.crouchingMediumAttackUsed == false)
@@ -1430,12 +1432,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.CrouchingMediumAttack;
 			animator.SetTrigger("isCrouchingMediumAttack");
-			animator.SetBool("isRunning", false);
-			animator.SetBool("isBackDashing", false);
-			animator.SetBool("isJumping", false);
-			animator.SetBool("isWalking", false);
-			animator.SetBool("isIdle", false);
-			//animator.SetBool("")
+			resetAnimationStates();
 			return true;
 		}
 		else if (checkForHeavyAttack() == true && currentActiveAttack != CurrentActiveAttack.HeavyAttack && attackChainQueue.heavyAttackUsed == false)
@@ -1446,12 +1443,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.HeavyAttack;
 			animator.SetTrigger("isHeavyAttack");
-			animator.SetBool("isRunning", false);
-			animator.SetBool("isBackDashing", false);
-			animator.SetBool("isJumping", false);
-			animator.SetBool("isWalking", false);
-			animator.SetBool("isIdle", false);
-			//animator.SetBool("")
+			resetAnimationStates();
 			return true;
 		}
 		else if (checkForCrouchingHeavyAttack() == true && currentActiveAttack != CurrentActiveAttack.CrouchingHeavyAttack && attackChainQueue.crouchingHeavyAttackUsed == false)
@@ -1462,17 +1454,22 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.CrouchingHeavyAttack;
 			animator.SetTrigger("isCrouchingHeavyAttack");
-			animator.SetBool("isRunning", false);
-			animator.SetBool("isBackDashing", false);
-			animator.SetBool("isJumping", false);
-			animator.SetBool("isWalking", false);
-			animator.SetBool("isIdle", false);
+			resetAnimationStates();
 			//animator.SetBool("")
 			return true;
 		}
 		return false;
     }
-	private bool checkForLightAttack()
+
+    private void resetAnimationStates()
+    {
+		animator.SetBool("isRunning", false);
+		animator.SetBool("isBackDashing", false);
+		animator.SetBool("isJumping", false);
+		animator.SetBool("isWalking", false);
+		animator.SetBool("isIdle", false);
+	}
+    private bool checkForLightAttack()
     {
 		if (lightDownThisFrame && joystickAxis.y > -.2)
 		{
@@ -1822,6 +1819,7 @@ public class CharacterController : MonoBehaviour
 			animator.SetBool("isJumping", false);
 			animator.SetBool("isAirdash", true);
 			rigidbody2d.velocity = Vector2.zero;
+			//Vector2 force = new Vector2(joystickAxis.x * 14, joystickAxis.y * 11);
 			rigidbody2d.AddForce(new Vector2(14, 11), ForceMode2D.Impulse); // todo remove maybe
 
 		}
