@@ -10,317 +10,77 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using System;
 using System.Threading.Tasks;
-//using InputTime;
 
-/*
-
-public class InputBuffer
-{
-	// input buffer variable to store 10 most recent inputs
-	List<InputTime> inputBuffer;
-	Stopwatch stopwatch;
-
-	public int size { get; private set; }
-
-	// constructor (kinda pointless)
-	public InputBuffer()
-	{
-		inputBuffer = new List<InputTime>();
-		stopwatch = new Stopwatch();
-		stopwatch.Start();
-		size = 10;
-	}
-
-
-	// add an input to the end of the list
-	public void Enqueue(string input)
-	{
-		InputTime inputTime = new InputTime(input, stopwatch.ElapsedMilliseconds);
-
-		inputBuffer.Add(inputTime);
-
-		while (inputBuffer.Count > size)
-		{
-
-			inputBuffer.RemoveAt(0);
-		}
-	}
-	// returns a specified amount of the most recent inputs from the list
-	public List<InputTime> getTopInputs(int numInputs = 3)
-	{
-		List<InputTime> topInputs = new List<InputTime>(numInputs);
-		int i = inputBuffer.Count - 1;
-
-		while (i >= inputBuffer.Count - numInputs && i >= 0)
-		{
-			topInputs.Add(inputBuffer[i]);
-			i--;
-		}
-
-		return topInputs;
-	}
-
-	// mainly for testing
-	public void printBuffer()
-	{
-		List<InputTime> printTop = getTopInputs(20);
-		int i = 0;
-		foreach (InputTime inputs in printTop)
-		{
-			UnityEngine.Debug.Log(i + ": " + inputs.input + ", " + inputs.elapsedMilliseconds);
-			i++;
-		}
-	}
-
-	public long getCurrentTime()
-	{
-		return stopwatch.ElapsedMilliseconds;
-	}
-
-}
-
-
-
-
-public class CustomInputSystem : ScriptableObject
-{
-
-	bool lastXAxisState = false;
-	bool lastYAxisState = false;
-	bool currentYAxisState = false;
-	bool currentXAxisState = false;
-
-
-	bool lastAirdashState = false;
-
-	bool lastLightState = false;
-	/// <summary>
-	/// Gets the axis input like an on key down event, returning <c>true</c> only 
-	/// on the first press, after this return <c>false</c> until the next press. 
-	/// Only works for axis between 0 (zero) to 1 (one).
-	/// </summary>
-	// <param name="axisName">Axis name configured on input manager.</param>
-	// TODO GET RID OF THIS PARAM AXISNAME
-	public void getXAxisButtonDown(Vector2 joystickAxis, ref bool horizontalDownThisFrame, ref bool verticalDownThisFrame)
-	{
-		bool tempLastX = lastXAxisState;
-		currentXAxisState = (joystickAxis.x > 0.5 || joystickAxis.x < -0.5);
-		currentYAxisState = (joystickAxis.y > 0.5 || joystickAxis.y < -0.5);
-
-		if (currentXAxisState && lastYAxisState && !currentYAxisState)
-		{
-			horizontalDownThisFrame = true;
-			//verticalDownThisFrame = false;
-		}
-		// prevent keep returning true when axis still pressed.
-		else if (currentXAxisState && lastXAxisState)
-		{
-			//UnityEngine.Debug.Log("getaxisbuttondown return false bc last input was true= " + lastInputAxisState);
-			horizontalDownThisFrame = false;
-		}
-		else
-		{
-			lastXAxisState = currentXAxisState;
-			horizontalDownThisFrame = currentXAxisState;
-		}
-
-
-		// now for the y axis
-		if (currentYAxisState && tempLastX && !currentXAxisState)
-		{
-			//horizontalDownThisFrame = false;
-			verticalDownThisFrame = true;
-		}
-
-		else if (currentYAxisState && lastYAxisState)
-		{
-			//UnityEngine.Debug.Log("getaxisbuttondown return false bc last input was true= " + lastInputAxisState);
-			verticalDownThisFrame = false;
-		}
-		else
-		{
-			lastYAxisState = currentYAxisState;
-			verticalDownThisFrame = currentYAxisState;
-		}
-
-
-
-	}
-	public bool getAirdashDownThisFrame(bool airdashButtonDown)
-	{
-
-
-
-		// prevent keep returning true when axis still pressed.
-		if (airdashButtonDown && lastAirdashState)
-		{
-			//UnityEngine.Debug.Log("getaxisbuttondown return false bc last input was true= " + lastInputAxisState);
-			return false;
-		}
-
-
-		lastAirdashState = airdashButtonDown;
-
-		//UnityEngine.Debug.Log("getaxisbuttondown last value was false so return current value= " + currentInputValue + Input.GetAxis(axisName));
-		return airdashButtonDown;
-	}
-	public bool getLightDownThisFrame(bool lightButtonDown)
-	{
-
-
-
-		// prevent keep returning true when axis still pressed.
-		if (lightButtonDown && lastLightState)
-		{
-			//UnityEngine.Debug.Log("getaxisbuttondown return false bc last input was true= " + lastInputAxisState);
-			return false;
-		}
-
-
-		lastLightState = lightButtonDown;
-
-		//UnityEngine.Debug.Log("getaxisbuttondown last value was false so return current value= " + currentInputValue + Input.GetAxis(axisName));
-		return lightButtonDown;
-	}
-
-
-}
-*/
-
-
-//public class LightAttack : MonoBehaviour, IHitboxResponder
-//{
-
-//    public int damage { get; set; }
-//	public Hitbox hitbox { get; set; }
-//	//public Hitbox hitbox2;
-//	bool attacking = false;
-
-//	int i = 0;
-//	public void Awake()
-//	{
-//		hitbox = gameObject.GetComponent<Hitbox>();
-
-//		//Vector2 hitboxPoint = transform.position;
-//		//hitboxPoint.x = hitboxPoint.x + .5f;
-//		//Vector2 hitboxSize = new Vector2(1, .5f);
-//		//hitbox.initializeHitbox(hitboxPoint, hitboxSize, 0);
-//		hitbox.setResponder(this);
-//		//hitbox.hitboxSize = new Vector2(1, .5f);
-
-//	}
-
-//	public void Update()
-//    {
-
-//		//UnityEngine.Debug.Log("updating light attack");
-//		if(attacking == true)
-//        {
-//			if (i > 4)
-//			{
-//				attacking = false;
-//				hitbox.stopCheckingCollision();
-//				i = 0;
-//				UnityEngine.Debug.Log("Stop checking collision");
-//				return;
-//			}
-//			else
-//			{
-//				hitbox.startCheckingCollision();
-//			}
-
-//			hitbox.hitboxUpdate();
-
-//			i++;
-//		}
-//    }
-//	public void attack()
-//	{
-
-//		// and do the rest of your attack
-//		attacking = true;
-//		//hitbox.startCheckingCollision();
-//		//hitbox.hitboxUpdate();
-
-//	}
-
-//	public void endAttack()
-//    {
-//		hitbox.stopCheckingCollision();
-//	}
-
-//	void IHitboxResponder.collisionedWith(Collider2D collider)
-//	{
-//		UnityEngine.Debug.Log("collisioned with being called");
-//		//Hurtbox hurtbox = collider.GetComponent<Hurtbox>();
-//		//hurtbox?.getHitBy(damage);
-//	}
-
-//}
 
 public class AttackChainQueue 
 {
-	public bool lightAttackUsed = false;
-	public bool crouchingLightAttackUsed = false;
-	public bool mediumAttackUsed = false;
-	public bool crouchingMediumAttackUsed = false;
-	public bool heavyAttackUsed = false;
-	public bool crouchingHeavyAttackUsed = false;
+	public bool							lightAttackUsed = false;
+	public bool							crouchingLightAttackUsed = false;
+	public bool							mediumAttackUsed = false;
+	public bool							crouchingMediumAttackUsed = false;
+	public bool							heavyAttackUsed = false;
+	public bool							crouchingHeavyAttackUsed = false;
+	public bool							aerialLightAttackUsed = false;
+	public bool							aerialMediumAttackUsed = false;
+	public bool							aerialHeavyAttackUsed = false;
+
 	public void resetQueue()
     {
-		UnityEngine.Debug.Log("Resetting queue");
 		lightAttackUsed = false;
 		crouchingLightAttackUsed = false;
 		mediumAttackUsed = false;
 		crouchingMediumAttackUsed = false;
 		heavyAttackUsed = false;
 		crouchingHeavyAttackUsed = false;
-}
+		aerialLightAttackUsed = false;
+		aerialMediumAttackUsed = false;
+		aerialHeavyAttackUsed = false;
+	}
 }
 public class CharacterController : MonoBehaviour
 {
 
-	[SerializeField] private LayerMask platformLayerMask;
-	[SerializeField] private LayerMask playerLayerMask;
-	[SerializeField] private LayerMask pushboxLayerMask;
-	public enum CharState { Idle, Dashing, Jump, Tumble, AirDash, Block, Crouch, Walk, Backdash, Attack, Hitstun,
+	[SerializeField] private LayerMask	platformLayerMask;
+	[SerializeField] private LayerMask	playerLayerMask;
+	[SerializeField] private LayerMask	pushboxLayerMask;
+	public enum CharState				{ Idle, Dashing, Jump, Tumble, AirDash, Block, Crouch, Walk, Backdash, Attack, Hitstun,
         AirAttack
     }
 	[HideInInspector]
-	public CharState state = CharState.Idle;
+	public CharState					state = CharState.Idle;
 	
-	private enum CurrentActiveAttack { LightAttack, CrouchingLightAttack, MediumAttack, CrouchingMediumAttack, HeavyAttack, CrouchingHeavyAttack, AerialLightAttack, AerialMediumAttack, AerialHeavyAttack, None }
-	CurrentActiveAttack currentActiveAttack = CurrentActiveAttack.None;
-	AttackChainQueue attackChainQueue = new AttackChainQueue();
+	private enum CurrentActiveAttack	{ LightAttack, CrouchingLightAttack, MediumAttack, CrouchingMediumAttack, HeavyAttack, CrouchingHeavyAttack, AerialLightAttack, AerialMediumAttack, AerialHeavyAttack, None }
+	CurrentActiveAttack					currentActiveAttack = CurrentActiveAttack.None;
+	AttackChainQueue					attackChainQueue = new AttackChainQueue();
 	
-	public enum DirectionFacing { Left, Right}
-	public DirectionFacing directionFacing { get; set; }
-	private enum AirDashDirection { Right, Left, Neutral }
-	private enum AirDashState { NA, Ready }
-	AirDashDirection airDashDirection;
-	AirDashState airDashState = AirDashState.Ready;
-	public static int DASHFRAMES = 0;
-	public static int AIRDASHFRAMES = 15;
-	public static float AIRDASHSPEED = .11f;
-	public static float AIRDASHVELOCITY = 10f;
-	public static int PREWALKFRAMES = 2;
-	public static float WALKSPEED = 4.5f;
-	public static float MAXAIRDRIFTSPEED = 10f;
-	public static float AIRDRIFTMULTIPLIER = .2f;
-	public static float BACKDASHSPEED = .17f;
-	public static int BACKDASHFRAMES = 12;
-	public static float MOVESPEED = 12f;
-	public static float JUMPVELOCITY = 20.5f;
-	int backdashFrames = BACKDASHFRAMES;
-	int prewalkframes = PREWALKFRAMES;
-	int airdashFrames = AIRDASHFRAMES;
-	int dashFrames = DASHFRAMES;
+	public enum DirectionFacing			{ Left, Right}
+	public DirectionFacing				directionFacing { get; set; }
+	private enum AirDashDirection		{ Right, Left, Neutral }
+	private enum AirDashState			{ NA, Ready }
+	AirDashDirection					airDashDirection;
+	AirDashState						airDashState = AirDashState.Ready;
+	public static int					DASHFRAMES = 0;
+	public static int					AIRDASHFRAMES = 15;
+	public static float					AIRDASHSPEED = .11f;
+	public static float					AIRDASHVELOCITY = 10f;
+	public static int					PREWALKFRAMES = 2;
+	public static float					WALKSPEED = 4.5f;
+	public static float					MAXAIRDRIFTSPEED = 10f;
+	public static float					AIRDRIFTMULTIPLIER = .2f;
+	public static float					BACKDASHSPEED = .17f;
+	public static int					BACKDASHFRAMES = 12;
+	public static float					MOVESPEED = 12f;
+	public static float					JUMPVELOCITY = 20.5f;
+	int									backdashFrames = BACKDASHFRAMES;
+	int									prewalkframes = PREWALKFRAMES;
+	int									airdashFrames = 0;
+	int									dashFrames = DASHFRAMES;
 	//public float movesSpeed;
-	float moveSpeed = MOVESPEED;
-	float jumpVelocity = JUMPVELOCITY;
-	float airdashSpeed = AIRDASHSPEED;
-	int hitstunFrames = 0;
-	int blockstunFrames = 0;
+	float								moveSpeed = MOVESPEED;
+	float								jumpVelocity = JUMPVELOCITY;
+	float								airdashSpeed = AIRDASHSPEED;
+	int									hitstunFrames = 0;
+	int									blockstunFrames = 0;
 
 
 	// JOYSTICK INPUTS
@@ -347,15 +107,7 @@ public class CharacterController : MonoBehaviour
 
 	public Transform target;
 
-	// ==========================================================
-	// hitbox testing
-	/*
-	public LightAttack lightAttackClass = new LightAttack();
-	private Hitbox hitbox;
-	Vector2 hitboxSize = new Vector2(5, 10); 
-	Vector2 hitboxCenter = new Vector2(0, 2);
-	*/
-	
+
 
 	public CuteAlienAttack lightAttack, mediumAttack, heavyAttack, crouchingLightAttack, crouchingMediumAttack, crouchingHeavyAttack,
 							aerialLightAttack, aerialMediumAttack, aerialHeavyAttack;
@@ -380,10 +132,7 @@ public class CharacterController : MonoBehaviour
 	bool lightDownThisFrame;
 	bool mediumDownThisFrame;
 	bool heavyDownThisFrame;
-	//bool downButtonDown;
-	//bool upButtonDown;
-	//bool leftButtonDown;
-	//bool rightButtonDown;
+
 	// =======================================================================
 	// =======================================================================
 	// Use this for initialization
@@ -415,26 +164,16 @@ public class CharacterController : MonoBehaviour
 	// This function is called just one time by Unity the moment the component loads
 	private void Awake()
 	{
-		// testing
 
-		UnityEngine.Debug.Log("health left = " + health);
 		inputSystem = ScriptableObject.CreateInstance<CustomInputSystem>();
 		joyStickInputsVertical = ScriptableObject.CreateInstance<CustomInputSystem>();
-		//hitbox = ScriptableObject.CreateInstance<Hitbox>();
-		//lightAttack = gameObject.GetComponent<CuteAlienAttack>();
+
 		// get a reference to the SpriteRenderer component on this gameObject
 		mySpriteRenderer = GetComponent<SpriteRenderer>();
-		//playerBase = gameObject.GetComponent<Player_Base>();
 		rigidbody2d = transform.GetComponent<Rigidbody2D>();
 
 		boxCollider2d = transform.GetComponent<BoxCollider2D>();
 
-		UnityEngine.Debug.Log("transform: " + transform.name);
-		//UnityEngine.Debug.Log("target: " + target.name);
-		// todo make sure this works
-		//SetTarget();
-		//target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-		// todo recomment this
 		enemyBoxCollider2d = target.GetComponent<BoxCollider2D>();
 
 
@@ -473,9 +212,7 @@ public class CharacterController : MonoBehaviour
 		bool targetSet = false;
 		GameObject[] characters;
 	
-		UnityEngine.Debug.Log("SetTargetCalled");
-		//do
-		//{
+	
 			characters = GameObject.FindGameObjectsWithTag("Player");
 			if (characters.Length <= 1)
 			{
@@ -494,10 +231,7 @@ public class CharacterController : MonoBehaviour
 					break;
 				}
 			}
-		//} while (targetSet == false);
 
-		//target = characters[1].GetComponent<Transform>();
-		//	target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 		enemyBoxCollider2d = target.GetComponent<BoxCollider2D>();
 		
 		UnityEngine.Debug.Log("SetTargetended");
@@ -506,7 +240,6 @@ public class CharacterController : MonoBehaviour
 	public void OnMove(InputAction.CallbackContext context)
 	{
 		
-		UnityEngine.Debug.Log("onmove called");
 		joystickAxis = context.ReadValue<Vector2>();
 	}
 	public void OnAirdash(InputAction.CallbackContext context)
@@ -532,8 +265,7 @@ public class CharacterController : MonoBehaviour
 
 		heavyDownThisFrame = buttonDown(context);
 	}
-	//     controls.PlayerControls.Light.performed += context => lightDownThisFrame = buttonDown(context);
-	//     controls.PlayerControls.Light.canceled += context => lightDownThisFrame = false;
+
 	bool buttonDown(InputAction.CallbackContext context)
 	{
 
@@ -552,39 +284,26 @@ public class CharacterController : MonoBehaviour
 			buttonBool = false;
 		}
 
-		//UnityEngine.Debug.Log(buttonBool);
 		return buttonBool;
 	}
 	void LateUpdate()
 	{
-		//todo delete this
-		//if (target.position != null)
-		//{
-		//UnityEngine.Debug.Log("target transform: " + target.root.name + ": " + target.GetInstanceID() + ": " + target.position);
-		//UnityEngine.Debug.Log("current transform: " + transform.root.name + ": " + transform.GetInstanceID() + ": " + transform.position);
-		//}
-
+	
 		
 		if (target.position.x < transform.position.x && state != CharState.Dashing && IsGrounded())
 		{
-			//Vector2 rotation = new Vector2(.35f, .35f);
+
 			Quaternion rotation = new Quaternion(0, 0, 0, 0);
-			//mySpriteRenderer.flipX = false;
-			//transform.localScale.x = transform.localScale.x * -1;
-			//UnityEngine.Debug.Log("flipping rotation 180");
 			transform.rotation = rotation;
 			directionFacing = DirectionFacing.Left;
 			
 		}
 		else if (target.position.x > transform.position.x && state != CharState.Dashing && IsGrounded())
 		{
-			//Vector2 rotation = new Vector2(-.35f, .35f);
 			Quaternion rotation = new Quaternion(0, 180, 0, 0);
-			//mySpriteRenderer.flipX = true;
 			transform.rotation = rotation;
 			directionFacing = DirectionFacing.Right;
-			//UnityEngine.Debug.Log("flipping rotation -180");
-			//transform.localScale.x = 1;
+
 		}
 
 
@@ -615,7 +334,6 @@ public class CharacterController : MonoBehaviour
 		setInputQueue();
 
 
-		//UnityEngine.Debug.Log(state.ToString());
 		switch (state)
 		{
 			
@@ -654,7 +372,7 @@ public class CharacterController : MonoBehaviour
 				
 				if (state == CharState.Idle && animator.GetBool("isIdle") == false)
                 {
-					UnityEngine.Debug.Log("set isidle true");
+
 					animator.SetBool("isIdle", true);
                 }
 
@@ -667,15 +385,13 @@ public class CharacterController : MonoBehaviour
 
 			case CharState.Dashing:
 
-				//if (jump()) { UnityEngine.Debug.Log("just from a dash"); }
 				jump();
 				if(state == CharState.Dashing) {
 					checkForGroundedAttack();
 				}
 				
-				if (state == CharState.Dashing)
+				if (state == CharState.Dashing && isDashing())
 				{
-					isDashing();
 					dash();
 				}
 				else{
@@ -707,6 +423,11 @@ public class CharacterController : MonoBehaviour
 					checkForAerialAttack();
 				}
 
+
+				if(state != CharState.Jump)
+                {
+					animator.SetBool("isJumping", false);
+                }
 				/*else
 				{
 					state = CharState.Jump;
@@ -727,15 +448,18 @@ public class CharacterController : MonoBehaviour
 
 				airdashAerialDrift();
 				rigidbody2d.gravityScale = 1;
-				airdashFrames--;
-
-				if (airdashFrames == 0)
+				airdashFrames++;
+				if(airdashFrames >= 7)
+                {
+					checkForAerialAttack();
+				}
+				if (airdashFrames == AIRDASHFRAMES || state != CharState.AirDash)
 				{
 					animator.SetBool("isAirdash", false);
 					animator.SetBool("isAirdashForward", false);
 					animator.SetBool("isJumping", true);
 					state = CharState.Jump;
-					airdashFrames = AIRDASHFRAMES;
+					airdashFrames = 0;
 
 					rigidbody2d.gravityScale = 5;
 
@@ -756,7 +480,7 @@ public class CharacterController : MonoBehaviour
                 {
 					crouch();
                 }
-                else
+                if(state != CharState.Crouch)
                 {
 					animator.SetBool("isCrouching", false);
                 }
@@ -793,75 +517,35 @@ public class CharacterController : MonoBehaviour
 				break;
 			case CharState.Attack:
 
-                if (currentActiveAttack == CurrentActiveAttack.None) { }
-				
-				
-				else if(currentActiveAttack == CurrentActiveAttack.LightAttack && lightAttack.chainingAttackAllowed == true)
-                {
-                    if (checkForGroundedAttack())
-                    {
-						lightAttack.followUpAttackChained = true;
-                    }
-					
-                }
-				else if(currentActiveAttack == CurrentActiveAttack.CrouchingLightAttack && crouchingLightAttack.chainingAttackAllowed == true)
-                {
-                    if (checkForGroundedAttack())
-                    {
-						crouchingLightAttack.followUpAttackChained = true;
-                    }
-                }
-				else if (currentActiveAttack == CurrentActiveAttack.MediumAttack && mediumAttack.chainingAttackAllowed == true)
-				{
-					if (checkForGroundedAttack())
-					{
-						mediumAttack.followUpAttackChained = true;
-					}
-				}
-				else if (currentActiveAttack == CurrentActiveAttack.CrouchingMediumAttack && crouchingMediumAttack.chainingAttackAllowed == true)
-				{
-					if (checkForGroundedAttack())
-					{
-						crouchingMediumAttack.followUpAttackChained = true;
-					}
-				}
-				else if (currentActiveAttack == CurrentActiveAttack.HeavyAttack && heavyAttack.chainingAttackAllowed == true)
-				{
-					if (checkForGroundedAttack())
-					{
-						heavyAttack.followUpAttackChained = true;
-					}
-					
-				}
-				else if (currentActiveAttack == CurrentActiveAttack.CrouchingHeavyAttack && crouchingHeavyAttack.chainingAttackAllowed == true)
-				{
-					//if (checkForGroundedAttack())
-					//{
-					//	crouchingHeavyAttack.followUpAttackChained = true;
-					//}
-					handleAttackFollowups(crouchingHeavyAttack, true);
-				}
-				//else if ((currentActiveAttack == CurrentActiveAttack.LightAttack && lightAttack.jumpCancelAllowed == true) ||
-				//	(currentActiveAttack == CurrentActiveAttack.CrouchingLightAttack && crouchingLightAttack.jumpCancelAllowed == true) ||
-				//	(currentActiveAttack == CurrentActiveAttack.MediumAttack && mediumAttack.jumpCancelAllowed == true) ||
-				//	(currentActiveAttack == CurrentActiveAttack.CrouchingMediumAttack && crouchingMediumAttack.jumpCancelAllowed == true) ||
-				//	(currentActiveAttack == CurrentActiveAttack.HeavyAttack && heavyAttack.jumpCancelAllowed == true) ||
-				//	(currentActiveAttack == CurrentActiveAttack.CrouchingHeavyAttack && crouchingHeavyAttack.jumpCancelAllowed == true))
-				//{
-				//	UnityEngine.Debug.Log("Jump() called");
-				//	jump();
-				//}
+				groundedAttackUpdate();
+
 				break;
 			case CharState.AirAttack:
 
 				if (currentActiveAttack == CurrentActiveAttack.None) { }
 
 
-				else if (currentActiveAttack == CurrentActiveAttack.LightAttack && aerialLightAttack.chainingAttackAllowed == true)
+				else if (currentActiveAttack == CurrentActiveAttack.AerialLightAttack && aerialLightAttack.chainingAttackAllowed == true)
 				{
-					if (checkForGroundedAttack())
+					if (checkForAerialAttack())
 					{
 						aerialLightAttack.followUpAttackChained = true;
+					}
+
+				}
+				else if (currentActiveAttack == CurrentActiveAttack.AerialMediumAttack && aerialMediumAttack.chainingAttackAllowed == true)
+				{
+					if (checkForAerialAttack())
+					{
+						aerialMediumAttack.followUpAttackChained = true;
+					}
+
+				}
+				else if (currentActiveAttack == CurrentActiveAttack.AerialHeavyAttack && aerialHeavyAttack.chainingAttackAllowed == true)
+				{
+					if (checkForAerialAttack())
+					{
+						aerialHeavyAttack.followUpAttackChained = true;
 					}
 
 				}
@@ -869,18 +553,21 @@ public class CharacterController : MonoBehaviour
 			case CharState.Block:
 
 				blockstunFrames--;
-				UnityEngine.Debug.Log("blockstun left: " + hitstunFrames);
+		
 				if (blockstunFrames <= 0)
 				{
-					setNormalState();
-					//resetAnimationState();
+					UnityEngine.Debug.Log("blockstun ended");
+					//setNormalState();
+					animator.SetBool("isCrouchBlocking", false);
+					animator.SetBool("isBlocking", false);
+					determineNextFrameState();
 				}
 				break;
 
 			case CharState.Hitstun:
 
 				hitstunFrames--;
-				UnityEngine.Debug.Log("hitstun left: " + hitstunFrames);
+
 				if(hitstunFrames <= 0)
                 {
 					setNormalState();
@@ -1117,7 +804,6 @@ public class CharacterController : MonoBehaviour
 
 		if (state == CharState.Idle && animator.GetBool("isIdle") == false)
 		{
-			UnityEngine.Debug.Log("set isidle true");
 			animator.SetBool("isIdle", true);
 		}
 
@@ -1132,19 +818,8 @@ public class CharacterController : MonoBehaviour
 		
 		//state = CharState.Idle;
 		currentActiveAttack = CurrentActiveAttack.None;
-		animator.SetTrigger("triggerReset");
+		//animator.SetTrigger("triggerReset");
 		attackChainQueue.resetQueue();
-		animator.SetBool("isJumping", false);
-		animator.SetBool("isGrounded", false);
-		//animator.SetBool("isIdle", true);
-		animator.SetBool("isRunning", false);
-		animator.SetBool("isWalking", false);
-
-		animator.SetBool("isBlocking", false);
-		animator.SetBool("isCrouchBlocking", false);
-		animator.SetBool("isCrouching", false);
-		animator.SetBool("wasHitOnGround", false);
-
 		determineNextFrameState();
 	}
     public void setNormalState()
@@ -1195,17 +870,17 @@ public class CharacterController : MonoBehaviour
 			//float jumpVelocity = 20f;
 			if ((state == CharState.Walk || state == CharState.Attack || state == CharState.Idle) && jumpInputs[0].input == "UpLeft")
 			{
-				UnityEngine.Debug.Log("diag jump");
+
 				rigidbody2d.velocity = (Vector2.left * jumpVelocity * .3f) + (Vector2.up * jumpVelocity);
 			}
 			else if ((state == CharState.Walk || state == CharState.Attack || state == CharState.Idle) && jumpInputs[0].input == "UpRight")
 			{
-				UnityEngine.Debug.Log("diag jump");
+
 				rigidbody2d.velocity = (Vector2.right * jumpVelocity * .3f) + (Vector2.up * jumpVelocity);
 			}
 			else
 			{
-				UnityEngine.Debug.Log("noormal jump");
+
 				rigidbody2d.velocity = rigidbody2d.velocity * .8f + (Vector2.up * jumpVelocity);
 			}
 
@@ -1374,23 +1049,96 @@ public class CharacterController : MonoBehaviour
 
 	public bool checkForAerialAttack()
 	{
-		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.AerialLightAttack && attackChainQueue.lightAttackUsed == false)
+		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.AerialLightAttack && attackChainQueue.aerialLightAttackUsed == false)
 		{
 
 			aerialLightAttack.attack();
 			attackChainQueue.lightAttackUsed = true;
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.LightAttack;
-			animator.SetTrigger("aerialLightAttack");
-			resetAnimationStates();
+			animator.SetTrigger("isAerialLightAttack");
+			//resetAnimationStates();
 			return true;
 		}
-        else
+		if (checkForMediumAttack() == true && currentActiveAttack != CurrentActiveAttack.AerialLightAttack && attackChainQueue.aerialMediumAttackUsed == false)
+		{
+
+			aerialLightAttack.attack();
+			attackChainQueue.lightAttackUsed = true;
+			state = CharState.Attack;
+			currentActiveAttack = CurrentActiveAttack.LightAttack;
+			animator.SetTrigger("isAerialLightAttack");
+			//resetAnimationStates();
+			return true;
+		}
+		else
         {
 			return false;
         }
 	}
 
+	public void groundedAttackUpdate()
+    {
+		if (currentActiveAttack == CurrentActiveAttack.None) { }
+
+
+		else if (currentActiveAttack == CurrentActiveAttack.LightAttack && lightAttack.chainingAttackAllowed == true)
+		{
+			if (checkForGroundedAttack())
+			{
+				lightAttack.followUpAttackChained = true;
+			}
+
+		}
+		else if (currentActiveAttack == CurrentActiveAttack.CrouchingLightAttack && crouchingLightAttack.chainingAttackAllowed == true)
+		{
+			if (checkForGroundedAttack())
+			{
+				crouchingLightAttack.followUpAttackChained = true;
+			}
+		}
+		else if (currentActiveAttack == CurrentActiveAttack.MediumAttack && mediumAttack.chainingAttackAllowed == true)
+		{
+			if (checkForGroundedAttack())
+			{
+				mediumAttack.followUpAttackChained = true;
+			}
+		}
+		else if (currentActiveAttack == CurrentActiveAttack.CrouchingMediumAttack && crouchingMediumAttack.chainingAttackAllowed == true)
+		{
+			if (checkForGroundedAttack())
+			{
+				crouchingMediumAttack.followUpAttackChained = true;
+			}
+		}
+		else if (currentActiveAttack == CurrentActiveAttack.HeavyAttack && heavyAttack.chainingAttackAllowed == true)
+		{
+			if (checkForGroundedAttack())
+			{
+				heavyAttack.followUpAttackChained = true;
+			}
+
+		}
+		else if (currentActiveAttack == CurrentActiveAttack.CrouchingHeavyAttack && crouchingHeavyAttack.chainingAttackAllowed == true)
+		{
+			//if (checkForGroundedAttack())
+			//{
+			//	crouchingHeavyAttack.followUpAttackChained = true;
+			//}
+			handleAttackFollowups(crouchingHeavyAttack, true);
+		}
+		//else if ((currentActiveAttack == CurrentActiveAttack.LightAttack && lightAttack.jumpCancelAllowed == true) ||
+		//	(currentActiveAttack == CurrentActiveAttack.CrouchingLightAttack && crouchingLightAttack.jumpCancelAllowed == true) ||
+		//	(currentActiveAttack == CurrentActiveAttack.MediumAttack && mediumAttack.jumpCancelAllowed == true) ||
+		//	(currentActiveAttack == CurrentActiveAttack.CrouchingMediumAttack && crouchingMediumAttack.jumpCancelAllowed == true) ||
+		//	(currentActiveAttack == CurrentActiveAttack.HeavyAttack && heavyAttack.jumpCancelAllowed == true) ||
+		//	(currentActiveAttack == CurrentActiveAttack.CrouchingHeavyAttack && crouchingHeavyAttack.jumpCancelAllowed == true))
+		//{
+		//	UnityEngine.Debug.Log("Jump() called");
+		//	jump();
+		//}
+
+	}
 	public bool checkForGroundedAttack()
     {
 		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.LightAttack && attackChainQueue.lightAttackUsed == false) {
@@ -1400,7 +1148,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.LightAttack;
 			animator.SetTrigger("isLightAttack");
-			resetAnimationStates();
+			//resetAnimationStates();
 			return true;
 		}
 		else if (checkForCrouchingLightAttack() == true && currentActiveAttack != CurrentActiveAttack.CrouchingLightAttack && attackChainQueue.crouchingLightAttackUsed == false) {
@@ -1410,7 +1158,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.CrouchingLightAttack;
 			animator.SetTrigger("isCrouchingLightAttack");
-			resetAnimationStates();
+			//resetAnimationStates();
 			return true;
 		}
 		else if (checkForMediumAttack() == true && currentActiveAttack != CurrentActiveAttack.MediumAttack && attackChainQueue.mediumAttackUsed == false)
@@ -1421,7 +1169,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.MediumAttack;
 			animator.SetTrigger("isMediumAttack");
-			resetAnimationStates();
+			//resetAnimationStates();
 			return true;
 		}
 		else if (checkForCrouchingMediumAttack() == true && currentActiveAttack != CurrentActiveAttack.CrouchingMediumAttack && attackChainQueue.crouchingMediumAttackUsed == false)
@@ -1432,7 +1180,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.CrouchingMediumAttack;
 			animator.SetTrigger("isCrouchingMediumAttack");
-			resetAnimationStates();
+			//resetAnimationStates();
 			return true;
 		}
 		else if (checkForHeavyAttack() == true && currentActiveAttack != CurrentActiveAttack.HeavyAttack && attackChainQueue.heavyAttackUsed == false)
@@ -1443,7 +1191,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.HeavyAttack;
 			animator.SetTrigger("isHeavyAttack");
-			resetAnimationStates();
+			//resetAnimationStates();
 			return true;
 		}
 		else if (checkForCrouchingHeavyAttack() == true && currentActiveAttack != CurrentActiveAttack.CrouchingHeavyAttack && attackChainQueue.crouchingHeavyAttackUsed == false)
@@ -1454,7 +1202,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Attack;
 			currentActiveAttack = CurrentActiveAttack.CrouchingHeavyAttack;
 			animator.SetTrigger("isCrouchingHeavyAttack");
-			resetAnimationStates();
+			//resetAnimationStates();
 			//animator.SetBool("")
 			return true;
 		}
@@ -1531,7 +1279,6 @@ public class CharacterController : MonoBehaviour
 			(joystickAxis.x > 0.5 && directionFacing == DirectionFacing.Left) ||
 			(joystickAxis.x < -0.5 && directionFacing == DirectionFacing.Right))){
 
-			UnityEngine.Debug.Log("mid attack blocked!");
 			if (joystickAxis.y < -0.5f)
 			{
 				setBlockstunState(blockStun, pushback, false);
@@ -1590,6 +1337,7 @@ public class CharacterController : MonoBehaviour
 		animator.SetBool("isJumping", false);
 		animator.SetBool("isWalking", false);
 		animator.SetBool("isIdle", false);
+		animator.SetBool("isCrouching", false);
 
 		calculateBlockstunLength(blockStun);
 		applyPushback(pushback);
@@ -1606,11 +1354,8 @@ public class CharacterController : MonoBehaviour
 		animator.SetBool("isIdle", false);
 
 
-
-		UnityEngine.Debug.Log("health left = " + health + ": " + damage);
 		health = health - damage;
 
-		UnityEngine.Debug.Log("health left = " + health + ": " + damage);
 		calculateGroundedHitsunLength(hitstun);
 		applyHitTrajectory(hitTrajectory);
 
@@ -1668,17 +1413,14 @@ public class CharacterController : MonoBehaviour
 			(state == CharState.Dashing || state == CharState.Idle || state == CharState.Walk))
 		{
 			state = CharState.Dashing;
-			//anim.SetBool("isIdle", false);
 			animator.SetBool("isRunning", true);
-			animator.SetBool("isJumping", false);
-			animator.SetBool("isGrounded", true);
-			animator.SetBool("isIdle", false);
+
+			//todo delete this
+			//animator.SetBool("isJumping", false);
+			//animator.SetBool("isGrounded", true);
+			//animator.SetBool("isIdle", false);
 			return true;
 		}
-		//else if (dashFrames != 0)
-		//{
-		//	dashFrames--;
-		//}
 		else
 		{
 			animator.SetBool("isRunning", false);
@@ -1708,11 +1450,10 @@ public class CharacterController : MonoBehaviour
 	{
 
 		// if the analog stick is being held between a certain range for a certain number of frames, PREWALKFRAMES, then start walking
-		if (prewalkframes == 0 && IsGrounded() &&
-			(joystickAxis.x > .1 || joystickAxis.x < -.1) && (joystickAxis.y > -.1))// && 
-														  //(Input.GetAxisRaw("Horizontal") < .75 || Input.GetAxisRaw("Horizontal") > -.75))
+		if (IsGrounded() && (joystickAxis.x > .1 || joystickAxis.x < -.1) && (joystickAxis.y > -.1))// prewalkframes <= 0 && 
+																									//(Input.GetAxisRaw("Horizontal") < .75 || Input.GetAxisRaw("Horizontal") > -.75))
 		{
-			UnityEngine.Debug.Log("joystickaxis.y = " + joystickAxis.y);
+			
 			//prewalkframes = PREWALKFRAMES;
 			animator.SetBool("isWalking", true);
 			animator.SetBool("isRunning", false);
@@ -1722,12 +1463,14 @@ public class CharacterController : MonoBehaviour
 
 			return true;
 		}
-		else if (IsGrounded() && (joystickAxis.x > .1 || joystickAxis.x < -.1) &&
-			 (joystickAxis.x < .75 || joystickAxis.x > -.75))
-		{
-			prewalkframes--;
-			return false;
-		}
+		// todo delet this
+		//else if (IsGrounded() && (joystickAxis.x > .1 || joystickAxis.x < -.1)) //&&
+		//	// (joystickAxis.x < .75 || joystickAxis.x > -.75))
+		//{
+		//	//UnityEngine.Debug.Log("prewalkframes: " + prewalkframes);
+		//	//prewalkframes--;
+		//	return false;
+		//}
 		else
 		{
 			prewalkframes = PREWALKFRAMES;
@@ -1890,6 +1633,7 @@ public class CharacterController : MonoBehaviour
 		else
 		{
 			rayColor = Color.red;
+			//StartCoroutine("moveOffOtherPlayer");
 			IsOnOtherPlayer(); 
 		}
         UnityEngine.Debug.DrawRay(boxCollider2d.bounds.center + new Vector3(boxCollider2d.bounds.extents.x, 0), Vector2.down * (boxCollider2d.bounds.extents.y + extraHeightText), rayColor);
@@ -1898,18 +1642,24 @@ public class CharacterController : MonoBehaviour
 
         return raycastHit.collider != null;
 	}
+
+
 	private bool IsOnOtherPlayer()
 	{
-		
-		float extraHeightText = .1f;
-		ContactFilter2D contactFilter = new ContactFilter2D();
+		Color				rayColor = Color.red;
+		Vector2				verticalNormal = new Vector2(0, 1);
+		float				extraHeightText = .1f;
+		ContactFilter2D		contactFilter = new ContactFilter2D();
+		List<RaycastHit2D>	raycastHits = new List<RaycastHit2D>();
+		Vector3				boxCastSize = boxCollider2d.bounds.size;
+
+
+		boxCastSize.x += .05f;
 		contactFilter.useTriggers = false;
 		contactFilter.SetLayerMask(playerLayerMask);
-		List<RaycastHit2D> raycastHits = new List<RaycastHit2D>();
-		int numberHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, contactFilter, raycastHits,  extraHeightText);
-		Vector2 verticalNormal = new Vector2(0, 1);
-		//UnityEngine.Debug.Log(raycastHit.normal.x + ":" + raycastHit.normal.y);
-		Color rayColor = Color.red;
+		int numberHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCastSize, 0f, Vector2.down, contactFilter, raycastHits,  extraHeightText);
+
+		UnityEngine.Debug.Log("raycastHits.Count: " + raycastHits.Count);
 		if (raycastHits.Count != 0 && rigidbody2d.velocity.y < 0.1 )
 		{
 			foreach(RaycastHit2D raycastHit in raycastHits)
@@ -1924,7 +1674,7 @@ public class CharacterController : MonoBehaviour
                     if (target.position.x > transform.position.x)
                     {
                         //float shift = target.position.x - transform.position.x;
-                        float shift = (enemyBoxCollider2d.bounds.size.x + .1f); //- (target.position.x - transform.position.x)) ;
+                        float shift = (enemyBoxCollider2d.bounds.size.x + .02f); //- (target.position.x - transform.position.x)) ;
                         transform.position = new Vector2(target.position.x - shift, transform.position.y - .2f);
                     }
                     else
@@ -1957,27 +1707,105 @@ public class CharacterController : MonoBehaviour
 		return raycastHits.Count != 0;
 	}
 
-	IEnumerator moveOffOtherCharacter()
-    {
+	//IEnumerator airDashCoroutine()
+ //   {
+
+ //   }
+	//todo can probly delete this bc i think its better to just move them off each other as fast as possible
+	IEnumerator moveOffOtherPlayer()
+	{
+		float				extraHeightText = .1f;
+		ContactFilter2D		contactFilter = new ContactFilter2D();
+		List<RaycastHit2D>	raycastHits = new List<RaycastHit2D>();
+		Vector2				originalVelocity;
+		Vector3 boxCastSize = boxCollider2d.bounds.size;
+
+
+		boxCastSize.x += .05f;
+		// set layer mask to filter out non-player pushboxes
+		contactFilter.useTriggers = false;
+		contactFilter.SetLayerMask(playerLayerMask);
+		
+		// check for collisions
+		Physics2D.BoxCast(boxCollider2d.bounds.center, boxCastSize, 0f, Vector2.down, contactFilter, raycastHits, extraHeightText);
+
+		// set this so that you only detect horizontal edges
+		Vector2 verticalNormal = new Vector2(0, 1);
+
+		Color rayColor = Color.red;
+
+		UnityEngine.Debug.Log("raycastHits.Count: " + raycastHits.Count + ", rigidbody2d.velocity.y: " + rigidbody2d.velocity.y);
+		//check if the raycast hit anything and make sure velocity is moving down.
+		if (rigidbody2d.velocity.y < 0.1)
+		{
+			originalVelocity = rigidbody2d.velocity;
+			while (raycastHits.Count > 0)
+			{
+				// reset raycastHits
+				//raycastHits.Clear();
+				// check for collisions
+				Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, contactFilter, raycastHits, extraHeightText);
+				foreach (RaycastHit2D raycastHit in raycastHits)
+				{
+					
+					// validate that the collision was with a horizontal edge that  is a pushbox
+					// TODO get rid of the pushbox name paramter
+					if (raycastHit.normal == verticalNormal && raycastHit.collider.sharedMaterial.name == "pushbox")
+					{
+						UnityEngine.Debug.Log("is on other player triggered");
+						rayColor = Color.green;
+
+						if (target.position.x > transform.position.x)
+						{
+							transform.position = new Vector2(transform.position.x - .1f, transform.position.y);
+						}
+						else
+						{
+							transform.position = new Vector2(transform.position.x + .1f, transform.position.y);
+						}
+						// only do this once per frame regardless of if there are multiple colliders detected
+						break;
+					}
+					else
+					{
+						rayColor = Color.red;
+					}
+				}
+
+				UnityEngine.Debug.Log("raycastHits.Count: " + raycastHits.Count);
+				yield return null;
+			}
+			rigidbody2d.velocity = originalVelocity;
+		}
+		
+
+		UnityEngine.Debug.DrawRay(boxCollider2d.bounds.center + new Vector3(boxCollider2d.bounds.extents.x, 0), Vector2.down * (boxCollider2d.bounds.extents.y + extraHeightText), rayColor);
+		UnityEngine.Debug.DrawRay(boxCollider2d.bounds.center - new Vector3(boxCollider2d.bounds.extents.x, 0), Vector2.down * (boxCollider2d.bounds.extents.y + extraHeightText), rayColor);
+		UnityEngine.Debug.DrawRay(boxCollider2d.bounds.center - new Vector3(boxCollider2d.bounds.extents.x, boxCollider2d.bounds.extents.y + extraHeightText), Vector2.right * (boxCollider2d.bounds.extents.x * 2f), rayColor);
+
+	}
+
+	//IEnumerator moveOffOtherCharacter()
+ //   {
 		
 	
-		if (target.position.x > transform.position.x)
-		{
-			while (IsOnOtherPlayer() == true)
-			{
-				transform.position = new Vector2(transform.position.x - .2f, transform.position.y);
-				yield return null;
-			}
-		}
-        else
-        {
-			while (IsOnOtherPlayer() == true)
-			{
-				transform.position = new Vector2(transform.position.x + .2f, transform.position.y);
-				yield return null;
-			}
-		}
-    }
+	//	if (target.position.x > transform.position.x)
+	//	{
+	//		while (IsOnOtherPlayer() == true)
+	//		{
+	//			transform.position = new Vector2(transform.position.x - .2f, transform.position.y);
+	//			yield return null;
+	//		}
+	//	}
+ //       else
+ //       {
+	//		while (IsOnOtherPlayer() == true)
+	//		{
+	//			transform.position = new Vector2(transform.position.x + .2f, transform.position.y);
+	//			yield return null;
+	//		}
+	//	}
+ //   }
 
 }
 

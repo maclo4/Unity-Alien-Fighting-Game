@@ -26,10 +26,13 @@ public class Attack : MonoBehaviour, IHitboxResponder
 	public GameObject lightAttackHitboxes;
 	public LayerMask mask;
 	public int damage = 1;
-	public int hitstunFrames = 10;
-	public int blockstunFrames = 5;
+	private int hitstunFrames = 10;
+	public int hitAdvantage = 0;
+	private int blockstunFrames = 5;
+	public int blockAdvantage = 0;
 	public int enableHitboxFrame = 0;
-	public int disableHitboxFrame = 1;
+	protected int disableHitboxFrame = 1;
+	public int activeFrames = 0;
 	public int totalFrames = 0;
 	protected int currentActiveFrame = 1;
 	public float blockPushback = 1;
@@ -61,7 +64,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 		hitboxes = lightAttackHitboxes.GetComponents<Hitbox>();
 		initializeHitboxes(hitboxes);
 		hitbox = hitboxes[0];
-
+		calculateFrameData();
 		//for (int j = 0; j < numberOfHitboxes; j++)
 		//{
 		//	hitboxes.Add(gameObject.AddComponent<Hitbox>());
@@ -76,6 +79,14 @@ public class Attack : MonoBehaviour, IHitboxResponder
 
 	}
 
+	private void calculateFrameData()
+    {
+
+		blockstunFrames = totalFrames - enableHitboxFrame + blockAdvantage;
+		hitstunFrames = totalFrames - enableHitboxFrame + hitAdvantage;
+		disableHitboxFrame = enableHitboxFrame + activeFrames + 1;
+
+    }
 	public void initializeHitboxes(Hitbox[] _hitboxes)
     {
 		foreach(Hitbox hitbox in _hitboxes)
