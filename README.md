@@ -5,8 +5,8 @@ This is a fighting game that I've been working on for fun in my free time. Its d
 
 
 ## Game Overview
-![Game Overview](https://media.giphy.com/media/zHUZ4cEaSsRiEC4eyY/giphy.gif)
-
+![Game Overview](https://media.giphy.com/media/IHRSaNCOnim1cp5eY2/giphy.gif)
+![Game Overview](https://media.giphy.com/media/w0Zu1OMDNl8LjjvHUZ/giphy.gif)
 
 ## Attack Chaining and Blocking Mid, Low, High
 ![Attack Chaining](https://media.giphy.com/media/eNnVygjtRF5vV6KqCS/giphy.gif)
