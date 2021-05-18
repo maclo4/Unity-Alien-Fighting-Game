@@ -109,8 +109,8 @@ public class CharacterController : MonoBehaviour
 
 
 
-	public CuteAlienAttack lightAttack, mediumAttack, heavyAttack, crouchingLightAttack, crouchingMediumAttack, crouchingHeavyAttack,
-							aerialLightAttack, aerialMediumAttack, aerialHeavyAttack;
+	public CuteAlienAttack lightAttack, mediumAttack, heavyAttack, crouchingLightAttack, crouchingMediumAttack, crouchingHeavyAttack;
+	public AirAttack aerialLightAttack, aerialMediumAttack, aerialHeavyAttack;
 	// ===========================================================
 
 	// variable to hold a reference to our SpriteRenderer component
@@ -596,7 +596,10 @@ public class CharacterController : MonoBehaviour
 			}
 		}
 	}
+	public void cancelAerialAttack()
+    {
 
+    }
 	// TODO MAYBE USE FIXED UPDATE AGAIN AT SOME POINT? APPARENTLY ITS BETTER FOR PHYSICS
 	/*
 	private void FixedUpdate()
@@ -1053,21 +1056,32 @@ public class CharacterController : MonoBehaviour
 		{
 
 			aerialLightAttack.attack();
-			attackChainQueue.lightAttackUsed = true;
-			state = CharState.Attack;
-			currentActiveAttack = CurrentActiveAttack.LightAttack;
+			attackChainQueue.aerialLightAttackUsed = true;
+			state = CharState.AirAttack;
+			currentActiveAttack = CurrentActiveAttack.AerialLightAttack;
 			animator.SetTrigger("isAerialLightAttack");
 			//resetAnimationStates();
 			return true;
 		}
-		if (checkForMediumAttack() == true && currentActiveAttack != CurrentActiveAttack.AerialLightAttack && attackChainQueue.aerialMediumAttackUsed == false)
+		if (checkForMediumAttack() == true && currentActiveAttack != CurrentActiveAttack.AerialMediumAttack && attackChainQueue.aerialMediumAttackUsed == false)
 		{
 
-			aerialLightAttack.attack();
-			attackChainQueue.lightAttackUsed = true;
-			state = CharState.Attack;
-			currentActiveAttack = CurrentActiveAttack.LightAttack;
-			animator.SetTrigger("isAerialLightAttack");
+			aerialMediumAttack.attack();
+			attackChainQueue.aerialMediumAttackUsed = true;
+			state = CharState.AirAttack;
+			currentActiveAttack = CurrentActiveAttack.AerialMediumAttack;
+			animator.SetTrigger("isAerialMediumAttack");
+			//resetAnimationStates();
+			return true;
+		}
+		if (checkForHeavyAttack() == true && currentActiveAttack != CurrentActiveAttack.AerialHeavyAttack && attackChainQueue.aerialHeavyAttackUsed == false)
+		{
+
+			aerialHeavyAttack.attack();
+			attackChainQueue.aerialHeavyAttackUsed = true;
+			state = CharState.AirAttack;
+			currentActiveAttack = CurrentActiveAttack.AerialHeavyAttack;
+			animator.SetTrigger("isAerialHeavyAttack");
 			//resetAnimationStates();
 			return true;
 		}
@@ -1616,15 +1630,16 @@ public class CharacterController : MonoBehaviour
 
 	}
 
-	private bool IsGrounded()
+	public bool IsGrounded()
 	{
 		//return transform.Find("GroundCheck").GetComponent<GroundCheck>().isGrounded;
 
 		
-		float extraHeightText = .1f;
-		RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, extraHeightText, platformLayerMask);
+		float				extraHeightText = .1f;
+		RaycastHit2D		raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, extraHeightText, platformLayerMask);
 
-		Color rayColor;
+		Color				rayColor;
+
 		if (raycastHit.collider != null)
 		{
 			rayColor = Color.green;

@@ -76,8 +76,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 2, y: 0.5}
-  hitboxOffset: {x: -2, y: 0.5}
+  hitboxSize: {x: 3.5, y: 0.5}
+  hitboxOffset: {x: -2, y: 0.4}
   radius: 0.5
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0.061599493, g: 1, b: 0, a: 1}
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 4973978471941700942}
+  attackHitboxes: {fileID: 4973978471941700942}
   mask:
     serializedVersion: 2
     m_Bits: 2048
@@ -154,7 +154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1481319098}
-  - component: {fileID: 1481319099}
+  - component: {fileID: 3988129214911678300}
   m_Layer: 9
   m_Name: AerialLightAttack
   m_TagString: Untagged
@@ -176,7 +176,7 @@ Transform:
   m_Father: {fileID: 5462955349380473780}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1481319099
+--- !u!114 &3988129214911678300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,21 +185,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1481319097}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
+  m_Script: {fileID: 11500000, guid: ee9b26b72425d44489a1f7dfc8f1e5f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 6583822934520215308}
+  attackHitboxes: {fileID: 6583822934520215308}
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  damage: 10
+  damage: 1
   hitAdvantage: 0
   blockAdvantage: 0
   enableHitboxFrame: 8
-  activeFrames: 0
-  totalFrames: 20
-  blockPushback: 5
+  activeFrames: 4
+  totalFrames: 26
+  blockPushback: 1
   hitTrajectory: {x: 3, y: 10}
   attacking: 0
   chainingAttackAllowed: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 492922862}
+  attackHitboxes: {fileID: 492922862}
   mask:
     serializedVersion: 2
     m_Bits: 2048
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 2862608672375813881}
+  attackHitboxes: {fileID: 2862608672375813881}
   mask:
     serializedVersion: 2
     m_Bits: 2048
@@ -598,8 +598,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 0.5, y: 2}
-  hitboxOffset: {x: -1, y: -0.5}
+  hitboxSize: {x: 2, y: 2}
+  hitboxOffset: {x: -1.7, y: 0.5}
   radius: 0.5
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0.061599493, g: 1, b: 0, a: 1}
@@ -629,7 +629,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387152963822772142}
-  m_LocalRotation: {x: 0, y: 0, z: 0.006146604, w: 0.99998116}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7485211, w: 0.66311103}
   m_LocalPosition: {x: 0.41822982, y: 0.00000007776771, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children:
@@ -683,8 +683,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 1.5, y: 0.5}
-  hitboxOffset: {x: -1.5, y: -0.5}
+  hitboxSize: {x: 2, y: 1}
+  hitboxOffset: {x: -1.6, y: -0.3}
   radius: 0.5
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
@@ -775,7 +775,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2176207463933505639}
-  m_LocalRotation: {x: 0, y: 0, z: 0.195661, w: 0.9806716}
+  m_LocalRotation: {x: 0, y: 0, z: 0.545601, w: 0.8380451}
   m_LocalPosition: {x: 0.436669, y: 0.00000003721185, z: 0}
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children:
@@ -783,67 +783,6 @@ Transform:
   m_Father: {fileID: 787226072555060826}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2188611351218957531
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5409617819071542602}
-  - component: {fileID: 6831754208319313591}
-  m_Layer: 9
-  m_Name: AerialMediumAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5409617819071542602
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2188611351218957531}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5462955349380473780}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6831754208319313591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2188611351218957531}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 6009267615548187192}
-  mask:
-    serializedVersion: 2
-    m_Bits: 2048
-  damage: 10
-  hitAdvantage: 0
-  blockAdvantage: 0
-  enableHitboxFrame: 8
-  activeFrames: 0
-  totalFrames: 20
-  blockPushback: 5
-  hitTrajectory: {x: 3, y: 10}
-  attacking: 0
-  chainingAttackAllowed: 0
-  followUpAttackChained: 0
-  jumpCancelAllowed: 0
-  blockType: 2
 --- !u!1 &2643497660179426018
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,8 +829,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 1.5, y: 0.5}
-  hitboxOffset: {x: -2.5, y: 0.5}
+  hitboxSize: {x: 1.5, y: 1}
+  hitboxOffset: {x: -1.3, y: 0}
   radius: 0.5
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
@@ -921,13 +860,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2862608672244231310}
-  m_LocalRotation: {x: -0, y: -0, z: -0.087734714, w: 0.99614394}
+  m_LocalRotation: {x: -0, y: -0, z: -0.8245447, w: 0.5657968}
   m_LocalPosition: {x: 0.401, y: -0.0045, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6316034718272531562}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10.067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1328.915}
 --- !u!1 &2862608672375813881
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,8 +913,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 1.5, y: 0.5}
-  hitboxOffset: {x: -1.5, y: 0.6}
+  hitboxSize: {x: 2, y: 0.7}
+  hitboxOffset: {x: -1.5, y: 0.5}
   radius: 0.5
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0.061599493, g: 1, b: 0, a: 1}
@@ -1141,8 +1080,8 @@ MonoBehaviour:
   - {fileID: 787226072555060826}
   - {fileID: 6977364926998465599}
   m_Bounds:
-    m_Center: {x: 0.42213613, y: -0.055899948, z: 0}
-    m_Extent: {x: 0.17605826, y: 0.30784994, z: 0}
+    m_Center: {x: 0.5662328, y: 0.09938657, z: 0}
+    m_Extent: {x: 0.22181508, y: 0.28780323, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &3344162606026810457
@@ -1241,6 +1180,67 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7120495, y: 2.2755296}
   m_EdgeRadius: 0
+--- !u!1 &3873584404603427413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6787289101814056658}
+  - component: {fileID: 404109350325022276}
+  m_Layer: 9
+  m_Name: AerialMediumAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6787289101814056658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873584404603427413}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5462955349380473780}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &404109350325022276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873584404603427413}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9b26b72425d44489a1f7dfc8f1e5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 391754035369589249}
+  attackHitboxes: {fileID: 6009267615548187192}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 1
+  hitAdvantage: 0
+  blockAdvantage: 0
+  enableHitboxFrame: 9
+  activeFrames: 4
+  totalFrames: 29
+  blockPushback: 1
+  hitTrajectory: {x: 3, y: 10}
+  attacking: 0
+  chainingAttackAllowed: 0
+  followUpAttackChained: 0
+  jumpCancelAllowed: 0
+  blockType: 2
 --- !u!1 &4003712532150429975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,9 +1468,9 @@ MonoBehaviour:
   crouchingLightAttack: {fileID: 857635426}
   crouchingMediumAttack: {fileID: 7166691033535288793}
   crouchingHeavyAttack: {fileID: 1176983388409645820}
-  aerialLightAttack: {fileID: 1481319099}
-  aerialMediumAttack: {fileID: 0}
-  aerialHeavyAttack: {fileID: 0}
+  aerialLightAttack: {fileID: 3988129214911678300}
+  aerialMediumAttack: {fileID: 404109350325022276}
+  aerialHeavyAttack: {fileID: 8872310188083286019}
 --- !u!114 &2862608671787703950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 2862608672375813881}
+  attackHitboxes: {fileID: 0}
   mask:
     serializedVersion: 2
     m_Bits: 2048
@@ -1719,67 +1719,6 @@ Transform:
   m_Father: {fileID: 8194806763677954792}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 83.087}
---- !u!1 &4460252135606830245
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3773385896891681507}
-  - component: {fileID: 3654690740839209923}
-  m_Layer: 9
-  m_Name: AerialHeavyAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3773385896891681507
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4460252135606830245}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5462955349380473780}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3654690740839209923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4460252135606830245}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f8781006dfb0e447a2efb15ada2072f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 1028912312514331337}
-  mask:
-    serializedVersion: 2
-    m_Bits: 2048
-  damage: 10
-  hitAdvantage: 0
-  blockAdvantage: 0
-  enableHitboxFrame: 8
-  activeFrames: 0
-  totalFrames: 20
-  blockPushback: 5
-  hitTrajectory: {x: 3, y: 10}
-  attacking: 0
-  chainingAttackAllowed: 0
-  followUpAttackChained: 0
-  jumpCancelAllowed: 0
-  blockType: 2
 --- !u!1 &4547071062913892720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1824,7 +1763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 1499448783851788747}
+  attackHitboxes: {fileID: 1499448783851788747}
   mask:
     serializedVersion: 2
     m_Bits: 2048
@@ -1887,14 +1826,75 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 1.5, y: 0.5}
-  hitboxOffset: {x: -2, y: -0.5}
+  hitboxSize: {x: 2, y: 0.5}
+  hitboxOffset: {x: -1.6, y: -0.5}
   radius: 0.5
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
   collidingColor: {r: 1, g: 0, b: 0.01999569, a: 1}
   collidedColor: {r: 1, g: 0, b: 0, a: 0.6039216}
   character: {fileID: 391754035369589249}
+--- !u!1 &4880593070389326462
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8854060200291642826}
+  - component: {fileID: 8872310188083286019}
+  m_Layer: 9
+  m_Name: AerialHeavyAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8854060200291642826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4880593070389326462}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5462955349380473780}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8872310188083286019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4880593070389326462}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9b26b72425d44489a1f7dfc8f1e5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController: {fileID: 391754035369589249}
+  attackHitboxes: {fileID: 1028912312514331337}
+  mask:
+    serializedVersion: 2
+    m_Bits: 2048
+  damage: 1
+  hitAdvantage: 0
+  blockAdvantage: 0
+  enableHitboxFrame: 12
+  activeFrames: 4
+  totalFrames: 33
+  blockPushback: 1
+  hitTrajectory: {x: 1, y: -10}
+  attacking: 0
+  chainingAttackAllowed: 0
+  followUpAttackChained: 0
+  jumpCancelAllowed: 0
+  blockType: 2
 --- !u!1 &4973978471941700942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1941,8 +1941,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 1.5, y: 0.5}
-  hitboxOffset: {x: -1, y: -0.5}
+  hitboxSize: {x: 1.7, y: 0.5}
+  hitboxOffset: {x: -1, y: -0.6}
   radius: 0.5
   inactiveColor: {r: 0, g: 0, b: 0, a: 0}
   collisionOpenColor: {r: 0, g: 1, b: 0.089500666, a: 1}
@@ -2082,8 +2082,8 @@ MonoBehaviour:
   - {fileID: 3442265596843816247}
   - {fileID: 244681011330996221}
   m_Bounds:
-    m_Center: {x: -0.18729843, y: -0.045187533, z: 0}
-    m_Extent: {x: 0.09498109, y: 0.31662035, z: 0}
+    m_Center: {x: 0.27283058, y: 0.05808679, z: 0}
+    m_Extent: {x: 0.29618263, y: 0.12304439, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &5596542125433084931
@@ -2109,13 +2109,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5596542125433084931}
-  m_LocalRotation: {x: -0, y: -0, z: 0.010127999, w: 0.9999488}
+  m_LocalRotation: {x: -0, y: -0, z: -0.8179453, w: 0.5752961}
   m_LocalPosition: {x: 0.4067, y: -0.005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3442265596843816247}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1081.161}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1330.241}
 --- !u!1 &6009267615548187192
 GameObject:
   m_ObjectHideFlags: 0
@@ -2162,8 +2162,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  hitboxSize: {x: 0.5, y: 2}
-  hitboxOffset: {x: -1, y: -0.5}
+  hitboxSize: {x: 2, y: 0.5}
+  hitboxOffset: {x: -2, y: 0.4}
   radius: 0.5
   inactiveColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
   collisionOpenColor: {r: 0.061599493, g: 1, b: 0, a: 1}
@@ -2336,8 +2336,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1481319098}
-  - {fileID: 5409617819071542602}
-  - {fileID: 3773385896891681507}
+  - {fileID: 6787289101814056658}
+  - {fileID: 8854060200291642826}
   m_Father: {fileID: 8194806763677954792}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2497,8 +2497,8 @@ MonoBehaviour:
   - {fileID: 244681011330996221}
   - {fileID: 6977364926998465599}
   m_Bounds:
-    m_Center: {x: 0.13861501, y: -0.10265511, z: 0}
-    m_Extent: {x: 0.1638438, y: 0.3136581, z: 0}
+    m_Center: {x: 0.27339274, y: -0.2259466, z: 0}
+    m_Extent: {x: 0.14026801, y: 0.32507902, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &6912423334840311348
@@ -2701,8 +2701,8 @@ MonoBehaviour:
   - {fileID: 6977364926998465599}
   - {fileID: 4868190519654670739}
   m_Bounds:
-    m_Center: {x: 1.238299, y: -0.19918263, z: 0}
-    m_Extent: {x: 0.43597564, y: 1.2527069, z: 0}
+    m_Center: {x: 1.1385416, y: -0.051466584, z: 0}
+    m_Extent: {x: 1.2064285, y: 0.625599, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &8238950220566015477
@@ -2806,8 +2806,8 @@ MonoBehaviour:
   - {fileID: 4868190519654670739}
   - {fileID: 2110299758473861195}
   m_Bounds:
-    m_Center: {x: 0.15723938, y: -0.3323542, z: 0}
-    m_Extent: {x: 0.92790926, y: 0.92059386, z: 0}
+    m_Center: {x: -1.8472009, y: -0.9745834, z: 0}
+    m_Extent: {x: 0.8653657, y: 1.028049, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &8252957337243297802
@@ -2886,7 +2886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 2643497660179426018}
+  attackHitboxes: {fileID: 2643497660179426018}
   mask:
     serializedVersion: 2
     m_Bits: 2048
@@ -7808,8 +7808,8 @@ MonoBehaviour:
   - {fileID: 6316034718272531562}
   - {fileID: 787226072555060826}
   m_Bounds:
-    m_Center: {x: -0.047364406, y: -0.060225606, z: 0}
-    m_Extent: {x: 0.1097279, y: 0.3097035, z: 0}
+    m_Center: {x: 0.5559273, y: 0.36606014, z: 0}
+    m_Extent: {x: 0.30467644, y: 0.13673691, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &8821166518511832309
@@ -7856,7 +7856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 391754035369589249}
-  lightAttackHitboxes: {fileID: 4735382531010547973}
+  attackHitboxes: {fileID: 4735382531010547973}
   mask:
     serializedVersion: 2
     m_Bits: 2048
@@ -7974,7 +7974,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 3658556589122228503}
   m_Bounds:
-    m_Center: {x: 1.5620061, y: -0.69145775, z: 0}
-    m_Extent: {x: 1.3192672, y: 0.48282006, z: 0}
+    m_Center: {x: 1.9919337, y: -0.619993, z: 0}
+    m_Extent: {x: 1.3669422, y: 0.23970652, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1

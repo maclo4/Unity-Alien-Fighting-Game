@@ -830,6 +830,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   characterController: {fileID: 0}
   healthBar: {fileID: 0}
+  hurtboxColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &428354657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,7 +1386,7 @@ SpriteRenderer:
   m_Size: {x: 6.4, y: 4.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &578645692
@@ -2637,6 +2638,7 @@ MonoBehaviour:
   inactiveColor: {r: 0, g: 0, b: 0, a: 0}
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
   collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  collidedColor: {r: 0, g: 0, b: 0, a: 0}
   character: {fileID: 1526459547}
 --- !u!4 &1150140975
 Transform:
@@ -3643,6 +3645,7 @@ MonoBehaviour:
   animator: {fileID: 1526459539}
   characterController: {fileID: 1526459547}
   healthBar: {fileID: 0}
+  hurtboxColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1526459545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3743,19 +3746,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
-  lightAttackHitboxes: {fileID: 1150140973}
+  attackHitboxes: {fileID: 0}
   mask:
     serializedVersion: 2
     m_Bits: 2048
   damage: 25
-  hitstunFrames: 30
-  blockstunFrames: 5
+  hitAdvantage: 0
+  blockAdvantage: 0
   enableHitboxFrame: 0
-  disableHitboxFrame: 1
+  activeFrames: 0
   totalFrames: 0
+  blockPushback: 1
+  hitTrajectory: {x: 0, y: 0}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
+  jumpCancelAllowed: 0
   blockType: 0
 --- !u!114 &1526459547
 MonoBehaviour:
@@ -3790,6 +3796,9 @@ MonoBehaviour:
   crouchingLightAttack: {fileID: 0}
   crouchingMediumAttack: {fileID: 0}
   crouchingHeavyAttack: {fileID: 0}
+  aerialLightAttack: {fileID: 0}
+  aerialMediumAttack: {fileID: 0}
+  aerialHeavyAttack: {fileID: 0}
 --- !u!61 &1526459548
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3926,6 +3935,7 @@ MonoBehaviour:
   inactiveColor: {r: 0, g: 0, b: 0, a: 0}
   collisionOpenColor: {r: 0, g: 0, b: 0, a: 0}
   collidingColor: {r: 0, g: 0, b: 0, a: 0}
+  collidedColor: {r: 0, g: 0, b: 0, a: 0}
   character: {fileID: 4960492967191432288}
 --- !u!4 &1620792425
 Transform:
@@ -4075,6 +4085,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   characterController: {fileID: 0}
   healthBar: {fileID: 0}
+  hurtboxColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1719130742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4191,19 +4202,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 0}
-  lightAttackHitboxes: {fileID: 1620792423}
+  attackHitboxes: {fileID: 0}
   mask:
     serializedVersion: 2
     m_Bits: 2048
   damage: 0
-  hitstunFrames: 10
-  blockstunFrames: 5
+  hitAdvantage: 0
+  blockAdvantage: 0
   enableHitboxFrame: 0
-  disableHitboxFrame: 1
+  activeFrames: 0
   totalFrames: 0
+  blockPushback: 1
+  hitTrajectory: {x: 0, y: 0}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
+  jumpCancelAllowed: 0
   blockType: 0
 --- !u!114 &1719130744
 MonoBehaviour:
@@ -4238,6 +4252,9 @@ MonoBehaviour:
   crouchingLightAttack: {fileID: 0}
   crouchingMediumAttack: {fileID: 0}
   crouchingHeavyAttack: {fileID: 0}
+  aerialLightAttack: {fileID: 0}
+  aerialMediumAttack: {fileID: 0}
+  aerialHeavyAttack: {fileID: 0}
 --- !u!114 &1719130745
 MonoBehaviour:
   m_ObjectHideFlags: 0

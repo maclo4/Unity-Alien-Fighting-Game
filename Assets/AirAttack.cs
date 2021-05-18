@@ -2,32 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirAttacks : Attack
+public class AirAttack : Attack
 {
     public bool isGrounded { get; set; } = false;
     
     public void Update()
     {
-       if(isGrounded == true || currentActiveFrame > totalFrames || followUpAttackChained == true)
+        isGrounded = characterController.IsGrounded();
+        UnityEngine.Debug.Log("isGrounded: " + isGrounded);
+
+        if (isGrounded == true || currentActiveFrame > totalFrames || followUpAttackChained == true)
         {
             if (followUpAttackChained == false)
             {
                 UnityEngine.Debug.Log("setnormalstate from attack update");
-
+                // characterController.cancelAerialAttack();
                 characterController.setNormalState();
 
                 followUpAttackChained = false;
             }
 
-            currentActiveFrame = 0;
-            enabled = false;
-            chainingAttackAllowed = false;
-            followUpAttackChained = false;
-            jumpCancelAllowed = false;
-            return;
+        currentActiveFrame = 0;
+        enabled = false;
+        chainingAttackAllowed = false;
+        followUpAttackChained = false;
+        jumpCancelAllowed = false;
+
+        return;
         }
         //Debug.Log("current frame: " + currentActiveFrame);
-       else if (currentActiveFrame == disableHitboxFrame)
+        else if (currentActiveFrame == disableHitboxFrame)
         {
             hitboxes[0].stopCheckingCollision();
             UnityEngine.Debug.Log("Stop checking collision");

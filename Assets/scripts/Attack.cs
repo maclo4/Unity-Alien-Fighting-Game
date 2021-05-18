@@ -23,7 +23,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 {
 
 	public CharacterController characterController;
-	public GameObject lightAttackHitboxes;
+	public GameObject attackHitboxes;
 	public LayerMask mask;
 	public int damage = 1;
 	private int hitstunFrames = 10;
@@ -61,7 +61,7 @@ public class Attack : MonoBehaviour, IHitboxResponder
 	{
 		enabled = false;
 		//hitboxes = gameObject.GetComponents<Hitbox>();
-		hitboxes = lightAttackHitboxes.GetComponents<Hitbox>();
+		hitboxes = attackHitboxes.GetComponents<Hitbox>();
 		initializeHitboxes(hitboxes);
 		hitbox = hitboxes[0];
 		calculateFrameData();
