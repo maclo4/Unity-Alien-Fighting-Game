@@ -29,9 +29,15 @@ public class CuteAlienAttack : Attack
                 
                characterController.setNormalState();
                 
-                followUpAttackChained = false;
+               // followUpAttackChained = false;
+                
+            }
+            else
+            {
+                hitboxes[0].stopCheckingCollision();
             }
           
+
             currentActiveFrame = 0;
             enabled = false;
             chainingAttackAllowed = false;

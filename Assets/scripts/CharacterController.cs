@@ -392,10 +392,12 @@ public class CharacterController : MonoBehaviour
 				
 				if (state == CharState.Dashing && isDashing())
 				{
-					dash();
+					
+					continueDashing();
 				}
 				else{
-					animator.SetBool("isDashing", false);
+					UnityEngine.Debug.Log("dashing else statement called!!");
+					animator.SetBool("isRunning", false);
                 }
 
 
@@ -468,9 +470,9 @@ public class CharacterController : MonoBehaviour
 		
 			case CharState.Crouch:
 
-				if (state == CharState.Crouch)
+				if (checkForGroundedAttack())
 				{
-					checkForGroundedAttack();
+					animator.SetBool("isCrouching", false);
 				}
 				if (state == CharState.Crouch)
 				{
@@ -490,7 +492,15 @@ public class CharacterController : MonoBehaviour
 
 				//dash();
 				jump();
-				if(state == CharState.Walk)
+				if (state == CharState.Walk)
+				{
+					dash();
+				}
+				if (state == CharState.Walk)
+				{
+					backDash();
+				}
+				if (state == CharState.Walk)
                 {
 					checkForGroundedAttack();
                 }
@@ -922,9 +932,13 @@ public class CharacterController : MonoBehaviour
 	}
 	// TODO: CHANGE TO VOID
 	// TODO: CHANGE ALL MOVEMENT FORMULAS TO USE TIME SINCE LAST FRAME SO THAT MOVEMENT WILL BE CONSISTENT	
+	// TODO: REWORK THIS PIECE OF TRASH
 	private bool dash()
 	{
-
+		if (airdashDownThisFrame)
+		{
+			UnityEngine.Debug.Log("airdashdownthisframe: " + airdashDownThisFrame);
+		}
 		//store the 2 most recent inputs to check if they are left-left or right-right
 		List<InputTime> dashInputs = new List<InputTime>();
 		dashInputs = inputQueue.getTopInputs(2);
@@ -934,23 +948,25 @@ public class CharacterController : MonoBehaviour
 			elapsedTime = getElapsedTimeBetweenInputs(dashInputs[0].elapsedMilliseconds, dashInputs[1].elapsedMilliseconds);
 		}
 
-
+	
 		if ((state != CharState.Dashing && state != CharState.Idle && state != CharState.Walk) || dashInputs.Count != 2 || elapsedTime == -1)
 		{
 			return false;
 		}
 		// if you are running in the direction of the other character
 		// check that the analog stick is far enough towards 1 and that it is in the direction of the enemy
-		else if (elapsedTime < 250 &&
-				((dashInputs[0].input == "Right" && dashInputs[1].input == "Right" && joystickAxis.x > .85 && target.position.x > transform.position.x) ||
-				(dashInputs[0].input == "Left" && dashInputs[1].input == "Left" && joystickAxis.x < -.85 && target.position.x < transform.position.x)))
+		
+		else if (((airdashDownThisFrame || (elapsedTime < 250 && dashInputs[0].input == "Right" && dashInputs[1].input == "Right")) 
+						&& joystickAxis.x > .85 && target.position.x > transform.position.x) ||
+				((airdashDownThisFrame || (elapsedTime < 250 && dashInputs[0].input == "Left" && dashInputs[1].input == "Left")) 
+						&& joystickAxis.x < -.85 && target.position.x < transform.position.x))
 		{
 
 			// set the correct animations and state
 			state = CharState.Dashing;
 			animator.SetBool("isRunning", true);
-			animator.SetBool("isJumping", false);
-			animator.SetBool("isWalking", false);
+			//animator.SetBool("isJumping", false);
+			//animator.SetBool("isWalking", false);
 
 			// apply velocity to the rigidbody in the direction of the enemy
 			if (target.position.x > transform.position.x)
@@ -973,6 +989,43 @@ public class CharacterController : MonoBehaviour
 		}
 
 
+
+	}
+	private void continueDashing()
+	{
+		if (joystickAxis.x > .85 && target.position.x > transform.position.x)
+		{
+			rigidbody2d.velocity = Vector2.right * moveSpeed;
+		}
+		else if (joystickAxis.x < -.85 && target.position.x < transform.position.x)
+		{
+			rigidbody2d.velocity = Vector2.left * moveSpeed;
+		}
+	}
+	// TODO REWORK THIS THIS IS SO BAD AND MAKES NO SENSE
+	// TODO CHANGE TO VOID
+	private bool isDashing()
+	{
+		UnityEngine.Debug.Log("rigidbody2d.velocity.x: " + rigidbody2d.velocity.x);
+		if (IsGrounded() && (rigidbody2d.velocity.x > 10 || rigidbody2d.velocity.x < -10) &&
+			(state == CharState.Dashing || state == CharState.Idle || state == CharState.Walk))
+		{
+			state = CharState.Dashing;
+			animator.SetBool("isRunning", true);
+
+			//todo delete this
+			//animator.SetBool("isJumping", false);
+			//animator.SetBool("isGrounded", true);
+			//animator.SetBool("isIdle", false);
+			return true;
+		}
+		else
+		{
+			animator.SetBool("isRunning", false);
+			state = CharState.Idle;
+			dashFrames = DASHFRAMES;
+			return false;
+		}
 
 	}
 	// TODO CHANGE TO VOID
@@ -1016,6 +1069,7 @@ public class CharacterController : MonoBehaviour
 		}
 
 	}
+
 	void executeBackdash()
 	{
 
@@ -1419,31 +1473,7 @@ public class CharacterController : MonoBehaviour
     }
 	
 
-	// TODO CHANGE TO VOID
-	private bool isDashing()
-	{
-
-		if (IsGrounded() && (rigidbody2d.velocity.x > 10 || rigidbody2d.velocity.x < -10) &&
-			(state == CharState.Dashing || state == CharState.Idle || state == CharState.Walk))
-		{
-			state = CharState.Dashing;
-			animator.SetBool("isRunning", true);
-
-			//todo delete this
-			//animator.SetBool("isJumping", false);
-			//animator.SetBool("isGrounded", true);
-			//animator.SetBool("isIdle", false);
-			return true;
-		}
-		else
-		{
-			animator.SetBool("isRunning", false);
-			state = CharState.Idle;
-			dashFrames = DASHFRAMES;
-			return false;
-		}
-
-	}
+	
 
 	private void walk()
 	{
@@ -1531,6 +1561,11 @@ public class CharacterController : MonoBehaviour
 
 	private bool checkForAirdash()
     {
+		// todo delet this
+        if (airdashDownThisFrame)
+        {
+			UnityEngine.Debug.Log("airdashdownthisframe: " + airdashDownThisFrame);
+        }
 		if (airdashDownThisFrame && airDashState == AirDashState.Ready && transform.position.y > 1.25)
         {
 			return true;
@@ -1674,14 +1709,13 @@ public class CharacterController : MonoBehaviour
 		contactFilter.SetLayerMask(playerLayerMask);
 		int numberHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCastSize, 0f, Vector2.down, contactFilter, raycastHits,  extraHeightText);
 
-		UnityEngine.Debug.Log("raycastHits.Count: " + raycastHits.Count);
 		if (raycastHits.Count != 0 && rigidbody2d.velocity.y < 0.1 )
 		{
 			foreach(RaycastHit2D raycastHit in raycastHits)
             {
 				if(raycastHit.normal == verticalNormal && raycastHit.collider.sharedMaterial.name == "pushbox")
                 {
-					UnityEngine.Debug.Log("is on other player triggered");
+					
 					rayColor = Color.green;
 
                     //StartCoroutine("moveOffOtherCharacter");
@@ -1749,7 +1783,7 @@ public class CharacterController : MonoBehaviour
 
 		Color rayColor = Color.red;
 
-		UnityEngine.Debug.Log("raycastHits.Count: " + raycastHits.Count + ", rigidbody2d.velocity.y: " + rigidbody2d.velocity.y);
+		
 		//check if the raycast hit anything and make sure velocity is moving down.
 		if (rigidbody2d.velocity.y < 0.1)
 		{
@@ -1767,7 +1801,7 @@ public class CharacterController : MonoBehaviour
 					// TODO get rid of the pushbox name paramter
 					if (raycastHit.normal == verticalNormal && raycastHit.collider.sharedMaterial.name == "pushbox")
 					{
-						UnityEngine.Debug.Log("is on other player triggered");
+						
 						rayColor = Color.green;
 
 						if (target.position.x > transform.position.x)
@@ -1787,7 +1821,7 @@ public class CharacterController : MonoBehaviour
 					}
 				}
 
-				UnityEngine.Debug.Log("raycastHits.Count: " + raycastHits.Count);
+				
 				yield return null;
 			}
 			rigidbody2d.velocity = originalVelocity;

@@ -19,14 +19,20 @@ public class AirAttack : Attack
                 // characterController.cancelAerialAttack();
                 characterController.setNormalState();
 
-                followUpAttackChained = false;
+            }
+            if(isGrounded == true || followUpAttackChained == true)
+            {
+                hitboxes[0].stopCheckingCollision();
+                //followUpAttackChained = false;
             }
 
-        currentActiveFrame = 0;
-        enabled = false;
-        chainingAttackAllowed = false;
-        followUpAttackChained = false;
-        jumpCancelAllowed = false;
+           // hitboxes[0].stopCheckingCollision();
+            isGrounded = false;
+            currentActiveFrame = 0;
+            enabled = false;
+            chainingAttackAllowed = false;
+            followUpAttackChained = false;
+            jumpCancelAllowed = false;
 
         return;
         }
