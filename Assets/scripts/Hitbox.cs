@@ -78,7 +78,7 @@ public class Hitbox : MonoBehaviour
                 _state = ColliderState.Colliding;
                 _responder?.collisionedWith(collider);
                 Debug.Log(collider.gameObject); // todo this isnt tested
-
+                break;
                 // We should do something with the colliders
             }
             else

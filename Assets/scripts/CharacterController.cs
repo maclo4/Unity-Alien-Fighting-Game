@@ -346,7 +346,7 @@ public class CharacterController : MonoBehaviour
 				}
 				if (state == CharState.Idle)
 				{
-					backDash();
+					beginBackDash();
 				}
 				// jumping is allowed, handles checking for jumps as well
 				if (state == CharState.Idle)
@@ -402,7 +402,25 @@ public class CharacterController : MonoBehaviour
 
 
 				break;
+			case CharState.Backdash:
 
+				if (backdashFrames >= 0)
+				{
+					backdashFrames--;
+					executeBackdash();
+				}
+				else
+				{
+					state = CharState.Idle;
+					animator.SetBool("isBackDashing", false);
+					backdashFrames = BACKDASHFRAMES;
+					
+				}
+				//if (backDashUpdate())
+				//{
+				//	executeBackdash();
+				//}
+				break;
 
 			case CharState.Jump:
 
@@ -498,7 +516,7 @@ public class CharacterController : MonoBehaviour
 				}
 				if (state == CharState.Walk)
 				{
-					backDash();
+					beginBackDash();
 				}
 				if (state == CharState.Walk)
                 {
@@ -518,13 +536,7 @@ public class CharacterController : MonoBehaviour
 					animator.SetBool("isWalking", false);
                 }
 				break;
-			case CharState.Backdash:
-				
-				if (isBackDash())
-				{
-					executeBackdash();
-				}
-				break;
+			
 			case CharState.Attack:
 
 				groundedAttackUpdate();
@@ -791,7 +803,7 @@ public class CharacterController : MonoBehaviour
 		}
 		if (state == CharState.Idle)
 		{
-			backDash();
+			beginBackDash();
 		}
 		// jumping is allowed, handles checking for jumps as well
 		if (state == CharState.Idle)
@@ -1029,7 +1041,7 @@ public class CharacterController : MonoBehaviour
 
 	}
 	// TODO CHANGE TO VOID
-	private bool backDash()
+	private bool beginBackDash()
 	{
 		//store the 2 most recent inputs to check if they are left-left or right-right
 		List<InputTime> dashInputs = new List<InputTime>();
@@ -1050,16 +1062,17 @@ public class CharacterController : MonoBehaviour
 			return false;
 		}
 
-		else if (elapsedTime < 250 && timeSinceInput < 3 && ((dashInputs[0].input == "Right" && dashInputs[1].input == "Right" && joystickAxis.x > .85 && target.position.x < transform.position.x) ||
-				(dashInputs[0].input == "Left" && dashInputs[1].input == "Left" && joystickAxis.x < -.85 && target.position.x > transform.position.x)))
+		else if (
+			((airdashDownThisFrame == true || elapsedTime < 250 && timeSinceInput < 3 && dashInputs[0].input == "Right" && dashInputs[1].input == "Right")		// check for valid dash inputs
+						&& joystickAxis.x > .85 && target.position.x < transform.position.x) ||																	// check that direction facing is correct
+			((airdashDownThisFrame == true || elapsedTime < 250 && timeSinceInput < 3 && dashInputs[0].input == "Left" && dashInputs[1].input == "Left")		// check for valid dash inputs
+						&& joystickAxis.x < -.85 && target.position.x > transform.position.x)	)																// check that direction facing is correct
 		{
 			// set the correct animations and state
 			state = CharState.Backdash;
-			animator.SetBool("isRunning", false);
 			animator.SetBool("isBackDashing", true);
-			animator.SetBool("isJumping", false);
-			animator.SetBool("isWalking", false);
 
+			//animator.SetBool("isRunning", false); //animator.SetBool("isJumping", false); //animator.SetBool("isWalking", false);
 
 			return true;
 		}
@@ -1070,6 +1083,7 @@ public class CharacterController : MonoBehaviour
 
 	}
 
+	// todo: possibly make this velocity not transform
 	void executeBackdash()
 	{
 
@@ -1087,7 +1101,8 @@ public class CharacterController : MonoBehaviour
 
 	}
 	// TODO CHANGE TO VOID
-	private bool isBackDash()
+	// TODO DELET THIS
+	private bool backDashUpdate()
 	{
 		if (backdashFrames >= 0)
 		{
