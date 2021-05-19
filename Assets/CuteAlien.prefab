@@ -1143,7 +1143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8614487244398959516
 Transform:
   m_ObjectHideFlags: 0
@@ -1265,6 +1265,7 @@ GameObject:
   - component: {fileID: 2862608671787703951}
   - component: {fileID: 4321515649303786166}
   - component: {fileID: 6964975132560592484}
+  - component: {fileID: 2233495057572055211}
   m_Layer: 9
   m_Name: CuteAlien
   m_TagString: Player
@@ -1464,11 +1465,14 @@ MonoBehaviour:
   state: 0
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
+  boxColliderTrigger: {fileID: 2862608671787704051}
   hurtbox: {fileID: 2869088856334382176}
-  platform: {fileID: 6074106577219932166, guid: f30fa8efa0e62f44a8510695d9c02f89,
+  pushbox: {fileID: 3898720017182672302}
+  platformPrefab: {fileID: 6074106577219932166, guid: f30fa8efa0e62f44a8510695d9c02f89,
     type: 3}
+  grid: {fileID: 0}
   health: 1000
-  target: {fileID: 0}
+  target: {fileID: 8614487244398959516}
   lightAttack: {fileID: 7088198657076884048}
   mediumAttack: {fileID: 2052387389}
   heavyAttack: {fileID: 948173565796778190}
@@ -1679,6 +1683,32 @@ MonoBehaviour:
   renderer: {fileID: 2397829377594933695}
   fadeOut: 0
   fadeIn: 0
+--- !u!61 &2233495057572055211
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4003712532150429975}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.40171432}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 5.319372}
+  m_EdgeRadius: 0
 --- !u!1 &4007089093849565634
 GameObject:
   m_ObjectHideFlags: 0

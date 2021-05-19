@@ -107,6 +107,10 @@ public class CustomInputSystem : ScriptableObject
 		//UnityEngine.Debug.Log("getaxisbuttondown last value was false so return current value= " + currentInputValue + Input.GetAxis(axisName));
 		return platformButtonDown;
 	}
+	public bool getPlatformDownLastFrame()
+    {
+		return lastPlatformState;
+    }
 	public bool getLightDownThisFrame(bool lightButtonDown)
 	{
 

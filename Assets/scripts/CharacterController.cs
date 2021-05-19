@@ -99,8 +99,14 @@ public class CharacterController : MonoBehaviour
 	// todo make private
 	private BoxCollider2D				boxCollider2d;
 	public BoxCollider2D				enemyBoxCollider2d;
+	public BoxCollider2D				boxColliderTrigger;
 	public BoxCollider2D				hurtbox;
-	public GameObject					platform;
+	public BoxCollider2D				pushbox;
+	public GameObject					platformPrefab;
+	private GameObject					currentPlatform;
+	private List<GameObject>			platformList;
+	public Grid							grid;
+	//public BoxCollider2D				currentPlatformBoxCollider;
 	float								dirX, dirY;
 	Animator							animator;
 
@@ -135,7 +141,9 @@ public class CharacterController : MonoBehaviour
 	bool								mediumDownThisFrame;
 	bool								heavyDownThisFrame;
 	bool								platformDownThisFrame;
-
+	bool								platformDown;
+	bool								platformDownLastFrame;
+	bool								platformHalfInstantiated;
 	// =======================================================================
 	// =======================================================================
 	// Use this for initialization
@@ -167,7 +175,8 @@ public class CharacterController : MonoBehaviour
 	// This function is called just one time by Unity the moment the component loads
 	private void Awake()
 	{
-
+		GameObject gridObject = GameObject.Find("GridScript");
+		grid = gridObject.GetComponent<Grid>();
 		inputSystem = ScriptableObject.CreateInstance<CustomInputSystem>();
 		joyStickInputsVertical = ScriptableObject.CreateInstance<CustomInputSystem>();
 
@@ -178,7 +187,7 @@ public class CharacterController : MonoBehaviour
 		boxCollider2d = transform.GetComponent<BoxCollider2D>();
 
 		enemyBoxCollider2d = target.GetComponent<BoxCollider2D>();
-
+		platformList = new List<GameObject>();
 
 		// TODO: UNCOMMENT THIS
 		//controls = new InputMaster();
@@ -270,7 +279,8 @@ public class CharacterController : MonoBehaviour
 	}
 	public void OnPlatformButton(InputAction.CallbackContext context)
     {
-		platformDownThisFrame = buttonDown(context);
+		platformDown = buttonDown(context);
+		UnityEngine.Debug.Log("platformdown: " + platformDown);
 	}
 
 	bool buttonDown(InputAction.CallbackContext context)
@@ -330,7 +340,9 @@ public class CharacterController : MonoBehaviour
 		lightDownThisFrame = inputSystem.getLightDownThisFrame(lightDownThisFrame);
 		mediumDownThisFrame = inputSystem.getMediumDownThisFrame(mediumDownThisFrame);
 		heavyDownThisFrame = inputSystem.getHeavyDownThisFrame(heavyDownThisFrame);
-		platformDownThisFrame = inputSystem.getPlatformDownThisFrame(platformDownThisFrame);
+		platformDownLastFrame = inputSystem.getPlatformDownLastFrame();
+		platformDownThisFrame = inputSystem.getPlatformDownThisFrame(platformDown);
+		
 		//UnityEngine.Debug.Log("HorizontalDown: " + horizontalDownThisFrame);
 		/*
 		if (pauseController.isPaused)
@@ -342,6 +354,7 @@ public class CharacterController : MonoBehaviour
 		setInputQueue();
 
 		spawnPlatform();
+		dropThroughPlatform();
 		switch (state)
 		{
 			
@@ -1312,11 +1325,147 @@ public class CharacterController : MonoBehaviour
 		return false;
     }
 
+	private void dropThroughPlatform()
+    {
+		
+		//	Vector3 centerPoint = new Vector3(placedPlatformBoxCollider.offset.x, placedPlatformBoxCollider.offset.y, 0f);
+		//	Vector3 worldPos = transform.TransformPoint(placedPlatformBoxCollider.offset);
+
+		//	float top = worldPos.y + (size.y / 2f);
+		//	float btm = worldPos.y - (size.y / 2f);
+		if (platformDown == true && joystickAxis.y < -.5)
+		{
+			UnityEngine.Debug.Log("platformList.Count: " + platformList.Count);
+			foreach (GameObject platform in platformList) {
+				BoxCollider2D platformBoxCollider = platform.GetComponent<BoxCollider2D>();
+				if (platformBoxCollider.IsTouching(boxColliderTrigger))
+				{
+					Physics2D.IgnoreCollision(boxCollider2d, platformBoxCollider, true);
+
+				}
+				
+			}
+		}
+
+
+	}
+	void OnTriggerExit2D(Collider2D other)
+	{
+		Physics2D.IgnoreCollision(boxCollider2d, other, false);
+	}
+	private Vector3 calculatePlatformGridPlacement()
+    {
+		Vector3 nearestPoint = grid.GetNearestPointOnGrid(new Vector3(transform.position.x, transform.position.y - (boxCollider2d.size.y / 2), transform.position.z)); // change back to pushbox maybe
+		return nearestPoint;
+		//BoxCollider2D tempPlatformBoxCollider = platformPrefab.GetComponent<BoxCollider2D>();
+
+		//float yPosition = (float)Math.Round(transform.position.y - (pushbox.size.y / 2));
+		//float xPosition = transform.position.x;
+
+		//if(joystickAxis.x > .75)
+  //      {
+		//	xPosition = xPosition + .75f;
+  //      }
+		//else if(joystickAxis.x < -.75)
+  //      {
+		//	xPosition = xPosition - .75f;
+  //      }
+		//float leftEdge = (int)transform.position.x - (tempPlatformBoxCollider.size.x /2);
+		//float rightEdge = (int)transform.position.x + (tempPlatformBoxCollider.size.x / 2);
+		
+		//foreach (GameObject platform in platformList)
+		//{
+			
+
+		//	BoxCollider2D placedPlatformBoxCollider = platform.GetComponent<BoxCollider2D>();
+		//	float placePlatformLeftEdge = platform.transform.position.x - (placedPlatformBoxCollider.size.x / 2);
+		//	float placePlatformRightEdge = platform.transform.position.x + (placedPlatformBoxCollider.size.x / 2);
+
+		//	Vector2 size = placedPlatformBoxCollider.size;
+		//	Vector3 centerPoint = new Vector3(placedPlatformBoxCollider.offset.x, placedPlatformBoxCollider.offset.y, 0f);
+		//	Vector3 worldPos = transform.TransformPoint(placedPlatformBoxCollider.offset);
+
+		//	float top = worldPos.y + (size.y / 2f);
+		//	float btm = worldPos.y - (size.y / 2f);
+		//	float left = worldPos.x - (size.x / 2f);
+		//	float right = worldPos.x + (size.x / 2f);
+
+		//	if (yPosition == platform.transform.position.y &&
+		//		transform.position.x <= right &&
+		//		transform.position.x >= left )
+		//	{
+		//		if (transform.position.x <= right)
+		//		{
+		//			xPosition = right;
+		//		}
+  //              else
+  //              {
+		//			xPosition = left;
+		//		}
+
+		//	}
+		
+
+		//}
+		//return new Vector3(xPosition, yPosition, transform.position.z);
+
+	}
 	private void spawnPlatform()
     {
-		if (platformDownThisFrame == true)
+
+		//if joystick is down we drop through, not spawn
+		if (joystickAxis.y >= -.5)
 		{
-			Instantiate(platform, transform.position, Quaternion.identity);
+			//UnityEngine.Debug.Log("platformDown: " + platformDown + ", platformDownLastFrame: " + platformDownLastFrame);
+			if (platformDownThisFrame == true)
+			{
+				UnityEngine.Debug.Log("transform.position.z: " + transform.position.z);
+				//platformHalfInstantiated = true;
+				currentPlatform = Instantiate(platformPrefab, calculatePlatformGridPlacement(), Quaternion.identity);
+
+
+				UnityEngine.Debug.Log("platformDown: " + platformDown + ", platformDownLastFrame: " + platformDownLastFrame);
+			}
+			else if (platformDown == true && platformDownLastFrame == true)
+			{
+
+				currentPlatform.transform.position = calculatePlatformGridPlacement();
+				if (currentPlatform.transform.position.y <= 1)
+				{
+					SpriteRenderer tempSpriteRenderer = currentPlatform.GetComponent<SpriteRenderer>();
+					Color tempColor = tempSpriteRenderer.color;
+					tempColor.r = .75f;
+					tempColor.g = 0f;
+					tempColor.b = 0f;
+					tempSpriteRenderer.color = tempColor;
+				}
+				else
+				{
+					SpriteRenderer tempSpriteRenderer = currentPlatform.GetComponent<SpriteRenderer>();
+					Color tempColor = tempSpriteRenderer.color;
+					tempColor.r = 1f;
+					tempColor.g = 1f;
+					tempColor.b = 1f;
+					tempSpriteRenderer.color = tempColor;
+				}
+			}
+			else if (platformDown == false && platformDownLastFrame == true && currentPlatform.transform.position.y > 1)
+			{
+				BoxCollider2D tempPlatformBoxCollider = currentPlatform.GetComponent<BoxCollider2D>();
+				SpriteRenderer tempSpriteRenderer = currentPlatform.GetComponent<SpriteRenderer>();
+				Color tempColor = tempSpriteRenderer.color;
+				tempColor.a = 1f;
+				UnityEngine.Debug.Log("tempcolor: " + tempColor);
+				tempPlatformBoxCollider.enabled = true;
+				platformList.Add(currentPlatform);
+				tempSpriteRenderer.color = tempColor;
+			}
+			else if (platformDown == false && platformDownLastFrame == true && currentPlatform.transform.position.y <= 1)
+			{
+				UnityEngine.Debug.Log("transform.position.y: " + transform.position.y);
+				platformList.Remove(currentPlatform);
+				Destroy(currentPlatform);
+			}
 		}
 	}
     private void resetAnimationStates()

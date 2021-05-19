@@ -293,7 +293,7 @@ PrefabInstance:
     - target: {fileID: 4188018819674383570, guid: f0198464b1820a142860b9b7f7384018,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4188018819674383570, guid: f0198464b1820a142860b9b7f7384018,
         type: 3}
@@ -784,7 +784,7 @@ Transform:
   m_Children:
   - {fileID: 837644680}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &389834692
 BoxCollider2D:
@@ -2399,7 +2399,7 @@ PrefabInstance:
     - target: {fileID: 2235753848416635675, guid: 1207f4022d3bee8468dc21587b130c78,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2235753848416635675, guid: 1207f4022d3bee8468dc21587b130c78,
         type: 3}
@@ -2748,7 +2748,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167062356}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 0}
+  m_CellSize: {x: 1, y: 2, z: 0}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
@@ -3225,7 +3225,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1356914541
 MonoBehaviour:
@@ -3471,7 +3471,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1377070925
 MonoBehaviour:
@@ -3859,7 +3859,9 @@ MonoBehaviour:
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
   hurtbox: {fileID: 1526459548}
-  platform: {fileID: 0}
+  pushbox: {fileID: 0}
+  platformPrefab: {fileID: 0}
+  grid: {fileID: 0}
   health: 100
   target: {fileID: 389834690}
   lightAttack: {fileID: 0}
@@ -4321,7 +4323,9 @@ MonoBehaviour:
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
   hurtbox: {fileID: 0}
-  platform: {fileID: 0}
+  pushbox: {fileID: 0}
+  platformPrefab: {fileID: 0}
+  grid: {fileID: 0}
   health: 100
   target: {fileID: 0}
   lightAttack: {fileID: 0}
@@ -4496,7 +4500,7 @@ Transform:
   - {fileID: 728195489}
   - {fileID: 223427263}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1757654188
 GameObject:
@@ -5326,6 +5330,50 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 10}
   m_EdgeRadius: 0
+--- !u!1 &1994918794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1994918796}
+  - component: {fileID: 1994918795}
+  m_Layer: 0
+  m_Name: GridScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1994918795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994918794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f5b8f7a90642e548a3846de792d96fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 2
+--- !u!4 &1994918796
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994918794}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2004157250
 GameObject:
   m_ObjectHideFlags: 0
@@ -5609,7 +5657,7 @@ PrefabInstance:
     - target: {fileID: 6074106577219932163, guid: f30fa8efa0e62f44a8510695d9c02f89,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6074106577219932163, guid: f30fa8efa0e62f44a8510695d9c02f89,
         type: 3}
@@ -5703,7 +5751,7 @@ PrefabInstance:
     - target: {fileID: 8194806763677954792, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8194806763677954792, guid: 95732db0a060fde49848195e778e303f,
         type: 3}
