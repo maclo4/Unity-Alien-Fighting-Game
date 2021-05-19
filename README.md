@@ -6,7 +6,16 @@ This is a fighting game that I've been working on for fun in my free time. Its d
 
 ## Game Overview
 ![Game Overview](https://media.giphy.com/media/IHRSaNCOnim1cp5eY2/giphy.gif)
+
+General attacks and blocking
+
 ![Game Overview](https://media.giphy.com/media/w0Zu1OMDNl8LjjvHUZ/giphy.gif)
+
+Gameplay with hit and hurtboxes visible
+
+![Game Overview](https://media.giphy.com/media/3FwVQJ8Srudsk8jFWp/giphy.gif)
+
+Newly added: platforms? and the camera moves now with the characters
 
 ## Attack Chaining and Blocking Mid, Low, High
 ![Attack Chaining](https://media.giphy.com/media/eNnVygjtRF5vV6KqCS/giphy.gif)
