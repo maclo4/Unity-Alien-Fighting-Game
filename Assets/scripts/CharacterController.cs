@@ -1816,7 +1816,7 @@ public class CharacterController : MonoBehaviour
         {
 			UnityEngine.Debug.Log("airdashdownthisframe: " + airdashDownThisFrame);
         }
-		if (airdashDownThisFrame && airDashState == AirDashState.Ready && transform.position.y > 1.25)
+		if (airdashDownThisFrame && airDashState == AirDashState.Ready && transform.position.y > .25)
         {
 			return true;
         }

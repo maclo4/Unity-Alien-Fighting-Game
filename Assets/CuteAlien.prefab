@@ -1265,7 +1265,6 @@ GameObject:
   - component: {fileID: 2862608671787703951}
   - component: {fileID: 4321515649303786166}
   - component: {fileID: 6964975132560592484}
-  - component: {fileID: 2233495057572055211}
   m_Layer: 9
   m_Name: CuteAlien
   m_TagString: Player
@@ -1300,6 +1299,7 @@ Transform:
   - {fileID: 1701986895209114805}
   - {fileID: 1538930935}
   - {fileID: 5462955349380473780}
+  - {fileID: 6637462607588816138}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1465,7 +1465,7 @@ MonoBehaviour:
   state: 0
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
-  boxColliderTrigger: {fileID: 2862608671787704051}
+  boxColliderTrigger: {fileID: 3248763278886141032}
   hurtbox: {fileID: 2869088856334382176}
   pushbox: {fileID: 3898720017182672302}
   platformPrefab: {fileID: 6074106577219932166, guid: f30fa8efa0e62f44a8510695d9c02f89,
@@ -1683,32 +1683,6 @@ MonoBehaviour:
   renderer: {fileID: 2397829377594933695}
   fadeOut: 0
   fadeIn: 0
---- !u!61 &2233495057572055211
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4003712532150429975}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.40171432}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2, y: 5.319372}
-  m_EdgeRadius: 0
 --- !u!1 &4007089093849565634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2005,6 +1979,63 @@ MonoBehaviour:
   collidingColor: {r: 1, g: 0, b: 0.01999569, a: 1}
   collidedColor: {r: 1, g: 0, b: 0, a: 0.6039216}
   character: {fileID: 391754035369589249}
+--- !u!1 &5055728572113532800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6637462607588816138}
+  - component: {fileID: 3248763278886141032}
+  m_Layer: 9
+  m_Name: BoxColliderTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6637462607588816138
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055728572113532800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8194806763677954792}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &3248763278886141032
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055728572113532800}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: f62fc70d3f8341e44a97c882980defed, type: 2}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.017471194, y: 0.9072764}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.9699628, y: 4.814553}
+  m_EdgeRadius: 0
 --- !u!1 &5181790535294817254
 GameObject:
   m_ObjectHideFlags: 0

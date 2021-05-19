@@ -3858,6 +3858,7 @@ MonoBehaviour:
   state: 0
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
+  boxColliderTrigger: {fileID: 0}
   hurtbox: {fileID: 1526459548}
   pushbox: {fileID: 0}
   platformPrefab: {fileID: 0}
@@ -4322,6 +4323,7 @@ MonoBehaviour:
   state: 0
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
+  boxColliderTrigger: {fileID: 0}
   hurtbox: {fileID: 0}
   pushbox: {fileID: 0}
   platformPrefab: {fileID: 0}
@@ -5359,7 +5361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f5b8f7a90642e548a3846de792d96fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: 2
+  size: 1.75
 --- !u!4 &1994918796
 Transform:
   m_ObjectHideFlags: 0
