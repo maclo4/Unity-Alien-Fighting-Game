@@ -73,6 +73,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Platform"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd200141-6b06-4eb6-8217-173ff1d04476"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -174,6 +182,17 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""Heavy Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8cc5d03-ab62-4a82-83d3-0b5c2b68750e"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Platform"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -189,6 +208,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerControls_Light = m_PlayerControls.FindAction("Light", throwIfNotFound: true);
         m_PlayerControls_MediumAttack = m_PlayerControls.FindAction("Medium Attack", throwIfNotFound: true);
         m_PlayerControls_HeavyAttack = m_PlayerControls.FindAction("Heavy Attack", throwIfNotFound: true);
+        m_PlayerControls_Platform = m_PlayerControls.FindAction("Platform", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -245,6 +265,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerControls_Light;
     private readonly InputAction m_PlayerControls_MediumAttack;
     private readonly InputAction m_PlayerControls_HeavyAttack;
+    private readonly InputAction m_PlayerControls_Platform;
     public struct PlayerControlsActions
     {
         private @InputMaster m_Wrapper;
@@ -256,6 +277,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Light => m_Wrapper.m_PlayerControls_Light;
         public InputAction @MediumAttack => m_Wrapper.m_PlayerControls_MediumAttack;
         public InputAction @HeavyAttack => m_Wrapper.m_PlayerControls_HeavyAttack;
+        public InputAction @Platform => m_Wrapper.m_PlayerControls_Platform;
         public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -286,6 +308,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @HeavyAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnHeavyAttack;
                 @HeavyAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnHeavyAttack;
                 @HeavyAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnHeavyAttack;
+                @Platform.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPlatform;
+                @Platform.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPlatform;
+                @Platform.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPlatform;
             }
             m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
             if (instance != null)
@@ -311,6 +336,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @HeavyAttack.started += instance.OnHeavyAttack;
                 @HeavyAttack.performed += instance.OnHeavyAttack;
                 @HeavyAttack.canceled += instance.OnHeavyAttack;
+                @Platform.started += instance.OnPlatform;
+                @Platform.performed += instance.OnPlatform;
+                @Platform.canceled += instance.OnPlatform;
             }
         }
     }
@@ -324,5 +352,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnLight(InputAction.CallbackContext context);
         void OnMediumAttack(InputAction.CallbackContext context);
         void OnHeavyAttack(InputAction.CallbackContext context);
+        void OnPlatform(InputAction.CallbackContext context);
     }
 }

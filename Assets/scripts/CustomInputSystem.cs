@@ -5,17 +5,18 @@ using UnityEngine;
 public class CustomInputSystem : ScriptableObject
 {
 
-	bool lastXAxisState = false;
-	bool lastYAxisState = false;
-	bool currentYAxisState = false;
-	bool currentXAxisState = false;
+	bool			lastXAxisState = false;
+	bool			lastYAxisState = false;
+	bool			currentYAxisState = false;
+	bool			currentXAxisState = false;
 
 
-	bool lastAirdashState = false;
+	bool			lastAirdashState = false;
 
-	bool lastLightState = false;
-	bool lastMediumState = false;
-	bool lastHeavyState = false;
+	bool			lastLightState = false;
+	bool			lastMediumState = false;
+	bool			lastHeavyState = false;
+	bool			lastPlatformState = false;
 	/// <summary>
 	/// Gets the axis input like an on key down event, returning <c>true</c> only 
 	/// on the first press, after this return <c>false</c> until the next press. 
@@ -87,6 +88,24 @@ public class CustomInputSystem : ScriptableObject
 
 		//UnityEngine.Debug.Log("getaxisbuttondown last value was false so return current value= " + currentInputValue + Input.GetAxis(axisName));
 		return airdashButtonDown;
+	}
+	public bool getPlatformDownThisFrame(bool platformButtonDown)
+	{
+
+
+
+		// prevent keep returning true when axis still pressed.
+		if (platformButtonDown && lastPlatformState)
+		{
+			//UnityEngine.Debug.Log("getaxisbuttondown return false bc last input was true= " + lastInputAxisState);
+			return false;
+		}
+
+
+		lastPlatformState = platformButtonDown;
+
+		//UnityEngine.Debug.Log("getaxisbuttondown last value was false so return current value= " + currentInputValue + Input.GetAxis(axisName));
+		return platformButtonDown;
 	}
 	public bool getLightDownThisFrame(bool lightButtonDown)
 	{

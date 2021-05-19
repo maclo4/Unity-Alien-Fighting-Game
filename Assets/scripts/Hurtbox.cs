@@ -20,7 +20,7 @@ public class Hurtbox : MonoBehaviour
         Gizmos.color = hurtboxColor;
 
     }
-    public bool getHitBy(int damage, int hitstun, int blockstun, float pushback, Vector2 hitTrajectory, BlockType blockType)
+    public bool getHitBy(int damage, int hitstun, int blockstun, float pushback, Vector2 hitTrajectory, BlockType blockType, HitType hitType)
     {
 
         // Do something with the damage and the state
@@ -30,7 +30,7 @@ public class Hurtbox : MonoBehaviour
         {
             // apply hitstun if attack was NOT blocked
 
-            characterController.setHitstunState(damage, hitstun, hitTrajectory); //TODO change pushback to something trajectory
+            characterController.setHitstunState(damage, hitstun, hitTrajectory, hitType); //TODO change pushback to something trajectory
             healthBar.TryGetComponent<TMPro.TextMeshProUGUI>(out TMPro.TextMeshProUGUI healthText);
             healthText.text = (characterController.health.ToString() + "/100");
             return true;

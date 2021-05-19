@@ -11,6 +11,7 @@ public class InitializeScene : MonoBehaviour
     GameObject[] players;
     public GameObject p1Healthbar;
     public GameObject p2Healthbar;
+    public CameraMovement cameraMovement;
 
     private readonly string selectedCharacter = "SelectedCharacter";
     private readonly string player1Gamepad = "Player1Gamepad";
@@ -55,8 +56,8 @@ public class InitializeScene : MonoBehaviour
             player2 = PlayerInput.Instantiate(characters[characterIndex], 1, null, -1, gamepads[player2GamepadIndex]);
         }
 
-        player1.transform.position = new Vector2(-3, 0);
-        player2.transform.position = new Vector2(3, 0);
+        player1.transform.position = new Vector3(-3, 0, -1);
+        player2.transform.position = new Vector3(3, 0, -1);
 
         //if(player1.gameObject.TryGetComponent<StickManController>(out StickManController playerController1))
         //{
@@ -68,6 +69,8 @@ public class InitializeScene : MonoBehaviour
         // todo get rid of find object and just use player1 and player2.gameobject
         players = GameObject.FindGameObjectsWithTag("Player");
         Debug.Log("Players.Count: " + players.Length);
+        cameraMovement.player1 = players[0];
+        cameraMovement.player2 = players[1];
         // players[0].transform.position = new Vector2(-10, 0);
 
         //players[1].

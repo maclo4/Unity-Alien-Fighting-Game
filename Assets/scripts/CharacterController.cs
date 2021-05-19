@@ -69,14 +69,15 @@ public class CharacterController : MonoBehaviour
 	public static float					AIRDRIFTMULTIPLIER = .2f;
 	public static float					BACKDASHSPEED = .17f;
 	public static int					BACKDASHFRAMES = 12;
-	public static float					MOVESPEED = 12f;
+	public static float					RUNSPEED = 12f;
+	public static float					INITIALDASHSPEED = 16f;
 	public static float					JUMPVELOCITY = 20.5f;
 	int									backdashFrames = BACKDASHFRAMES;
 	int									prewalkframes = PREWALKFRAMES;
 	int									airdashFrames = 0;
 	int									dashFrames = DASHFRAMES;
 	//public float movesSpeed;
-	float								moveSpeed = MOVESPEED;
+	float								runSpeed = INITIALDASHSPEED;
 	float								jumpVelocity = JUMPVELOCITY;
 	float								airdashSpeed = AIRDASHSPEED;
 	int									hitstunFrames = 0;
@@ -84,37 +85,38 @@ public class CharacterController : MonoBehaviour
 
 
 	// JOYSTICK INPUTS
-	CustomInputSystem inputSystem;
-	CustomInputSystem joyStickInputsVertical;
-	private string[] keys = new string[] { "Jump", "Joystick", "Airdash", "Light", "Medium", "Heavy" };
-	private InputBuffer inputQueue;
+	CustomInputSystem					inputSystem;
+	CustomInputSystem					joyStickInputsVertical;
+	private string[]					keys = new string[] { "Jump", "Joystick", "Airdash", "Light", "Medium", "Heavy" };
+	private InputBuffer					inputQueue;
 
 	// PAUSE SCRIPT
-	public PauseController pauseController;
+	public PauseController				pauseController;
 
 	//private Player_Base playerBase;
-	private Rigidbody2D rigidbody2d;
+	private Rigidbody2D					rigidbody2d;
 
 	// todo make private
-	private BoxCollider2D boxCollider2d;
-	public BoxCollider2D enemyBoxCollider2d;
-	public BoxCollider2D hurtbox;
-	float dirX, dirY;
-	Animator animator;
+	private BoxCollider2D				boxCollider2d;
+	public BoxCollider2D				enemyBoxCollider2d;
+	public BoxCollider2D				hurtbox;
+	public GameObject					platform;
+	float								dirX, dirY;
+	Animator							animator;
 
-	public int health = 100;
+	public int							health = 100;
 	// POSSIBLY DELETE BUT THIS IS FOR LOOKING AT THE OTHER CHARACTER
 
-	public Transform target;
+	public Transform					target;
 
 
 
-	public CuteAlienAttack lightAttack, mediumAttack, heavyAttack, crouchingLightAttack, crouchingMediumAttack, crouchingHeavyAttack;
-	public AirAttack aerialLightAttack, aerialMediumAttack, aerialHeavyAttack;
+	public CuteAlienAttack				lightAttack, mediumAttack, heavyAttack, crouchingLightAttack, crouchingMediumAttack, crouchingHeavyAttack;
+	public AirAttack					aerialLightAttack, aerialMediumAttack, aerialHeavyAttack;
 	// ===========================================================
 
 	// variable to hold a reference to our SpriteRenderer component
-	private SpriteRenderer mySpriteRenderer;
+	private SpriteRenderer				mySpriteRenderer;
 
 
 	// =======================================================================
@@ -123,15 +125,16 @@ public class CharacterController : MonoBehaviour
 	// TODO uncomment this
 	InputMaster controls;
 	//PlayerInput controls;
-	Vector2 joystickAxis;
-	float left;
+	Vector2								joystickAxis;
+	float								left;
 
-	bool airdashDownThisFrame;
-	bool horizontalDownThisFrame;
-	bool verticalDownThisFrame;
-	bool lightDownThisFrame;
-	bool mediumDownThisFrame;
-	bool heavyDownThisFrame;
+	bool								airdashDownThisFrame;
+	bool								horizontalDownThisFrame;
+	bool								verticalDownThisFrame;
+	bool								lightDownThisFrame;
+	bool								mediumDownThisFrame;
+	bool								heavyDownThisFrame;
+	bool								platformDownThisFrame;
 
 	// =======================================================================
 	// =======================================================================
@@ -265,6 +268,10 @@ public class CharacterController : MonoBehaviour
 
 		heavyDownThisFrame = buttonDown(context);
 	}
+	public void OnPlatformButton(InputAction.CallbackContext context)
+    {
+		platformDownThisFrame = buttonDown(context);
+	}
 
 	bool buttonDown(InputAction.CallbackContext context)
 	{
@@ -322,7 +329,8 @@ public class CharacterController : MonoBehaviour
 		airdashDownThisFrame = inputSystem.getAirdashDownThisFrame(airdashDownThisFrame);
 		lightDownThisFrame = inputSystem.getLightDownThisFrame(lightDownThisFrame);
 		mediumDownThisFrame = inputSystem.getMediumDownThisFrame(mediumDownThisFrame);
-
+		heavyDownThisFrame = inputSystem.getHeavyDownThisFrame(heavyDownThisFrame);
+		platformDownThisFrame = inputSystem.getPlatformDownThisFrame(platformDownThisFrame);
 		//UnityEngine.Debug.Log("HorizontalDown: " + horizontalDownThisFrame);
 		/*
 		if (pauseController.isPaused)
@@ -333,7 +341,7 @@ public class CharacterController : MonoBehaviour
 		// get inputs each frame and add them to the queue
 		setInputQueue();
 
-
+		spawnPlatform();
 		switch (state)
 		{
 			
@@ -385,17 +393,22 @@ public class CharacterController : MonoBehaviour
 
 			case CharState.Dashing:
 
+				if (runSpeed >= RUNSPEED)
+				{
+					runSpeed = runSpeed - .7f;
+				}
 				jump();
 				if(state == CharState.Dashing) {
 					checkForGroundedAttack();
 				}
 				
-				if (state == CharState.Dashing && isDashing())
+				if (state == CharState.Dashing && continueDashing())
 				{
 					
-					continueDashing();
+					
 				}
 				else{
+					runSpeed = INITIALDASHSPEED;
 					UnityEngine.Debug.Log("dashing else statement called!!");
 					animator.SetBool("isRunning", false);
                 }
@@ -404,7 +417,11 @@ public class CharacterController : MonoBehaviour
 				break;
 			case CharState.Backdash:
 
-				if (backdashFrames >= 0)
+				if (state == CharState.Backdash)
+				{
+					crouch();
+				}
+				if (backdashFrames >= 0 && state == CharState.Backdash)
 				{
 					backdashFrames--;
 					executeBackdash();
@@ -574,10 +591,12 @@ public class CharacterController : MonoBehaviour
 				break;
 			case CharState.Block:
 
+
 				blockstunFrames--;
 		
 				if (blockstunFrames <= 0)
 				{
+					
 					UnityEngine.Debug.Log("blockstun ended");
 					//setNormalState();
 					animator.SetBool("isCrouchBlocking", false);
@@ -592,8 +611,10 @@ public class CharacterController : MonoBehaviour
 
 				if(hitstunFrames <= 0)
                 {
-					setNormalState();
-
+					//setNormalState();
+					animator.SetBool("wasHitOnGround", false);
+					animator.SetBool("wasHitByLauncher", false);
+					determineNextFrameState();
                 }
 				break;
 		}
@@ -601,27 +622,6 @@ public class CharacterController : MonoBehaviour
 
 	}
 
-	public void handleAttackFollowups(CuteAlienAttack cuteAlienAttack, bool isJumpCancelable)
-    {
-		if (checkForGroundedAttack())
-		{
-			cuteAlienAttack.followUpAttackChained = true;
-		}
-		else if (cuteAlienAttack.jumpCancelAllowed == true)
-		{
-			bool executedJump = jump();
-			if(executedJump == true)
-            {
-				cuteAlienAttack.followUpAttackChained = true;
-				attackChainQueue.resetQueue();
-				currentActiveAttack = CurrentActiveAttack.None;
-			}
-		}
-	}
-	public void cancelAerialAttack()
-    {
-
-    }
 	// TODO MAYBE USE FIXED UPDATE AGAIN AT SOME POINT? APPARENTLY ITS BETTER FOR PHYSICS
 	/*
 	private void FixedUpdate()
@@ -979,20 +979,20 @@ public class CharacterController : MonoBehaviour
 			animator.SetBool("isRunning", true);
 			//animator.SetBool("isJumping", false);
 			//animator.SetBool("isWalking", false);
+			
+            // apply velocity to the rigidbody in the direction of the enemy
+            //if (target.position.x > transform.position.x)
+            //{
+            //    rigidbody2d.velocity = Vector2.right * dashSpeed;
+            //}
+            //else
+            //{
+            //    rigidbody2d.velocity = Vector2.left * dashSpeed;
+            //}
 
-			// apply velocity to the rigidbody in the direction of the enemy
-			if (target.position.x > transform.position.x)
-			{
-				rigidbody2d.velocity = Vector2.right * moveSpeed;
-			}
-			else
-			{
-				rigidbody2d.velocity = Vector2.left * moveSpeed;
-			}
-
-			// return true to say that the requirements for running were met
-			// TODO: THIS COULD PROBABLY BE LEFT OUT AND JUST USE THE CHARSTATE INSTEAD
-			return true;
+            // return true to say that the requirements for running were met
+            // TODO: THIS COULD PROBABLY BE LEFT OUT AND JUST USE THE CHARSTATE INSTEAD
+            return true;
 		}
 
 		else
@@ -1003,22 +1003,32 @@ public class CharacterController : MonoBehaviour
 
 
 	}
-	private void continueDashing()
+	private bool continueDashing()
 	{
+
 		if (joystickAxis.x > .85 && target.position.x > transform.position.x)
 		{
-			rigidbody2d.velocity = Vector2.right * moveSpeed;
+			rigidbody2d.velocity = Vector2.right * runSpeed;
+			return true;
 		}
 		else if (joystickAxis.x < -.85 && target.position.x < transform.position.x)
 		{
-			rigidbody2d.velocity = Vector2.left * moveSpeed;
+			rigidbody2d.velocity = Vector2.left * runSpeed;
+			return true;
+		}
+        else
+        {
+			animator.SetBool("isRunning", false);
+			dashFrames = DASHFRAMES;
+			determineNextFrameState();
+			return false;
 		}
 	}
 	// TODO REWORK THIS THIS IS SO BAD AND MAKES NO SENSE
 	// TODO CHANGE TO VOID
 	private bool isDashing()
 	{
-		UnityEngine.Debug.Log("rigidbody2d.velocity.x: " + rigidbody2d.velocity.x);
+	
 		if (IsGrounded() && (rigidbody2d.velocity.x > 10 || rigidbody2d.velocity.x < -10) &&
 			(state == CharState.Dashing || state == CharState.Idle || state == CharState.Walk))
 		{
@@ -1091,11 +1101,11 @@ public class CharacterController : MonoBehaviour
 		// apply velocity to the rigidbody in the direction of the enemy
 		if (target.position.x > transform.position.x)
 		{
-			transform.position = new Vector2(transform.position.x + (BACKDASHSPEED * -1), transform.position.y);
+			transform.position = new Vector3(transform.position.x + (BACKDASHSPEED * -1), transform.position.y, transform.position.z);
 		}
 		else
 		{
-			transform.position = new Vector2(transform.position.x + BACKDASHSPEED, transform.position.y);
+			transform.position = new Vector3(transform.position.x + BACKDASHSPEED, transform.position.y, transform.position.z);
 		}
 
 
@@ -1118,7 +1128,24 @@ public class CharacterController : MonoBehaviour
 		}
 	}
 
-
+	public void handleAttackFollowups(CuteAlienAttack cuteAlienAttack, bool isJumpCancelable)
+	{
+		if (checkForGroundedAttack())
+		{
+			cuteAlienAttack.followUpAttackChained = true;
+		}
+		else if (cuteAlienAttack.jumpCancelAllowed == true)
+		{
+			bool executedJump = jump();
+			if (executedJump == true)
+			{
+				cuteAlienAttack.followUpAttackChained = true;
+				attackChainQueue.resetQueue();
+				currentActiveAttack = CurrentActiveAttack.None;
+			}
+		}
+	}
+	
 	public bool checkForAerialAttack()
 	{
 		if (checkForLightAttack() == true && currentActiveAttack != CurrentActiveAttack.AerialLightAttack && attackChainQueue.aerialLightAttackUsed == false)
@@ -1167,18 +1194,11 @@ public class CharacterController : MonoBehaviour
 
 		else if (currentActiveAttack == CurrentActiveAttack.LightAttack && lightAttack.chainingAttackAllowed == true)
 		{
-			if (checkForGroundedAttack())
-			{
-				lightAttack.followUpAttackChained = true;
-			}
-
+			handleAttackFollowups(lightAttack, true);
 		}
 		else if (currentActiveAttack == CurrentActiveAttack.CrouchingLightAttack && crouchingLightAttack.chainingAttackAllowed == true)
 		{
-			if (checkForGroundedAttack())
-			{
-				crouchingLightAttack.followUpAttackChained = true;
-			}
+			handleAttackFollowups(crouchingLightAttack, false);
 		}
 		else if (currentActiveAttack == CurrentActiveAttack.MediumAttack && mediumAttack.chainingAttackAllowed == true)
 		{
@@ -1292,6 +1312,13 @@ public class CharacterController : MonoBehaviour
 		return false;
     }
 
+	private void spawnPlatform()
+    {
+		if (platformDownThisFrame == true)
+		{
+			Instantiate(platform, transform.position, Quaternion.identity);
+		}
+	}
     private void resetAnimationStates()
     {
 		animator.SetBool("isRunning", false);
@@ -1355,13 +1382,32 @@ public class CharacterController : MonoBehaviour
 		return false;
 	}
 
+	// todo delet this or use them instead of these ^^
+	private bool checkForStandingAttack(bool attack)
+	{
+		if (attack && joystickAxis.y > -.2)
+		{
+			return true;
+		}
+		return false;
+	}
+	private bool checkForCrouchingAttack(bool attack)
+    {
+		if (attack && joystickAxis.y <= -.2)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	public bool wasAttackBlocked(BlockType blockType, int blockStun, float pushback)
     {
+
 		//holding back, attack hits mid
 		if(blockType == BlockType.Mid && (
 			(joystickAxis.x > 0.5 && directionFacing == DirectionFacing.Left) ||
 			(joystickAxis.x < -0.5 && directionFacing == DirectionFacing.Right))){
-
+			UnityEngine.Debug.Log("mid hit blocked");
 			if (joystickAxis.y < -0.5f)
 			{
 				setBlockstunState(blockStun, pushback, false);
@@ -1377,15 +1423,15 @@ public class CharacterController : MonoBehaviour
 			(joystickAxis.x > 0.5 && joystickAxis.y < -0.5f && directionFacing == DirectionFacing.Left) || 
 			(joystickAxis.x < -0.5 && joystickAxis.y < -0.5f && directionFacing == DirectionFacing.Right))) // target.position.x < transform.position.x
 		{
-
+			UnityEngine.Debug.Log("low hit blocked");
 			setBlockstunState(blockStun, pushback, false);
 			return true;
 		}
 		// holding back but not down, attack hits overhead
 		else if(blockType == BlockType.Overhead && 
-			(joystickAxis.x > 0.5 && joystickAxis.y >= -0.5f && directionFacing == DirectionFacing.Left) ||
-			(joystickAxis.x < -0.5 && joystickAxis.y >= -0.5f && directionFacing == DirectionFacing.Right)) {
-
+			((joystickAxis.x > 0.5 && joystickAxis.y >= -0.5f && directionFacing == DirectionFacing.Left) ||
+			(joystickAxis.x < -0.5 && joystickAxis.y >= -0.5f && directionFacing == DirectionFacing.Right))) {
+			UnityEngine.Debug.Log("overhead hit blocked");
 			setBlockstunState(blockStun, pushback, true);
 			return true;
 		}
@@ -1426,21 +1472,49 @@ public class CharacterController : MonoBehaviour
 		applyPushback(pushback);
 	}
 
-	public void setHitstunState(int damage, int hitstun, Vector2 hitTrajectory)
+	public void setHitstunState(int damage, int hitstun, Vector2 hitTrajectory, HitType hitType)
     {
 		state = CharState.Hitstun;
-		animator.SetBool("wasHitOnGround", true);
+		//animator.SetBool("wasHitOnGround", true);
+		UnityEngine.Debug.Log("hittype: + " + hitType.ToString());
+		//todo delet this
 		animator.SetBool("isRunning", false);
 		animator.SetBool("isBackDashing", false);
 		animator.SetBool("isJumping", false);
 		animator.SetBool("isWalking", false);
 		animator.SetBool("isIdle", false);
+		animator.SetBool("isCrouching", false);
+		if (hitType == HitType.Aerial && IsGrounded() == true)
+		{
+			hitTrajectory.y = 0;
+			animator.SetBool("wasHitOnGround", true);
+			animator.SetTrigger("beginHitstun");
+		}
+		else if (hitType == HitType.Spike && IsGrounded() == true)
+		{
+			hitTrajectory.y = hitTrajectory.y * -1;
+			animator.SetBool("wasHitByLauncher", true);
+			animator.SetTrigger("beginHitstun");
+			//do special ground slam animation
+		}
+		else if (hitType == HitType.Launcher)
+		{
+			UnityEngine.Debug.Log("doing launcher animation");
+			animator.SetBool("wasHitByLauncher", true);
+			animator.SetTrigger("beginHitstun");
+			// do launcher animation
+		}
+		else
+		{
+			animator.SetBool("wasHitOnGround", true);
+			animator.SetTrigger("beginHitstun");
+		}
 
 
 		health = health - damage;
 
 		calculateGroundedHitsunLength(hitstun);
-		applyHitTrajectory(hitTrajectory);
+		applyHitTrajectory(hitTrajectory, hitType);
 
 		if (health <= 0)
 		{
@@ -1460,35 +1534,47 @@ public class CharacterController : MonoBehaviour
 		hitstunFrames = hitstun;
     }
 
-	public void applyHitTrajectory(Vector2 hitTrajectory)
+	//todo get rid of if else
+	public void applyHitTrajectory(Vector2 hitTrajectory, HitType hitType)
     {
-		if (directionFacing == DirectionFacing.Left)
-		{
-			rigidbody2d.AddForce(hitTrajectory, ForceMode2D.Impulse);
-			//rigidbody2d.velocity =  hitTrajectory;
-		}
-		else
-		{
-			hitTrajectory.x *= -1;
-			//rigidbody2d.velocity =  hitTrajectory;
-            
-            rigidbody2d.AddForce(hitTrajectory, ForceMode2D.Impulse);
-        }
+		
+		rigidbody2d.velocity = Vector2.zero;
+		rigidbody2d.AddForce(hitTrajectory, ForceMode2D.Impulse);
+		//if (directionFacing == DirectionFacing.Left)
+		//{
+		//	rigidbody2d.velocity =Vector2.zero;
+		//	rigidbody2d.AddForce(hitTrajectory, ForceMode2D.Impulse);
+		//	//rigidbody2d.velocity =  hitTrajectory;
+		//}
+		//else
+		//{
+		//	rigidbody2d.velocity = Vector2.zero;
+		//	//hitTrajectory.x *= -1;
+		//	//rigidbody2d.velocity =  hitTrajectory;
+
+		//          rigidbody2d.AddForce(hitTrajectory, ForceMode2D.Impulse);
+		//      }
 	}
+	//todo get rid of if else
 	public void applyPushback(float pushback)
     {
-		if (directionFacing == DirectionFacing.Left)
-		{
-			rigidbody2d.AddForce(new Vector2(pushback, 0), ForceMode2D.Impulse);
-		}
-        else
-        {
-			rigidbody2d.AddForce(new Vector2(pushback * -1, 0), ForceMode2D.Impulse);
-		}
-    }
-	
+		rigidbody2d.velocity = Vector2.zero;
+		rigidbody2d.AddForce(new Vector2(pushback, 0), ForceMode2D.Impulse);
 
-	
+		//if (directionFacing == DirectionFacing.Left)
+		//{
+		//	rigidbody2d.velocity = Vector2.zero;
+		//	rigidbody2d.AddForce(new Vector2(pushback, 0), ForceMode2D.Impulse);
+		//}
+		//      else
+		//      {
+		//	rigidbody2d.velocity = Vector2.zero;
+		//	rigidbody2d.AddForce(new Vector2(pushback * -1, 0), ForceMode2D.Impulse);
+		//}
+	}
+
+
+
 
 	private void walk()
 	{
@@ -1497,7 +1583,7 @@ public class CharacterController : MonoBehaviour
 			state = CharState.Walk;
 			animator.SetBool("isWalking", true);
 
-			transform.position = new Vector2(transform.position.x + (WALKSPEED * joystickAxis.x * Time.deltaTime), transform.position.y);
+			transform.position = new Vector3(transform.position.x + (WALKSPEED * joystickAxis.x * Time.deltaTime), transform.position.y, transform.position.z);
 
 		}
 
@@ -1596,7 +1682,7 @@ public class CharacterController : MonoBehaviour
 		if (airDashDirection == AirDashDirection.Right)
 		{
             //rigidbody2d.velocity = (Vector2.right * AIRDASHVELOCITY * .5f) + (Vector2.up * jumpVelocity * .2f);
-            transform.position = new Vector2(transform.position.x + AIRDASHSPEED, transform.position.y);
+            transform.position = new Vector3(transform.position.x + AIRDASHSPEED, transform.position.y, transform.position.z);
             rigidbody2d.velocity = Vector2.right * AIRDASHVELOCITY;
             //AIRDASHSPEED;
 
@@ -1605,7 +1691,7 @@ public class CharacterController : MonoBehaviour
 		{
 			rigidbody2d.velocity = Vector2.left * AIRDASHVELOCITY;
 			//AIRDASHSPEED;
-			transform.position = new Vector2(transform.position.x - AIRDASHSPEED, transform.position.y);
+			transform.position = new Vector3(transform.position.x - AIRDASHSPEED, transform.position.y, transform.position.z);
 
 		}
 
@@ -1739,13 +1825,13 @@ public class CharacterController : MonoBehaviour
                     {
                         //float shift = target.position.x - transform.position.x;
                         float shift = (enemyBoxCollider2d.bounds.size.x + .02f); //- (target.position.x - transform.position.x)) ;
-                        transform.position = new Vector2(target.position.x - shift, transform.position.y - .2f);
+                        transform.position = new Vector3(target.position.x - shift, transform.position.y - .2f, transform.position.z);
                     }
                     else
                     {
                         //float shift = target.position.x - transform.position.x;
                         float shift = (enemyBoxCollider2d.bounds.size.x + .1f); //- (target.position.x - transform.position.x)) ;
-                        transform.position = new Vector2(target.position.x + shift, transform.position.y - .2f);
+                        transform.position = new Vector3(target.position.x + shift, transform.position.y - .2f, transform.position.z);
                     }
 
                 }
@@ -1821,11 +1907,11 @@ public class CharacterController : MonoBehaviour
 
 						if (target.position.x > transform.position.x)
 						{
-							transform.position = new Vector2(transform.position.x - .1f, transform.position.y);
+							transform.position = new Vector3(transform.position.x - .1f, transform.position.y - .02f, transform.position.z);
 						}
 						else
 						{
-							transform.position = new Vector2(transform.position.x + .1f, transform.position.y);
+							transform.position = new Vector3(transform.position.x + .1f, transform.position.y - .02f, transform.position.z);
 						}
 						// only do this once per frame regardless of if there are multiple colliders detected
 						break;

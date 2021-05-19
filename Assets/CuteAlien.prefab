@@ -145,6 +145,7 @@ MonoBehaviour:
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 1
+  hitType: 0
 --- !u!1 &1481319097
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,12 +201,13 @@ MonoBehaviour:
   activeFrames: 4
   totalFrames: 26
   blockPushback: 1
-  hitTrajectory: {x: 2, y: 15}
+  hitTrajectory: {x: 2, y: 7}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 2
+  hitType: 2
 --- !u!1 &1538930934
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +305,7 @@ MonoBehaviour:
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 0
+  hitType: 0
 --- !u!1 &676862831715487450
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,9 +354,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 2048
-  damage: 10
-  hitAdvantage: 3
-  blockAdvantage: -3
+  damage: 15
+  hitAdvantage: 4
+  blockAdvantage: -4
   enableHitboxFrame: 6
   activeFrames: 3
   totalFrames: 20
@@ -364,6 +367,7 @@ MonoBehaviour:
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 0
+  hitType: 0
 --- !u!1 &898783916058040323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,12 +1239,13 @@ MonoBehaviour:
   activeFrames: 4
   totalFrames: 29
   blockPushback: 1
-  hitTrajectory: {x: 3, y: 15}
+  hitTrajectory: {x: 3, y: 7}
   attacking: 0
   chainingAttackAllowed: 0
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 2
+  hitType: 2
 --- !u!1 &4003712532150429975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,7 +1280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4003712532150429975}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children:
   - {fileID: 3705201309111637481}
@@ -1460,6 +1465,8 @@ MonoBehaviour:
   pauseController: {fileID: 0}
   enemyBoxCollider2d: {fileID: 0}
   hurtbox: {fileID: 2869088856334382176}
+  platform: {fileID: 6074106577219932166, guid: f30fa8efa0e62f44a8510695d9c02f89,
+    type: 3}
   health: 1000
   target: {fileID: 0}
   lightAttack: {fileID: 7088198657076884048}
@@ -1501,6 +1508,7 @@ MonoBehaviour:
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 0
+  hitType: 0
 --- !u!114 &2862608671787703951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1615,6 +1623,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7847af51-5031-47a4-8a41-ef00f8568d80
     m_ActionName: PlayerControls/Heavy Attack[/XInputControllerWindows/rightShoulder,/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 391754035369589249}
+        m_TargetAssemblyTypeName: CharacterController, Assembly-CSharp
+        m_MethodName: OnPlatformButton
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bd200141-6b06-4eb6-8217-173ff1d04476
+    m_ActionName: PlayerControls/Platform[/XInputControllerWindows/buttonEast,/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerControls
@@ -1780,6 +1804,7 @@ MonoBehaviour:
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 1
+  hitType: 0
 --- !u!1 &4735382531010547973
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,6 +1920,7 @@ MonoBehaviour:
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 2
+  hitType: 3
 --- !u!1 &4973978471941700942
 GameObject:
   m_ObjectHideFlags: 0
@@ -2903,6 +2929,7 @@ MonoBehaviour:
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 2
+  hitType: 0
 --- !u!1 &8465860406866094063
 GameObject:
   m_ObjectHideFlags: 0
@@ -7873,6 +7900,7 @@ MonoBehaviour:
   followUpAttackChained: 0
   jumpCancelAllowed: 0
   blockType: 0
+  hitType: 1
 --- !u!1 &8856435966316652722
 GameObject:
   m_ObjectHideFlags: 0
