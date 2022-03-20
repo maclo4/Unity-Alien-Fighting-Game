@@ -1,13 +1,12 @@
 # Unity Fighting-Game (In progress)
 
-This is a fighting game that I've been working on for fun in my free time. Its definitely not complete but here are some images to show where its currently at. I plan on pretty much completely redoing all the animations, this is my first try animating so I'm hoping second try is better. Anyways, I'm looking for a job so if you're a recruiter for a job that I applied for, take a look. 
-
+This was the first game I ever worked on- I love fighting games and aliens so I had a lot of fun learning Unity while doing this. I ended up putting it aside because I wanted to focus on a game that I could finish in a reasonable amount of time while working full time. The idea for this was to make a very free-form fighting game with mechanics similar to Under Night: In-Birth, except with more air mobility and defensive options. 
 
 
 ## Game Overview
 ![Game Overview](https://media.giphy.com/media/IHRSaNCOnim1cp5eY2/giphy.gif)
 
-General attacks and blocking
+Attacking and blocking
 
 ![Game Overview](https://media.giphy.com/media/w0Zu1OMDNl8LjjvHUZ/giphy.gif)
 
